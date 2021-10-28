@@ -1,13 +1,13 @@
-package com.mihaialexandruteodor.MongoWriter;
+package com.mihaialexandruteodor.FeatherWriter;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MongoWriterApplication {
+public class FeatherWriterApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MongoWriterApplication.class, args);
+		SpringApplication.run(FeatherWriterApplication.class, args);
 	}
 
 }
