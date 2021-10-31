@@ -1,4 +1,4 @@
-# WebAppTextEditor
+# Feather Writer
 Master's thesis project
 
 ## Documentation (RO):
