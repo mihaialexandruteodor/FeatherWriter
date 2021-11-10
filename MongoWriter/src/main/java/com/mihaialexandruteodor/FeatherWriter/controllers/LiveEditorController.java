@@ -4,12 +4,12 @@ import com.mihaialexandruteodor.FeatherWriter.utlis.FileExporter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.nio.file.Path;
 
@@ -27,7 +27,7 @@ public class LiveEditorController {
 
 
     @PostMapping("/downloadTextFile")
-    public ResponseEntity<InputStreamResource> downloadTextFileExample1(@RequestParam(value = "fileContent", required = true) String fileContent) throws IOException, InterruptedException {
+    public ResponseEntity<InputStreamResource> saveFileLocally(@RequestParam(value = "fileContent", required = true) String fileContent) throws IOException, InterruptedException {
         String fileName = "example1.rtf";
 
         // Create text file
@@ -51,12 +51,10 @@ public class LiveEditorController {
             fileExporter.remove(exportedPath);
         }
 
-
-
-
-
     }
 
-
-
+    @PostMapping("/saveFileToCloud")
+    public ResponseEntity saveFileToCloud(@RequestParam(value = "fileContent", required = true) String fileContent) throws IOException, InterruptedException {
+        return new ResponseEntity<>("Success!", HttpStatus.OK);
+    }
 }
