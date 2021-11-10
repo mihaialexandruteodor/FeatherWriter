@@ -4,11 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
+import java.nio.file.*;
 
 @Service
 public class TextFileExporter implements FileExporter {
@@ -28,5 +26,29 @@ public class TextFileExporter implements FileExporter {
             logger.error(e.getMessage(), e);
         }
         return null;
+    }
+
+    @Override
+    public void remove(Path filePath) throws IOException, InterruptedException {
+        new Thread(new Runnable() {
+            public void run(){
+                while(!filePath.toFile().renameTo(filePath.toFile())) {
+                    // Cannot read from file, windows still working on it.
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                try {
+                    Files.delete(filePath);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+
+
     }
 }
