@@ -18,4 +18,4 @@ The port exposed in Dockerfile is 8081, so after you find the container image, y
 docker run -p 80:8081 <container-image-here>
 ```
 
-and access the image via <container-ip>:80
+and access the image via container-ip:80
