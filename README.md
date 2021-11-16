@@ -12,10 +12,13 @@ https://cloud.google.com/kubernetes-engine/docs/quickstart
 
 ## Running Docker locally
 
-The port exposed in Dockerfile is 8081, so after you find the container image, you can run the container like so:
+The port exposed in Dockerfile is 8081, so after you find the container image, you can build and run the container like so:
+1. cd into Dockerfile folder
+2. 
 
 ```
-docker run -p 80:8081 <container-image-here>
+docker build . -t featherwriter
+docker run -p 80:8081 featherwriter -v FeatherWriter
 ```
 
 and access the image via container-ip:80

@@ -1,19 +1,18 @@
-# For Java 8, try this
-# FROM openjdk:8-jdk-alpine
+#
+# Build stage
+#
+FROM maven:3.6.0-jdk-11-slim AS MAVEN_BUILD
+COPY src /home/app/src
+COPY pom.xml /home/app
+RUN mvn -f /home/app/pom.xml clean package
 
-# For Java 11, try this
-FROM openjdk:17-jdk-alpine
 
-# Refer to Maven build -> finalName
-ARG JAR_FILE=target/*.jar
-
-# cd /opt/app
-WORKDIR /opt/app
-
-# cp target/spring-boot-web.jar /opt/app/app.jar
-COPY ${JAR_FILE} app.jar
-
-# java -jar /opt/app/app.jar
-ENTRYPOINT ["java","-jar","app.jar"]
-
+#
+# Package stage
+#
+FROM openjdk:11-jre-slim
+COPY --from=MAVEN_BUILD  /home/app/target/featherwriter.jar /usr/local/lib/featherwriter.jar
 EXPOSE 8081
+VOLUME FeatherWriter
+ENTRYPOINT ["java","-jar","/usr/local/lib/featherwriter.jar"]
+

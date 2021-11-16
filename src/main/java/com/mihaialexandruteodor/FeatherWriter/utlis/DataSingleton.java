@@ -27,19 +27,15 @@ public class DataSingleton {
     public void setDownloadPath() {
 
         String osName = System.getProperty("os.name").toLowerCase();
+        System.out.println("THIS OS: " + osName);
         boolean isMac = osName.startsWith("mac");
-        boolean isLinux = osName.startsWith("linux");
         boolean isWindows = osName.startsWith("windows");
+        boolean isDocker = osName.startsWith("linux");
         if (isMac) {
             downloadPath = System.getProperty("file.separator") + "Users" + System.getProperty("file.separator")
                     + System.getProperty("user.name") + System.getProperty("file.separator") + "Documents"
-                    + System.getProperty("file.separator") + "TeoMongoText" + System.getProperty("file.separator")
-                    + "Settings.ini";
-        } else if (isLinux) {
-            downloadPath = System.getProperty("file.separator") + "home" + System.getProperty("file.separator")
-                    + System.getProperty("user.name") + System.getProperty("file.separator") + "Documents"
-                    + System.getProperty("file.separator") + "TeoMongoText" + System.getProperty("file.separator")
-                    + "Settings.ini";
+                    + System.getProperty("file.separator") + "FeatherWriter" + System.getProperty("file.separator");
+
         } else if (isWindows) {
             String myDocuments = null;
 
@@ -69,6 +65,10 @@ public class DataSingleton {
                 // If you require it to make the entire directory path including parents,
                 // use directory.mkdirs(); here instead.
             }
+        }
+        else if(isDocker)
+        {
+            downloadPath = System.getProperty("file.separator") + "FeatherWriter" + System.getProperty("file.separator");
         }
 
     }

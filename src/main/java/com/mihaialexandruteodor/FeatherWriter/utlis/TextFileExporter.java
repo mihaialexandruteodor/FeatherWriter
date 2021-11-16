@@ -18,7 +18,6 @@ public class TextFileExporter implements FileExporter {
     @Override
     public Path export(String fileContent, String fileName) {
         Path filePath = Paths.get(EXPORT_DIRECTORY, fileName);
-        System.out.println(filePath);
         try {
             Path exportedFilePath = Files.write(filePath, fileContent.getBytes(), StandardOpenOption.CREATE);
             return exportedFilePath;
