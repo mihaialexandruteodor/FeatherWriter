@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  web-app:
+    build: .
+    ports:
+      - "8081:8081"
+    volumes:
+          - .:/code
+
+  featherwriter-mysql-database:
+    image: mysql:8.0.17
+    environment:
+      MYSQL_ROOT_PASSWORD: helloworld
+      MYSQL_DATABASE: files
+    ports:
+      - "3308:3306"

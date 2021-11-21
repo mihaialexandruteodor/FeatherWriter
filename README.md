@@ -10,6 +10,16 @@ https://docs.google.com/document/d/1nxLXlA9yAB5z6LwPahIjBocP20p49MnoQWEqOpRBa3c/
 
 https://cloud.google.com/kubernetes-engine/docs/quickstart
 
+## Building the Docker application with the MySQL backend
+
+Navigate to the location of the docker-compose.yaml file and run
+
+```
+docker-compose up
+```
+
+The database is exposed to port 3306, and the app to port 8081 
+
 ## Running Docker locally
 
 The port exposed in Dockerfile is 8081, so after you find the container image, you can build and run the container like so:
