@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS chapter (
+  chapterID INTEGER NOT NULL,
+  title VARCHAR(255) NOT NULL
+);

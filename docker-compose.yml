@@ -5,13 +5,22 @@ services:
     build: .
     ports:
       - "8081:8081"
-    volumes:
-          - .:/code
+    networks:
+      - fw-mysql
+    depends_on:
+        - mysqldb
 
-  featherwriter-mysql-database:
-    image: mysql:8.0.17
+  mysqldb:
+    image: mysql:8
+    networks:
+      - fw-mysql
     environment:
       MYSQL_ROOT_PASSWORD: helloworld
       MYSQL_DATABASE: files
     ports:
       - "3308:3306"
+    cap_add:
+      - SYS_NICE  # CAP_SYS_NICE
+
+networks:
+  fw-mysql:

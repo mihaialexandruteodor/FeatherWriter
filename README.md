@@ -18,7 +18,7 @@ Navigate to the location of the docker-compose.yaml file and run
 docker-compose up
 ```
 
-The database is exposed to port 3306, and the app to port 8081 
+The database is exposed to port 3308, and the app to port 8081 
 
 ## Running Docker locally
 
@@ -32,3 +32,21 @@ docker run -p 80:8081 featherwriter -v FeatherWriter
 ```
 
 and access the image via container-ip:80
+
+## Database container query
+
+1. Connect to DB via docker cli:
+
+```
+mysql -uroot -phelloworld;
+```
+2. Select the files DB:
+
+```
+USE files;
+```
+3. Show available tables:
+
+```
+SHOW TABLES;
+```
