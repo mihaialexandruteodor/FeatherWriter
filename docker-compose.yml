@@ -9,6 +9,8 @@ services:
       - fw-mysql
     depends_on:
         - mysqldb
+    volumes:
+      - .:/code
 
   mysqldb:
     image: mysql:8
