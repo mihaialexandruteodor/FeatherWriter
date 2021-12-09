@@ -7,6 +7,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: helloworld
       MYSQL_DATABASE: files
+    ports:
+      - "3308:3306"
 
   web-app:
     build: .
