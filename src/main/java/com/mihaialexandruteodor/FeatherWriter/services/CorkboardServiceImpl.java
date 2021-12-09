@@ -38,6 +38,6 @@ public class CorkboardServiceImpl implements  CorkboardService{
 
     @Override
     public void deleteCorkboardById(int id) {
-        this.corkboardRepository.deleteById(id);
+        this.corkboardRepository .deleteById(id);
     }
 }

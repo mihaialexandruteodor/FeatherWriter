@@ -12,4 +12,12 @@ public class Corkboard {
 
     @Column(name = "orderofsceneids")
     private String orderofsceneids;
+
+    public int getCorkboardID() {
+        return corkboardID;
+    }
+
+    public void setCorkboardID(int corkboardID) {
+        this.corkboardID = corkboardID;
+    }
 }
