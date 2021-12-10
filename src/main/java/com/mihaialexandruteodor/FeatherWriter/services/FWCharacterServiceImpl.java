@@ -4,10 +4,12 @@ import com.mihaialexandruteodor.FeatherWriter.model.Chapter;
 import com.mihaialexandruteodor.FeatherWriter.model.FWCharacter;
 import com.mihaialexandruteodor.FeatherWriter.repository.FWCharacterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class FWCharacterServiceImpl implements FWCharacterService{
 
     @Autowired
