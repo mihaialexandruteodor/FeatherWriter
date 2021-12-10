@@ -13,6 +13,9 @@ public class Corkboard {
     @Column(name = "orderofsceneids")
     private String orderofsceneids;
 
+    @OneToOne(mappedBy = "corkboard")
+    private Novel novel;
+
     public int getCorkboardID() {
         return corkboardID;
     }

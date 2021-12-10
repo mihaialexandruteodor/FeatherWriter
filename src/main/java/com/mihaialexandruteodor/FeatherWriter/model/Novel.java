@@ -3,6 +3,8 @@ package com.mihaialexandruteodor.FeatherWriter.model;
 import javax.persistence.*;
 import java.util.List;
 
+import org.springframework.data.rest.core.annotation.RestResource;
+
 @Entity
 @Table(name = "novel")
 public class Novel {
@@ -25,6 +27,20 @@ public class Novel {
 
     @OneToMany(mappedBy = "novel")
     private List<Chapter> chapters;
+
+    @OneToMany(mappedBy = "novel")
+    private List<Location> locations;
+
+    @OneToMany(mappedBy = "novel")
+    private List<FWCharacter> characters;
+
+    @OneToMany(mappedBy = "novel")
+    private List<Note> notes;
+
+    @OneToOne
+    @JoinColumn(name = "corkboardID")
+    @RestResource(path = "novelCorkboard", rel="corkboard")
+    private Corkboard corkboard;
 
     public int getNovelID() {
         return novelID;

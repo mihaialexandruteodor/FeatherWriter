@@ -22,6 +22,10 @@ public class Location {
     @Column(name = "image")
     private byte[] image;
 
+    @ManyToOne
+    @JoinColumn(name="novelID")
+    private Novel novel;
+
     public int getLocationID() {
         return locationID;
     }

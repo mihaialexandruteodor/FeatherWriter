@@ -16,6 +16,10 @@ public class Note {
     @Column(name = "image")
     private byte[] image;
 
+    @ManyToOne
+    @JoinColumn(name="novelID")
+    private Novel novel;
+
     public int getNoteID() {
         return noteID;
     }

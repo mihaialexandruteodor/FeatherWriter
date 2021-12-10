@@ -34,4 +34,79 @@ public class FWCharacter {
     @Column(name = "image")
     private byte[] image;
 
+    @ManyToOne
+    @JoinColumn(name="novelID")
+    private Novel novel;
+
+    public int getCharacterID() {
+        return characterID;
+    }
+
+    public void setCharacterID(int characterID) {
+        this.characterID = characterID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getPhysicaldescription() {
+        return physicaldescription;
+    }
+
+    public void setPhysicaldescription(String physicaldescription) {
+        this.physicaldescription = physicaldescription;
+    }
+
+    public String getQuirks() {
+        return quirks;
+    }
+
+    public void setQuirks(String quirks) {
+        this.quirks = quirks;
+    }
+
+    public String getMotivation() {
+        return motivation;
+    }
+
+    public void setMotivation(String motivation) {
+        this.motivation = motivation;
+    }
+
+    public String getQuotes() {
+        return quotes;
+    }
+
+    public void setQuotes(String quotes) {
+        this.quotes = quotes;
+    }
+
+    public String getHistory() {
+        return history;
+    }
+
+    public void setHistory(String history) {
+        this.history = history;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
 }
