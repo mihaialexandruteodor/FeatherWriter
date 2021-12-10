@@ -1,6 +1,7 @@
 package com.mihaialexandruteodor.FeatherWriter.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "novel")
@@ -21,6 +22,9 @@ public class Novel {
 
     @Column(name = "authorcontactinfo")
     private String authorContactInfo;
+
+    @OneToMany(mappedBy = "novel")
+    private List<Chapter> chapters;
 
     public int getNovelID() {
         return novelID;

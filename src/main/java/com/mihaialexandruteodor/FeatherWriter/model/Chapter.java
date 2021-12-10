@@ -13,6 +13,10 @@ public class Chapter {
     @Column(name = "title")
     private String title;
 
+    @ManyToOne
+    @JoinColumn(name="novelID")
+    private Novel novel;
+
     public int getChapterID() {
         return chapterID;
     }
