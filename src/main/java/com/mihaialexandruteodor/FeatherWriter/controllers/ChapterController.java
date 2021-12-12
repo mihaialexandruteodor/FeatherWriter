@@ -24,7 +24,7 @@ public class ChapterController {
         this.chapterService = chapterService;
     }
 
-    @GetMapping("/pageP/{pageNo}")
+    @GetMapping("/page/{pageNo}")
     public String findPaginated(@Valid @PathVariable(value = "pageNo") int pageNo,
                                 @Valid @RequestParam("sortField") String sortField,
                                 @Valid @RequestParam("sortDir") String sortDir,
