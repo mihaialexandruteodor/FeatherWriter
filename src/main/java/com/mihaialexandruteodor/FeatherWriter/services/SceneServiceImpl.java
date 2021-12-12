@@ -3,6 +3,10 @@ package com.mihaialexandruteodor.FeatherWriter.services;
 import com.mihaialexandruteodor.FeatherWriter.model.Scene;
 import com.mihaialexandruteodor.FeatherWriter.repository.SceneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,5 +43,14 @@ public class SceneServiceImpl implements SceneService{
     @Override
     public void deleteSceneById(int id) {
         this.sceneRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<Scene> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
+                Sort.by(sortField).descending();
+
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
+        return this.sceneRepository.findAll(pageable);
     }
 }
