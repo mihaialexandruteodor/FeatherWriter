@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>New Character</title>
+</head>
+<body>
+<div class="container">
+
+    <form action="#" th:action="@{/saveCharacter}" th:object="${fwcharacter}"
+          method="POST">
+
+        <input type="text" th:field="*{name}"
+               placeholder="Character Name" class="form-control mb-4 col-4">
+
+        <br/>
+        <br/>
+
+        <input type="text" th:field="*{age}"
+               placeholder="Character age" class="form-control mb-4 col-4">
+
+        <br/>
+        <br/>
+
+        <input type="text" th:field="*{physicaldescription}"
+               placeholder="Physical Description" class="form-control mb-4 col-4">
+
+        <br/>
+        <br/>
+
+        <input type="text" th:field="*{quirks}"
+               placeholder="Quirks" class="form-control mb-4 col-4">
+
+        <br/>
+        <br/>
+
+        <input type="text" th:field="*{motivation}"
+               placeholder="Motivation" class="form-control mb-4 col-4">
+
+        <br/>
+        <br/>
+
+        <input type="text" th:field="*{quotes}"
+               placeholder="Quotes" class="form-control mb-4 col-4">
+
+        <br/>
+        <br/>
+
+        <input type="text" th:field="*{history}"
+               placeholder="History" class="form-control mb-4 col-4">
+
+        <br/>
+        <br/>
+
+        <input type="text" th:field="*{history}"
+               placeholder="History" class="form-control mb-4 col-4">
+
+        <br/>
+        <br/>
+
+        <label for="img">Select image:</label>
+        <input type="file" id="img" name="img" accept="image/*">
+        <input type="submit">
+
+        <br/>
+        <br/>
+
+        <button type="submit" class="btn btn-info col-2"> Save Characters</button>
+    </form>
+
+    <hr>
+
+    <a th:href = "@{/charactersPage}"> Characters page</a>
+</div>
+</body>
+</html>
