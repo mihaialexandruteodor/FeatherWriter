@@ -4,6 +4,7 @@ import com.mihaialexandruteodor.FeatherWriter.model.Chapter;
 import com.mihaialexandruteodor.FeatherWriter.services.ChapterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.List;
 
-@RestController
+@Controller
 public class ChapterController {
 
     @Autowired
@@ -24,7 +25,7 @@ public class ChapterController {
         this.chapterService = chapterService;
     }
 
-    @GetMapping("/page/{pageNo}")
+    @GetMapping("/cp/page/{pageNo}")
     public String findPaginated(@Valid @PathVariable(value = "pageNo") int pageNo,
                                 @Valid @RequestParam("sortField") String sortField,
                                 @Valid @RequestParam("sortDir") String sortDir,

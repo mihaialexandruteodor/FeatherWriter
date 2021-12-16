@@ -4,16 +4,15 @@ import com.mihaialexandruteodor.FeatherWriter.model.FWCharacter;
 import com.mihaialexandruteodor.FeatherWriter.services.FWCharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
 
-@RestController
+@Controller
 public class FWCharacterController {
 
     @Autowired
@@ -24,7 +23,23 @@ public class FWCharacterController {
         this.fwCharacterService = fwCharacterService;
     }
 
-    @GetMapping("/page/{pageNo}")
+    /*public String loadProjectPageData(ModelAndView model) {
+        return this.findPaginated(1, "projName", "asc", model);
+    }*/
+
+    @GetMapping("/newCharacter")
+    public String viewCharacterPage(Model model) {
+
+        //ModelAndView mv = new ModelAndView("character_creation");
+        //List<Project> projectList = projectService.getAllProjects();
+        //mv.addObject(projectList);
+        //loadProjectPageData(mv);
+        FWCharacter fwCharacter = new FWCharacter();
+        model.addAttribute("fwcharacter",fwCharacter);
+        return "character_creation";
+    }
+
+    @GetMapping("/fw/page/{pageNo}")
     public String findPaginated(@Valid @PathVariable(value = "pageNo") int pageNo,
                                 @Valid @RequestParam("sortField") String sortField,
                                 @Valid @RequestParam("sortDir") String sortDir,
@@ -46,4 +61,5 @@ public class FWCharacterController {
 
         return "index";
     }
+
 }

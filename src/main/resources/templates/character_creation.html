@@ -3,9 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>New Character</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+
+    <style th:inline="text">
+    body{
+        background: url{[[@{/img/img-1.jpg}]]};
+    }
+    </style>
 </head>
 <body>
 <div class="container">
+
+    <h1>New Character</h1>
+    <hr>
 
     <form action="#" th:action="@{/saveCharacter}" th:object="${fwcharacter}"
           method="POST">
@@ -62,15 +75,14 @@
         <input type="file" id="img" name="img" accept="image/*">
         <input type="submit">
 
-        <br/>
-        <br/>
+       <br/>
 
         <button type="submit" class="btn btn-info col-2"> Save Characters</button>
     </form>
 
     <hr>
 
-    <a th:href = "@{/charactersPage}"> Characters page</a>
+    <button th:href = "@{/charactersPage}"> Characters page</button>
 </div>
 </body>
 </html>

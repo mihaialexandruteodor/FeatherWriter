@@ -24,7 +24,7 @@ public class NovelController {
         this.novelService = novelService;
     }
 
-    @GetMapping("/page/{pageNo}")
+    @GetMapping("/nv/page/{pageNo}")
     public String findPaginated(@Valid @PathVariable(value = "pageNo") int pageNo,
                                 @Valid @RequestParam("sortField") String sortField,
                                 @Valid @RequestParam("sortDir") String sortDir,
