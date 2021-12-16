@@ -23,54 +23,58 @@
     <form action="#" th:action="@{/saveCharacter}" th:object="${fwcharacter}"
           method="POST">
 
+        <h2>Character Name</h2>
         <input type="text" th:field="*{name}"
                placeholder="Character Name" class="form-control mb-4 col-4">
 
         <br/>
         <br/>
 
+        <h2>Character Age</h2>
         <input type="text" th:field="*{age}"
-               placeholder="Character age" class="form-control mb-4 col-4">
+                class="form-control mb-4 col-4">
 
         <br/>
         <br/>
 
-        <input type="text" th:field="*{physicaldescription}"
-               placeholder="Physical Description" class="form-control mb-4 col-4">
+        <h2>Physical Description</h2>
+        <textarea th:field="*{physicaldescription}" placeholder="Physical Description" rows="8" cols="50">
+        </textarea>
 
         <br/>
         <br/>
 
-        <input type="text" th:field="*{quirks}"
-               placeholder="Quirks" class="form-control mb-4 col-4">
+        <h2>Quirks</h2>
+        <textarea th:field="*{quirks}" placeholder="Quirks" rows="8" cols="50">
+        </textarea>
 
         <br/>
         <br/>
 
-        <input type="text" th:field="*{motivation}"
-               placeholder="Motivation" class="form-control mb-4 col-4">
+        <h2>Motivation</h2>
+        <textarea th:field="*{motivation}" placeholder="Motivation" rows="8" cols="50">
+        </textarea>
 
         <br/>
         <br/>
 
-        <input type="text" th:field="*{quotes}"
-               placeholder="Quotes" class="form-control mb-4 col-4">
+        <h2>Quotes</h2>
+        <textarea th:field="*{quotes}" placeholder="Quotes" rows="8" cols="50">
+        </textarea>
 
         <br/>
         <br/>
 
-        <input type="text" th:field="*{history}"
-               placeholder="History" class="form-control mb-4 col-4">
+        <h2>History</h2>
+        <textarea th:field="*{history}" placeholder="History" rows="8" cols="50">
+        </textarea>
+
 
         <br/>
         <br/>
 
-        <input type="text" th:field="*{history}"
-               placeholder="History" class="form-control mb-4 col-4">
 
-        <br/>
-        <br/>
-
+        <h2>Image</h2>
         <label for="img">Select image:</label>
         <input type="file" id="img" name="img" accept="image/*">
         <input type="submit">
