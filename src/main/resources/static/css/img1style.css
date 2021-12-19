@@ -1,0 +1,6 @@
+
+body {
+    background: url(../img/img-1.jpg)
+                no-repeat center center fixed !important;
+    background-size: cover !important;
+}
