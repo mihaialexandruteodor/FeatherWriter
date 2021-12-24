@@ -61,7 +61,7 @@
         <br/>
 
         <h2>History</h2>
-        <textarea th:field="*{history}" placeholder="History" rows="8" cols="50">
+        <textarea th:field="*{history}" rows="8" cols="50">
         </textarea>
 
 
@@ -74,9 +74,13 @@
         <input type="file" id="img" name="img" accept="image/*">
         <input type="submit">
 
+        <h2>Project</h2>
+        <select id="novelList" th:field="*{novel}" placeholder="[Select Novel]">
+        </select>
+
        <br/>
 
-        <button type="submit" class="btn btn-info col-2"> Save Characters</button>
+        <button type="submit" class="btn btn-info col-2"> Save Character</button>
     </form>
 
     <hr>

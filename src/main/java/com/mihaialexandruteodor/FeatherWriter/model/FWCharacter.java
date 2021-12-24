@@ -109,4 +109,12 @@ public class FWCharacter {
     public void setImage(byte[] image) {
         this.image = image;
     }
+
+    public Novel getNovel() {
+        return novel;
+    }
+
+    public void setNovel(Novel novel) {
+        this.novel = novel;
+    }
 }

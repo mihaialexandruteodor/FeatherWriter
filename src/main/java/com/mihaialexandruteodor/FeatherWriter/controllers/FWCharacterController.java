@@ -62,4 +62,10 @@ public class FWCharacterController {
         return "index";
     }
 
+    @PostMapping("/saveCharacter")
+    public String saveCharacter(@Valid @ModelAttribute("fwcharacter") FWCharacter fwcharacter) {
+        fwCharacterService.saveFWCharacter(fwcharacter);
+        return "redirect:/";
+    }
+
 }
