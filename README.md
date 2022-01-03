@@ -4,6 +4,9 @@ Web-based Novel Writing Software
 ## Documentation (RO):
 https://docs.google.com/document/d/1nxLXlA9yAB5z6LwPahIjBocP20p49MnoQWEqOpRBa3c/edit?usp=sharing
 
+## Docker Repo:
+https://hub.docker.com/repository/docker/mihaialexandruteodor/featherwriter
+
 ![Diagram](Diagram_FW.png)
 
 ## Google Cloud Kubernetes Quickstart
