@@ -30,6 +30,8 @@ or
 
 if a rebuild is necessary. For Linux, add 'sudo' to the commands. You can also add the -d flag to run detached.
 
+```docker image prune -a``` will remove all unused docker images.
+
 The database is exposed to port 3308, and the app to port 8081 
 
 ## Running Docker locally:
