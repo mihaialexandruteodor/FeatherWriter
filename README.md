@@ -28,7 +28,7 @@ or
  docker-compose up --force-recreate --build 
 ```
 
-if a rebuild is necessary. You can also add the -d flag to run detached.
+if a rebuild is necessary. For Linux, add 'sudo' to the commands. You can also add the -d flag to run detached.
 
 The database is exposed to port 3308, and the app to port 8081 
 
