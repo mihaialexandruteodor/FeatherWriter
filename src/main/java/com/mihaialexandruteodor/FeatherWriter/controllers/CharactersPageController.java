@@ -5,41 +5,32 @@ import com.mihaialexandruteodor.FeatherWriter.services.FWCharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-public class FWCharacterController {
+public class CharactersPageController {
 
     @Autowired
     private FWCharacterService fwCharacterService;
 
     @Autowired
-    public FWCharacterController(FWCharacterService fwCharacterService) {
+    public CharactersPageController(FWCharacterService fwCharacterService) {
         this.fwCharacterService = fwCharacterService;
     }
 
-    /*public String loadProjectPageData(ModelAndView model) {
-        return this.findPaginated(1, "projName", "asc", model);
-    }*/
 
-    @GetMapping("/newCharacter")
-    public String viewCharacterPage(Model model) {
-
-        //ModelAndView mv = new ModelAndView("character_creation");
-        //List<Project> projectList = projectService.getAllProjects();
-        //mv.addObject(projectList);
-        //loadProjectPageData(mv);
-        FWCharacter fwCharacter = new FWCharacter();
-        model.addAttribute("fwcharacter",fwCharacter);
-        return "character_creation";
+    @GetMapping("/charactersPage")
+    public String charactersPage() {
+        return "characters_page";
     }
 
-    @GetMapping("/fw/page/{pageNo}")
+    @GetMapping("/allcpg/page/{pageNo}")
     public String findPaginated(@Valid @PathVariable(value = "pageNo") int pageNo,
                                 @Valid @RequestParam("sortField") String sortField,
                                 @Valid @RequestParam("sortDir") String sortDir,
@@ -61,11 +52,4 @@ public class FWCharacterController {
 
         return "index";
     }
-
-    @PostMapping("/saveCharacter")
-    public String saveCharacter(@Valid @ModelAttribute("fwcharacter") FWCharacter fwcharacter) {
-        fwCharacterService.saveFWCharacter(fwcharacter);
-        return "redirect:/charactersPage";
-    }
-
 }
