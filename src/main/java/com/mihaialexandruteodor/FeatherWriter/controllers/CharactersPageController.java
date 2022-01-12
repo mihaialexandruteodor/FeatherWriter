@@ -26,8 +26,16 @@ public class CharactersPageController {
 
 
     @GetMapping("/charactersPage")
-    public String charactersPage() {
-        return "characters_page";
+    public ModelAndView charactersPage() {
+        ModelAndView mv = new ModelAndView("characters_page");
+        List<FWCharacter> fwCharacterList = fwCharacterService.getAllFWCharacters();
+        mv.addObject(fwCharacterList);
+        loadCharactersPageData(mv);
+        return mv;
+    }
+
+    public String loadCharactersPageData(ModelAndView model) {
+        return findPaginated(1, "name", "asc", model);
     }
 
     @GetMapping("/allcpg/page/{pageNo}")
@@ -38,7 +46,7 @@ public class CharactersPageController {
         int pageSize = 5;
 
         Page<FWCharacter> page = fwCharacterService.findPaginated(pageNo, pageSize, sortField, sortDir);
-        List<FWCharacter> listChapters = page.getContent();
+        List<FWCharacter> fwCharacterList = page.getContent();
 
         model.addObject("currentPage", pageNo);
         model.addObject("totalPages", page.getTotalPages());
@@ -48,7 +56,7 @@ public class CharactersPageController {
         model.addObject("sortDir", sortDir);
         model.addObject("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 
-        model.addObject("listProjects", listChapters);
+        model.addObject("fwCharacterList", fwCharacterList);
 
         return "index";
     }
