@@ -8,6 +8,7 @@
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
     <link rel="stylesheet" href="css/img1style.css">
+    <script src="../js/imgToBlob.js"></script>
 </head>
 <body>
 <div class="container">
@@ -15,8 +16,7 @@
     <h1>New Character</h1>
     <hr>
 
-    <form action="#" th:action="@{/saveCharacter}" th:object="${fwcharacter}"
-          method="POST">
+    <form  th:action="@{/saveCharacter}" th:object="${fwcharacter}"  method="POST">
 
         <h2>Character Name</h2>
         <input type="text" th:field="*{name}"
@@ -70,9 +70,9 @@
 
 
         <h2>Image</h2>
-        <label for="img">Select image:</label>
-        <input type="file" id="img" name="img" accept="image/*">
-        <input type="submit">
+        <label for="imgChar">Select image:</label>
+        <input type="file" id="imgChar" name="img" accept="image/*" onchange="encodeImageFileAsURL(this)" >
+        <input type="hidden" name="blob" id="blobVal" th:field="*{image}"/>
 
         <h2>Project</h2>
         <select id="novelList" th:field="*{novel}" placeholder="[Select Novel]">

@@ -1,6 +1,7 @@
 package com.mihaialexandruteodor.FeatherWriter.model;
 
 import javax.persistence.*;
+//import org.apache.commons.codec.binary.Base64;
 
 @Entity
 @Table(name = "fwcharacter")
@@ -31,8 +32,9 @@ public class FWCharacter {
     @Column(name = "history")
     private String history;
 
-    @Column(name = "image")
-    private byte[] image;
+    @Lob
+    @Column(name = "image", nullable = true)
+    private String image;
 
     @ManyToOne
     @JoinColumn(name="novelID")
@@ -102,11 +104,11 @@ public class FWCharacter {
         this.history = history;
     }
 
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
