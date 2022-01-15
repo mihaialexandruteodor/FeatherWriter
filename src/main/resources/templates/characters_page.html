@@ -18,7 +18,7 @@
 
   <tr th:each="fwcharacter : ${fwCharacterList}">
     <div class="card text-white border-light bg-dark mb-3" style="max-width: 18rem;">
-      <img class="card-img-top" th:src="${fwcharacter.image != null} ?   ${fwcharacter.image} : '../img/placeholder-profile-pic.png'">
+      <img class="card-img-top" th:src="${fwcharacter.image != ''} ?   ${fwcharacter.image} : '../img/placeholder-profile-pic.png'">
       <div class="card-body">
         <h5 class="card-title" th:text="${fwcharacter.name}"></h5>
         <p class="card-text" th:text="${fwcharacter.motivation}"></p>
