@@ -12,6 +12,7 @@ services:
 
   web-app:
     build: .
+    image: mihaialexandruteodor/featherwriter
     ports:
       - "8081:8081"
     expose:
