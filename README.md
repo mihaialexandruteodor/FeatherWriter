@@ -8,7 +8,7 @@ https://docs.google.com/document/d/1nxLXlA9yAB5z6LwPahIjBocP20p49MnoQWEqOpRBa3c/
 https://hub.docker.com/repository/docker/mihaialexandruteodor/featherwriter
 
 ## Diagram:
-![Diagram](Diagram_FW.png)
+![Diagram](Diagra_FW.png)
 
 ## Google Cloud Kubernetes Quickstart:
 
