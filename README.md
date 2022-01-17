@@ -12,6 +12,8 @@ https://hub.docker.com/repository/docker/mihaialexandruteodor/featherwriter
 
 ## Google Cloud Kubernetes Quickstart:
 
+https://www.youtube.com/watch?v=jSYxW_c3M_E
+
 https://cloud.google.com/kubernetes-engine/docs/quickstart
 
 ## Building the Docker application with the MySQL backend:
