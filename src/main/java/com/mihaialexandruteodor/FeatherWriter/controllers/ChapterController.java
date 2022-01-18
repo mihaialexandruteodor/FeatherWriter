@@ -30,7 +30,7 @@ public class ChapterController {
                                 @Valid @RequestParam("sortField") String sortField,
                                 @Valid @RequestParam("sortDir") String sortDir,
                                 ModelAndView model) {
-        int pageSize = 5;
+        int pageSize = 6;
 
         Page<Chapter> page = chapterService.findPaginated(pageNo, pageSize, sortField, sortDir);
         List<Chapter> listChapters = page.getContent();

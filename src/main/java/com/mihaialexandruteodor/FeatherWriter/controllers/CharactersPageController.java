@@ -27,23 +27,20 @@ public class CharactersPageController {
 
     @GetMapping("/charactersPage")
     public ModelAndView charactersPage() {
-        ModelAndView mv = new ModelAndView("characters_page");
-        List<FWCharacter> fwCharacterList = fwCharacterService.getAllFWCharacters();
-        mv.addObject(fwCharacterList);
-        loadCharactersPageData(mv);
-        return mv;
+        return loadCharactersPageData();
     }
 
-    public String loadCharactersPageData(ModelAndView model) {
-        return findPaginated(1, "name", "asc", model);
+    public ModelAndView loadCharactersPageData() {
+        return findPaginated(1, "name", "asc");
     }
 
-    @GetMapping("/allcpg/page/{pageNo}")
-    public String findPaginated(@Valid @PathVariable(value = "pageNo") int pageNo,
+    @GetMapping("/charactersPage/page/{pageNo}")
+    public ModelAndView findPaginated(@Valid @PathVariable(value = "pageNo") int pageNo,
                                 @Valid @RequestParam("sortField") String sortField,
-                                @Valid @RequestParam("sortDir") String sortDir,
-                                ModelAndView model) {
-        int pageSize = 5;
+                                @Valid @RequestParam("sortDir") String sortDir) {
+
+        ModelAndView model = new ModelAndView("characters_page");
+        int pageSize = 6;
 
         Page<FWCharacter> page = fwCharacterService.findPaginated(pageNo, pageSize, sortField, sortDir);
         List<FWCharacter> fwCharacterList = page.getContent();
@@ -58,6 +55,6 @@ public class CharactersPageController {
 
         model.addObject("fwCharacterList", fwCharacterList);
 
-        return "index";
+        return model;
     }
 }
