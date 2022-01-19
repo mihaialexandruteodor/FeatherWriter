@@ -5,6 +5,7 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/css/img1style.css">
   <link rel="stylesheet" type="text/css" href="/css/cards.css">
+  <script src="js/modernizr.js"></script>
 </head>
 <body>
 
@@ -34,19 +35,28 @@
       Total Rows: [[${totalItems}]]
     </div>
     <div class = "col-sm-1">
-					<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+					<span th:each="i: ${#numbers.sequence(2, totalPages)}">
 						<a th:if="${currentPage != i}" th:href="@{'/charactersPage/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
 						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
 					</span>
     </div>
     <div class = "col-sm-1">
-      <a th:if="${currentPage < totalPages}" th:href="@{'/charactersPage/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
-      <span th:unless="${currentPage < totalPages}">Next</span>
+      <p style="background-color: #ffffff;">
+        <a class="button-78" th:if="${currentPage != 1}" th:href="@{/charactersPage}">First</a>
+      </p>
+    </div>
+    <div class = "col-sm-1">
+        <p style="background-color: #ffffff;">
+          <a class="button-78" th:if="${currentPage < totalPages}" th:href="@{'/charactersPage/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+          <span th:unless="${currentPage < totalPages}">Next</span>
+        </p>
     </div>
 
     <div class="col-sm-1">
-      <a th:if="${currentPage < totalPages}" th:href="@{'/charactersPage/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
-      <span th:unless="${currentPage < totalPages}">Last</span>
+      <p style="background-color: #ffffff;">
+        <a class="button-78" th:if="${currentPage < totalPages}" th:href="@{'/charactersPage/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+        <span th:unless="${currentPage < totalPages}">Last</span>
+      </p>
     </div>
   </div>
 </div>
