@@ -8,10 +8,12 @@
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
     <link rel="stylesheet" href="css/img1style.css">
+    <link rel="stylesheet" href="/css/button.css">
+    <link rel="stylesheet" href="/css/center.css">
     <script src="../js/imgToBlob.js"></script>
 </head>
 <body>
-<div class="container">
+<div class="center">
 
     <h1>New Character</h1>
     <hr>
@@ -19,15 +21,12 @@
     <form  th:action="@{/saveCharacter}" th:object="${fwcharacter}"  method="POST">
 
         <h2>Character Name</h2>
-        <input type="text" th:field="*{name}"
-               placeholder="Character Name" class="form-control mb-4 col-4">
-
+        <input class="center" type="text" th:field="*{name}" placeholder="Character Name">
         <br/>
         <br/>
 
         <h2>Character Age</h2>
-        <input type="text" th:field="*{age}"
-                class="form-control mb-4 col-4">
+        <input class="center" type="text" th:field="*{age}">
 
         <br/>
         <br/>
@@ -80,12 +79,12 @@
 
        <br/>
 
-        <button type="submit" class="btn btn-info col-2"> Save Character</button>
+        <button type="submit" class="button-78"> Save Character</button>
     </form>
 
     <hr>
 
-    <button th:href = "@{/charactersPage}"> Characters page</button>
+    <a class="button-78" th:href = "@{/charactersPage}">Characters page</a>
 </div>
 </body>
 </html>
