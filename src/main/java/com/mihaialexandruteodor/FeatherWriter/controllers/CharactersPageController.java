@@ -40,7 +40,7 @@ public class CharactersPageController {
                                 @Valid @RequestParam("sortDir") String sortDir) {
 
         ModelAndView model = new ModelAndView("characters_page");
-        int pageSize = 6;
+        int pageSize = 12;
 
         Page<FWCharacter> page = fwCharacterService.findPaginated(pageNo, pageSize, sortField, sortDir);
         List<FWCharacter> fwCharacterList = page.getContent();
