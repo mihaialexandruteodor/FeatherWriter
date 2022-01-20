@@ -23,46 +23,29 @@
         <h1 th:text="${fwcharacter.name}"></h1>
       </div>
 
-      <div class="contact-presentation">
-        <p><span class="bold">Lorem</span> ipsum dolor sit amet, consectetur adipiscing elit. Vivamus euismod congue nisi, nec consequat quam. In consectetur faucibus turpis eget laoreet. Sed nec imperdiet purus. </p>
-      </div>
+      <h3 class="experience-title">Motivation</h3>
+      <div class="text_bg" th:text="${fwcharacter.motivation != ''} ?   ${fwcharacter.motivation} : 'N/A'"></div>
 
     </div>
   </section>
 
   <section class="experience section-padding">
-    <div class="container">
-      <h3 class="experience-title">Experience</h3>
 
-      <div >
-        <div class="text_bg">
-          <div>Company name</div>
-          <div>Nov 2012 - Present</div>
-        </div>
+      <div class="container">
 
-        <div>
-          <div class="experience-title">Front End Developer </div>
-          <div class="company-description">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce a elit facilisis, adipiscing leo in, dignissim magna.</p>
-          </div>
-        </div>
+        <h3 class="experience-title">Age</h3>
+        <div class="text_bg" th:text="${fwcharacter.age != 0} ?   ${fwcharacter.age} : 'N/A'"></div>
+
       </div>
 
-      <div >
-        <h3 class="section-title">Hobbies</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce a elit facilisis, adipiscing leo in, dignissim magna.</p>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce a elit facilisis, adipiscing leo in, dignissim magna.</p>
+
+    <div class="clearfix">
+      <div class="center">
+        <a class="button-78" th:href = "@{/charactersPage}">Back to Characters Page</a>
       </div>
-
     </div>
   </section>
-
-  <div class="clearfix">
-    <div class="center">
-      <a class="button-78" th:href = "@{/charactersPage}">Back to Characters Page</a>
-    </div>
-  </div>
 </div>
 </body>
 </html>
