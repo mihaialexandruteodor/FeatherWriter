@@ -41,8 +41,17 @@
 
 
     <div class="clearfix">
+
       <div class="center">
-        <a class="button-78" th:href = "@{/charactersPage}">Back to Characters Page</a>
+        <a class="button-78" th:href = "@{'/updateCharacter/' + ${fwcharacter.characterID}}">Edit character</a>
+      </div>
+
+      <div class="center">
+        <a class="button-78" th:href = "@{'/deleteCharacterProfile/' + ${fwcharacter.characterID}}">Delete character</a>
+      </div>
+
+      <div class="center">
+        <a class="button-78" th:href = "@{/charactersPage}">Back to characters page</a>
       </div>
     </div>
   </section>

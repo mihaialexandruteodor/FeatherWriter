@@ -32,10 +32,24 @@ public class FWCharacterController {
         return "character_creation";
     }
 
+    @GetMapping("/updateCharacter/{id}")
+    public String updateCharacter(@Valid @PathVariable ( value = "id") int id, Model model) {
+
+        FWCharacter fwcharacter = fwCharacterService.getFWCharacterById(id);
+        model.addAttribute("fwcharacter",fwcharacter);
+        return "edit_character";
+    }
+
 
     @PostMapping("/saveCharacter")
     public String saveCharacter(@Valid @ModelAttribute("fwcharacter") FWCharacter fwcharacter) {
         fwCharacterService.saveFWCharacter(fwcharacter);
+        return "redirect:/charactersPage";
+    }
+
+    @GetMapping("/deleteCharacterProfile/{id}")
+    public String deleteCharacterProfile(@Valid @PathVariable (value = "id") int id) {
+        fwCharacterService.deleteFWCharacterById(id);
         return "redirect:/charactersPage";
     }
 
