@@ -36,6 +36,18 @@
         <h3 class="experience-title">Age</h3>
         <div class="text_bg" th:text="${fwcharacter.age != 0} ?   ${fwcharacter.age} : 'N/A'"></div>
 
+        <h3 class="experience-title">Physical Description</h3>
+        <div class="text_bg" th:text="${fwcharacter.physicaldescription != ''} ?   ${fwcharacter.physicaldescription} : 'N/A'"></div>
+
+        <h3 class="experience-title">Quirks</h3>
+        <div class="text_bg" th:text="${fwcharacter.quirks != ''} ?   ${fwcharacter.quirks} : 'N/A'"></div>
+
+        <h3 class="experience-title">Quotes</h3>
+        <div class="text_bg" th:text="${fwcharacter.quotes != ''} ?   ${fwcharacter.quotes} : 'N/A'"></div>
+
+        <h3 class="experience-title">History</h3>
+        <div class="text_bg" th:text="${fwcharacter.history != ''} ?   ${fwcharacter.history} : 'N/A'"></div>
+
       </div>
 
 

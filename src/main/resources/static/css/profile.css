@@ -235,4 +235,5 @@ img{
     display:block !important;
     background: rgba(255,255,255,0.4) !important;
     border-radius: 10px !important;
+    font-size: 25px;
 }
