@@ -218,68 +218,12 @@ a{color:$linkColor; text-decoration:none;}
  @include breakpoint(baby-bear) { padding:40px 10% 20px 5%; }
 }
 
-.section-wrapper {
-  width:50%;
-  float:left;
-  text-align:left;
-  color:$skillsColor;
-  font-weight:300;
-  margin-bottom:20px;
-  @include breakpoint(baby-bear) {width:100%;}
-  &:nth-child(3){
-    padding-right:8%;
-  }
-  h3.section-title {
-    color:$linkColor;
-    text-align:left;
-    text-transform:uppercase;
-    font-size:1.2em;
-    margin-bottom:20px;
-    font-weight:400;
-  }
-  .skill-percentage {
-    margin-bottom:10px;
-    position:relative;
-    &::after {
-      content:"";
-      width:100%;
-      height:6px;
-      background:$boldColor;
-      display:block;
-      margin-top:3px;
-    }
-    &::before{
-      content:"";
-      height:6px;
-      background:$linkColor;
-      position:absolute;
-      margin-top:3px;
-      bottom:0;
-    }
-    &:nth-child(1)::before {width:80%;animation: skill_1 $time ease;}
-    &:nth-child(2)::before {width:90%; animation: skill_2 $time ease;}
-    &:nth-child(3)::before {width:50%;animation: skill_3 $time ease;}
-    &:nth-child(4)::before {width:60%;animation: skill_4 $time ease;}
-    &:nth-child(5)::before {width:70%;animation: skill_5 $time ease;}
-    &:nth-child(6)::before {width:70%;animation: skill_6 $time ease;}
-    &:nth-child(7)::before {width:70%;animation: skill_6 $time ease;}
-  }
-
-}
-
-@keyframes skill_1 {from {width:0%;}to {width:80%;}}
-@keyframes skill_2 {from {width:0%;}to {width:90%;}}
-@keyframes skill_3 {from {width:0%;}to {width:50%;}}
-@keyframes skill_4 {from {width:0%;}to {width:60%;}}
-@keyframes skill_5 {from {width:0%;}to {width:70%;}}
-@keyframes skill_6 {from {width:0%;}to {width:70%;}}
-@keyframes skill_7 {from {width:0%;}to {width:70%;}}
-
 img{
     display:block;
     width:550px;
     height: 550px;
     border-radius: 100px;
+    border: 15px solid rgba(255,255,255,0.5);
     font-size: 25px;
     text-align: center;
     margin-right: 10px;
@@ -287,13 +231,12 @@ img{
     line-height: 1.7em;
 }
 
-text_block{
+text_bg{
     display:block;
     width:550px;
     height: 550px;
     border-radius: 100px;
     font-size: 25px;
-    text-align: center;
     margin-right: 10px;
     background: rgba(255,255,255,0.5);
     line-height: 1.7em;
