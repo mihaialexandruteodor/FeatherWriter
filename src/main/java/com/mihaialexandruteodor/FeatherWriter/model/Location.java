@@ -19,8 +19,9 @@ public class Location {
     @Column(name = "uniquefeatures")
     private String uniquefeatures;
 
-    @Column(name = "image")
-    private byte[] image;
+    @Lob
+    @Column(name = "image", nullable = true)
+    private String image;
 
     @ManyToOne
     @JoinColumn(name="novelID")
@@ -58,11 +59,15 @@ public class Location {
         this.uniquefeatures = uniquefeatures;
     }
 
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
+
+    public Novel getNovel() {return novel;}
+
+    public void setNovel(Novel novel) {this.novel = novel;}
 }

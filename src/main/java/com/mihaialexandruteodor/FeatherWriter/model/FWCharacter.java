@@ -112,9 +112,7 @@ public class FWCharacter {
         this.image = image;
     }
 
-    public Novel getNovel() {
-        return novel;
-    }
+    public Novel getNovel() {return novel;}
 
     public void setNovel(Novel novel) {
         this.novel = novel;

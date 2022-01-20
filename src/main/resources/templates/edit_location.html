@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${fwcharacter.name}"></title>
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/img3style.css">
+  <link rel="stylesheet" href="/css/button.css">
+  <link rel="stylesheet" href="/css/center.css">
+  <script src="../js/imgToBlob.js"></script>
+</head>
+<body>
+<div class="center">
+
+  <h1>New Character</h1>
+  <hr>
+
+  <form  th:action="@{/saveLocation}" th:object="${location}"  method="POST">
+
+    <input type="hidden" th:field="*{locationID}" />
+
+    <h2>Location Name</h2>
+    <input class="center" type="text" th:field="*{name}" placeholder="Location Name">
+    <br/>
+    <br/>
+
+    <h2>Description</h2>
+    <input class="center" type="text" th:field="*{description}">
+
+    <br/>
+    <br/>
+
+    <h2>Unique Features</h2>
+    <textarea th:field="*{uniquefeatures}" placeholder="Unique Features" rows="8" cols="50">
+        </textarea>
+
+    <br/>
+    <br/>
+
+
+    <h2>Image</h2>
+    <label for="imgChar">Select image:</label>
+    <input class="button-78" type="file" id="imgChar" name="img" accept="image/*" onchange="encodeImageFileAsURL(this)" >
+    <input type="hidden" name="blob" id="blobVal" th:field="*{image}"/>
+
+    <h2>Project</h2>
+    <select id="novelList" th:field="*{novel}" placeholder="[Select Novel]">
+    </select>
+
+    <br/>
+
+    <button type="submit" class="button-78"> Update Location</button>
+  </form>
+
+  <hr>
+
+  <a class="button-78" th:href = "@{/locationsPage}">Locations page</a>
+</div>
+</body>
+</html>

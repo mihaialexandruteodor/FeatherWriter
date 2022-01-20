@@ -13,8 +13,9 @@ public class Note {
     @Column(name = "text")
     private String text;
 
-    @Column(name = "image")
-    private byte[] image;
+    @Lob
+    @Column(name = "image", nullable = true)
+    private String image;
 
     @ManyToOne
     @JoinColumn(name="novelID")
@@ -36,11 +37,11 @@ public class Note {
         this.text = text;
     }
 
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
 }
