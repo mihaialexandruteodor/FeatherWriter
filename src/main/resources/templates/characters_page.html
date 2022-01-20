@@ -22,7 +22,7 @@
       <div class="card-body">
         <h5 class="card-title" th:text="${fwcharacter.name}"></h5>
         <p class="card-text" th:text="${fwcharacter.motivation}"></p>
-        <a href="#" class="button-78">Details</a>
+        <a th:href="@{'/characterProfile/' + ${fwcharacter.characterID}}" class="button-78">Details</a>
       </div>
     </div>
   </tr>
@@ -30,6 +30,9 @@
 </div>
 
 <div class="container">
+  <div class="center">
+    <a class="button-78" th:href = "@{/newCharacter}">New Character</a>
+  </div>
   <div class="center">
     <a class="button-78" th:href = "@{/}">Back to Main Page</a>
   </div>
