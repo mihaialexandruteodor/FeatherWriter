@@ -1,6 +1,9 @@
 # Feather Writer
 Web-based Novel Writing Software
 
+[<img src="1.png" width=50%/>](Homepage)
+[<img src="2.png" width=50%/>](Character_profile)
+
 ## Documentation (RO):
 https://docs.google.com/document/d/1nxLXlA9yAB5z6LwPahIjBocP20p49MnoQWEqOpRBa3c/edit?usp=sharing
 
