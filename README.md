@@ -1,11 +1,11 @@
 # Feather Writer
 Cloud Native Novel Writing Software
 
-<img src="https://github.com/mihaialexandruteodor/FeatherWriter/blob/main/1.PNG" width="800">
+<img src="https://raw.githubusercontent.com/mihaialexandruteodor/mihaialexandruteodor/master/repoImages/FeatherWriter/1.PNG" width="800">
 
-<img src="https://github.com/mihaialexandruteodor/FeatherWriter/blob/main/2.PNG" width="800">
+<img src="https://raw.githubusercontent.com/mihaialexandruteodor/mihaialexandruteodor/master/repoImages/FeatherWriter/2.PNG" width="800">
 
-<img src="https://github.com/mihaialexandruteodor/FeatherWriter/blob/main/3.PNG" width="800">
+<img src="https://raw.githubusercontent.com/mihaialexandruteodor/mihaialexandruteodor/master/repoImages/FeatherWriter/3.PNG" width="800">
 
 ## Documentation (RO):
 https://docs.google.com/document/d/1nxLXlA9yAB5z6LwPahIjBocP20p49MnoQWEqOpRBa3c/edit?usp=sharing
@@ -14,7 +14,7 @@ https://docs.google.com/document/d/1nxLXlA9yAB5z6LwPahIjBocP20p49MnoQWEqOpRBa3c/
 https://hub.docker.com/repository/docker/mihaialexandruteodor/featherwriter
 
 ## Diagram:
-![Diagram](Diagram_FW.png)
+<img src="https://raw.githubusercontent.com/mihaialexandruteodor/mihaialexandruteodor/master/repoImages/FeatherWriter/Diagram_FW.png" width="800">
 
 ## Google Cloud Kubernetes Quickstart:
 
