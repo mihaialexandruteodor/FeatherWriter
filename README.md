@@ -1,5 +1,5 @@
 # Feather Writer
-Web-based Novel Writing Software
+Cloud Native Novel Writing Software
 
 [<img src="1.png" width=50%/>](Homepage)
 [<img src="2.png" width=50%/>](Character_profile)
