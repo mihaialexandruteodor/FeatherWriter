@@ -5,6 +5,8 @@ Cloud Native Novel Writing Software
 
 <img src="https://github.com/mihaialexandruteodor/FeatherWriter/blob/main/2.PNG" width="800">
 
+<img src="https://github.com/mihaialexandruteodor/FeatherWriter/blob/main/3.PNG" width="800">
+
 ## Documentation (RO):
 https://docs.google.com/document/d/1nxLXlA9yAB5z6LwPahIjBocP20p49MnoQWEqOpRBa3c/edit?usp=sharing
 
