@@ -46,19 +46,13 @@ public class TextFileExporter implements FileExporter {
         docxOut.getMainDocumentPart().getContent().addAll(
                 XHTMLImporter.convert( fileContent, null) );
 
-//        System.out.println(XmlUtils.marshaltoString(docxOut
-//                .getMainDocumentPart().getJaxbElement(), true, true));
+ //       docxOut.save(new java.io.File(filePath.toString()));
 
         String xhtml = XmlUtils.marshaltoString(docxOut
                 .getMainDocumentPart().getJaxbElement(), true, true);
 
         Files.write(filePath, xhtml.getBytes(), StandardOpenOption.CREATE);
 
-//        MainDocumentPart mainDocumentPart = docxOut.getMainDocumentPart();
-//        mainDocumentPart.addStyledParagraphOfText("Title", "Hello World!");
-//        mainDocumentPart.addParagraphOfText("Welcome To Baeldung");
-//
-//        docxOut.save(new java.io.File(filePath.toString()));
 
 
         return filePath;

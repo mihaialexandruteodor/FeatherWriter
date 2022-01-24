@@ -40,7 +40,7 @@
       {
           var html = $("#summernote").summernote("code");
 
-           return $.ajax({type: "GET",
+           return $.ajax({type: "POST",
               url: "/downloadTextFile?fileContent="+html,
               success: function (data) {
                     //Convert the Byte Data to BLOB object.
@@ -67,21 +67,6 @@
           });
           };
 
-    function saveFileToCloud()
-      {
-          var html = $("#summernote").summernote("code");
-
-            $.ajax({type: "POST",
-              url: "/saveFileToCloud?fileContent="+html,
-              success: function (result) {
-              alert('File saved successfully!');
-              },
-              error:function(result) {
-                alert('error');
-              }
-
-        });
-          };
 
   </script>
 </body>

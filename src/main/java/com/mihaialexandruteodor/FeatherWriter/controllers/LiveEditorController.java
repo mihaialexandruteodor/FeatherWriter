@@ -19,6 +19,8 @@ import java.io.*;
 import java.nio.file.Path;
 import java.util.Scanner;
 
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
 @Controller
 public class LiveEditorController {
 
@@ -33,14 +35,14 @@ public class LiveEditorController {
 
 
 
-    @GetMapping("/downloadTextFile")
-    public ResponseEntity<InputStreamResource> saveFileLocally(@RequestParam(value = "fileContent", required = true) String fileContent) throws JAXBException, IOException, ParserConfigurationException, TransformerException, InterruptedException, Docx4JException {
+
+    @RequestMapping(value = "/downloadTextFile", method = POST)
+    @ResponseBody
+    public ResponseEntity<InputStreamResource> saveFileLocally(@RequestParam(value = "fileContent", required = false, defaultValue = "<p>test</p>") String fileContent) throws JAXBException, IOException, ParserConfigurationException, TransformerException, InterruptedException, Docx4JException {
         String fileName = "PLACEHOLDER_USE_FUNC_PARAM.xml";
 
         // Create text file
         Path exportedPath = fileExporter.export(fileContent, fileName);
-
-        Thread.sleep(10000);
 
         System.out.println("EXPORTED PATH: " + exportedPath);
 
@@ -63,30 +65,5 @@ public class LiveEditorController {
         }
 
     }
-
-//    @SuppressWarnings("resource")
-//    @RequestMapping(value="/downloadTextFile", method=RequestMethod.GET, produces="application/octet-stream")
-//    public ResponseEntity<InputStreamResource> saveFileLocally(@RequestParam(value = "fileContent", required = true) String fileContent) throws Throwable {
-//
-//        String fileName = "example1.docx";
-//        Path exportedPath = fileExporter.export(fileContent, fileName);
-//        //Path exportedPath = Paths.get("/FeatherWriter/example1.rtf");
-//        System.out.println("EXPORTED PATH: " + exportedPath);
-//
-//        File docx = exportedPath.toFile();
-//
-//        FileInputStream fileInputStream = new FileInputStream(docx);
-//        InputStreamResource inputStreamResource = new InputStreamResource(fileInputStream);
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.add("Content-Disposition", "attachment;filename=" + fileName);
-//        headers.add("Content-Type", "application/octet-stream;");
-//
-//
-//        return ResponseEntity.ok()
-//                .headers(headers)
-//                .body(inputStreamResource);
-//
-//
-//    }
 
 }
