@@ -1,17 +1,23 @@
 package com.mihaialexandruteodor.FeatherWriter.controllers;
 
 import com.mihaialexandruteodor.FeatherWriter.utlis.FileExporter;
+import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.core.io.Resource;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import javax.xml.bind.JAXBException;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import java.io.*;
 import java.nio.file.Path;
+import java.util.Scanner;
 
 @Controller
 public class LiveEditorController {
@@ -26,38 +32,61 @@ public class LiveEditorController {
     }
 
 
-    @PostMapping("/downloadTextFile")
-    public ResponseEntity<InputStreamResource> saveFileLocally(@RequestParam(value = "fileContent", required = true) String fileContent) throws IOException, InterruptedException {
-        String fileName = "example1.rtf";
+
+    @GetMapping("/downloadTextFile")
+    public ResponseEntity<InputStreamResource> saveFileLocally(@RequestParam(value = "fileContent", required = true) String fileContent) throws JAXBException, IOException, ParserConfigurationException, TransformerException, InterruptedException, Docx4JException {
+        String fileName = "PLACEHOLDER_USE_FUNC_PARAM.xml";
 
         // Create text file
         Path exportedPath = fileExporter.export(fileContent, fileName);
-        //Path exportedPath = Paths.get("/FeatherWriter/example1.rtf");
+
+        Thread.sleep(10000);
+
         System.out.println("EXPORTED PATH: " + exportedPath);
 
         // Download file with InputStreamResource
         try{
             File exportedFile = exportedPath.toFile();
-            exportedFile.createNewFile();
             long contentLength = exportedFile.length();
             FileInputStream fileInputStream = new FileInputStream(exportedFile);
             InputStreamResource inputStreamResource = new InputStreamResource(fileInputStream);
 
             return ResponseEntity.ok()
                     .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + fileName)
-                    .contentType(MediaType.TEXT_PLAIN)
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
                     .contentLength(contentLength)
                     .body(inputStreamResource);
         }
         finally {
             // cleanup local folder
-           // fileExporter.remove(exportedPath);
+            fileExporter.remove(exportedPath);
         }
 
     }
 
-    @PostMapping("/saveFileToCloud")
-    public ResponseEntity saveFileToCloud(@RequestParam(value = "fileContent", required = true) String fileContent) throws IOException, InterruptedException {
-        return new ResponseEntity<>("Success!", HttpStatus.OK);
-    }
+//    @SuppressWarnings("resource")
+//    @RequestMapping(value="/downloadTextFile", method=RequestMethod.GET, produces="application/octet-stream")
+//    public ResponseEntity<InputStreamResource> saveFileLocally(@RequestParam(value = "fileContent", required = true) String fileContent) throws Throwable {
+//
+//        String fileName = "example1.docx";
+//        Path exportedPath = fileExporter.export(fileContent, fileName);
+//        //Path exportedPath = Paths.get("/FeatherWriter/example1.rtf");
+//        System.out.println("EXPORTED PATH: " + exportedPath);
+//
+//        File docx = exportedPath.toFile();
+//
+//        FileInputStream fileInputStream = new FileInputStream(docx);
+//        InputStreamResource inputStreamResource = new InputStreamResource(fileInputStream);
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.add("Content-Disposition", "attachment;filename=" + fileName);
+//        headers.add("Content-Type", "application/octet-stream;");
+//
+//
+//        return ResponseEntity.ok()
+//                .headers(headers)
+//                .body(inputStreamResource);
+//
+//
+//    }
+
 }

@@ -1,12 +1,28 @@
 package com.mihaialexandruteodor.FeatherWriter.utlis;
 
+
+import org.docx4j.XmlUtils;
+import org.docx4j.convert.in.xhtml.XHTMLImporterImpl;
+import org.docx4j.openpackaging.exceptions.Docx4JException;
+import org.docx4j.openpackaging.exceptions.InvalidFormatException;
+import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
+import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
+import org.docx4j.openpackaging.parts.WordprocessingML.NumberingDefinitionsPart;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.JAXBException;
+import java.io.*;
+import java.net.MalformedURLException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
+
 
 @Service
 public class TextFileExporter implements FileExporter {
@@ -16,38 +32,57 @@ public class TextFileExporter implements FileExporter {
     private Logger logger = LoggerFactory.getLogger(TextFileExporter.class);
 
     @Override
-    public Path export(String fileContent, String fileName) {
+    public Path export(String fileContent, String fileName) throws JAXBException, Docx4JException, IOException {
         Path filePath = Paths.get(EXPORT_DIRECTORY, fileName);
-        try {
-            Path exportedFilePath = Files.write(filePath, fileContent.getBytes(), StandardOpenOption.CREATE);
-            return exportedFilePath;
-        } catch (IOException e) {
-            logger.error(e.getMessage(), e);
-        }
-        return null;
+
+        WordprocessingMLPackage docxOut = WordprocessingMLPackage.createPackage();
+        NumberingDefinitionsPart ndp = new NumberingDefinitionsPart();
+        docxOut.getMainDocumentPart().addTargetPart(ndp);
+        ndp.unmarshalDefaultNumbering();
+
+        XHTMLImporterImpl XHTMLImporter = new XHTMLImporterImpl(docxOut);
+
+
+        docxOut.getMainDocumentPart().getContent().addAll(
+                XHTMLImporter.convert( fileContent, null) );
+
+//        System.out.println(XmlUtils.marshaltoString(docxOut
+//                .getMainDocumentPart().getJaxbElement(), true, true));
+
+        String xhtml = XmlUtils.marshaltoString(docxOut
+                .getMainDocumentPart().getJaxbElement(), true, true);
+
+        Files.write(filePath, xhtml.getBytes(), StandardOpenOption.CREATE);
+
+//        MainDocumentPart mainDocumentPart = docxOut.getMainDocumentPart();
+//        mainDocumentPart.addStyledParagraphOfText("Title", "Hello World!");
+//        mainDocumentPart.addParagraphOfText("Welcome To Baeldung");
+//
+//        docxOut.save(new java.io.File(filePath.toString()));
+
+
+        return filePath;
+
     }
 
     @Override
-    public void remove(Path filePath) throws IOException, InterruptedException {
-        new Thread(new Runnable() {
-            public void run(){
-                while(!filePath.toFile().renameTo(filePath.toFile())) {
-                    // Cannot read from file, windows still working on it.
-                    try {
-                        Thread.sleep(10);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
+    public void remove(Path filePath) {
+        new Thread(() -> {
+            while(!filePath.toFile().renameTo(filePath.toFile())) {
+                // Cannot read from file, os still working on it.
                 try {
-                    Files.delete(filePath);
-                } catch (IOException e) {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
+            try {
+                Files.delete(filePath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }).start();
-
-
-
     }
+
+
 }

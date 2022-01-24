@@ -54,7 +54,18 @@
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.docx4j/docx4j-ImportXHTML -->
+		<dependency>
+			<groupId>org.docx4j</groupId>
+			<artifactId>docx4j-ImportXHTML</artifactId>
+			<version>8.0.0</version>
+		</dependency>
 
+		<dependency>
+			<groupId>org.docx4j</groupId>
+			<artifactId>docx4j-JAXB-ReferenceImpl</artifactId>
+			<version>8.1.0</version>
+		</dependency>
 
 	</dependencies>
 
