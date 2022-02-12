@@ -33,9 +33,6 @@ public class LiveEditorController {
         return "live_editor_page";
     }
 
-
-
-
     @RequestMapping(value = "/downloadTextFile", method = POST)
     @ResponseBody
     public ResponseEntity<InputStreamResource> saveFileLocally(@RequestParam(value = "fileContent", required = false, defaultValue = "<p>test</p>") String fileContent) throws JAXBException, IOException, ParserConfigurationException, TransformerException, InterruptedException, Docx4JException {

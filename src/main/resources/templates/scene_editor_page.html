@@ -13,9 +13,11 @@
   <link rel="stylesheet" href="/css/button.css">
 </head>
 <body>
+<form  th:action="@{/saveScene}" th:object="${scene}"  method="POST">
+  <input type="hidden" th:field="*{sceneID}" />
 <br><br>
 <div class="block">
-<div id="summernote"><p>Feather Writer</p></div></div>
+<div id="summernote"><p th:field="*{text}"/></div></div>
 <script>
     $(document).ready(function() {
         $('#summernote').summernote({
@@ -69,6 +71,14 @@
 
 
   </script>
+  <h2 class="center">Corkboard text</h2>
+  <textarea class="center" th:field="*{corkboardtext}" placeholder="Physical Description" rows="8" cols="50">
+        </textarea>
+
+  <br/>
+  <br/>
+  <button class="button-78" type="submit" >Save</button>
+</form>
 </body>
 <div class="center">
   <button th:onclick="'saveFileLocally();'"  id="button_1"  name="but1" class="button-78">Export text as .docx</button>
