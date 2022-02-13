@@ -62,10 +62,11 @@ public class SceneEditorController {
     }
 
     @GetMapping("/newScene")
-    public String newScene(Model model) {
+    public ModelAndView newScene(Model model) {
         Scene scene = new Scene();
-        model.addAttribute("scene",scene);
-        return "scene_creation";
+        ModelAndView mv = new ModelAndView("scene_editor_page");
+        mv.addObject("scene",scene);
+        return mv;
     }
 
     @RequestMapping(value = "/downloadTextFile", method = POST)
