@@ -13,6 +13,9 @@ public class Novel {
     @GeneratedValue(strategy =  GenerationType.SEQUENCE)
     private int novelID;
 
+    @Column(name = "title")
+    private String title;
+
     @Column(name = "authorname")
     private String authorName;
 
@@ -25,16 +28,16 @@ public class Novel {
     @Column(name = "authorcontactinfo")
     private String authorContactInfo;
 
-    @OneToMany(mappedBy = "novel")
+    @OneToMany(mappedBy = "chapters")
     private List<Chapter> chapters;
 
-    @OneToMany(mappedBy = "novel")
+    @OneToMany(mappedBy = "locations")
     private List<Location> locations;
 
-    @OneToMany(mappedBy = "novel")
+    @OneToMany(mappedBy = "characters")
     private List<FWCharacter> characters;
 
-    @OneToMany(mappedBy = "novel")
+    @OneToMany(mappedBy = "notes")
     private List<Note> notes;
 
     @OneToOne
@@ -45,6 +48,10 @@ public class Novel {
     public int getNovelID() {
         return novelID;
     }
+
+    public String getTitle() {return title;}
+
+    public void setTitle(String title) {this.title = title;}
 
     public void setNovelID(int novelID) {
         this.novelID = novelID;
