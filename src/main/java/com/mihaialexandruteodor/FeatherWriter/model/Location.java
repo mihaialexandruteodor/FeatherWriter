@@ -23,7 +23,7 @@ public class Location {
     @Column(name = "image", nullable = true)
     private String image;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="novelID")
     private Novel novel;
 

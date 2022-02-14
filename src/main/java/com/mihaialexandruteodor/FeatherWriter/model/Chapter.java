@@ -33,4 +33,10 @@ public class Chapter {
         this.title = title;
     }
 
+    public Novel getNovel() {return novel;}
+
+    public void setNovel(Novel novel) {
+        this.novel = novel;
+    }
+
 }

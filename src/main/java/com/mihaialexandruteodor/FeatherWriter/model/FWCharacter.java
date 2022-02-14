@@ -1,7 +1,6 @@
 package com.mihaialexandruteodor.FeatherWriter.model;
 
 import javax.persistence.*;
-//import org.apache.commons.codec.binary.Base64;
 
 @Entity
 @Table(name = "fwcharacter")

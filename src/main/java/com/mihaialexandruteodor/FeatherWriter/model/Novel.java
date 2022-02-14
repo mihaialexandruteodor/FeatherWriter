@@ -28,16 +28,16 @@ public class Novel {
     @Column(name = "authorcontactinfo")
     private String authorContactInfo;
 
-    @OneToMany(mappedBy = "chapters")
-    private List<Chapter> chapters;
-
-    @OneToMany(mappedBy = "locations")
+    @OneToMany(mappedBy = "novel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Location> locations;
 
-    @OneToMany(mappedBy = "characters")
+    @OneToMany(mappedBy = "novel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Chapter> chapters;
+
+    @OneToMany(mappedBy = "novel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<FWCharacter> characters;
 
-    @OneToMany(mappedBy = "notes")
+    @OneToMany(mappedBy = "novel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Note> notes;
 
     @OneToOne
@@ -88,4 +88,24 @@ public class Novel {
     public void setAuthorContactInfo(String authorContactInfo) {
         this.authorContactInfo = authorContactInfo;
     }
+
+    public List<Location> getLocations() {return locations;}
+
+    public void setLocations(List<Location> locations) {this.locations = locations;}
+
+    public List<Chapter> getChapters() {return chapters;}
+
+    public void setChapters(List<Chapter> chapters) {this.chapters = chapters;}
+
+    public List<FWCharacter> getCharacters() {return characters;}
+
+    public void setCharacters(List<FWCharacter> characters) {this.characters = characters;}
+
+    public List<Note> getNotes() {return notes;}
+
+    public void setNotes(List<Note> notes) {this.notes = notes;}
+
+    public Corkboard getCorkboard() {return corkboard;}
+
+    public void setCorkboard(Corkboard corkboard) {this.corkboard = corkboard;}
 }

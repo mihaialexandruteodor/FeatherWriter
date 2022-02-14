@@ -69,9 +69,9 @@ public class SceneEditorController {
         return mv;
     }
 
-    @RequestMapping(value = "/downloadTextFile", method = POST)
+    @RequestMapping(value = "/downloadTextFileScene", method = POST)
     @ResponseBody
-    public ResponseEntity<InputStreamResource> saveFileLocally(@RequestParam(value = "fileContent", required = false, defaultValue = "<p>test</p>") String fileContent) throws JAXBException, IOException, ParserConfigurationException, TransformerException, InterruptedException, Docx4JException {
+    public ResponseEntity<InputStreamResource> saveSceneLocally(@RequestParam(value = "fileContent", required = false, defaultValue = "<p>test</p>") String fileContent) throws JAXBException, IOException, ParserConfigurationException, TransformerException, InterruptedException, Docx4JException {
         String fileName = "PLACEHOLDER_USE_FUNC_PARAM.xml";
 
         // Create text file
