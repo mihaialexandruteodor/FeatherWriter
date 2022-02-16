@@ -9,6 +9,11 @@ import org.springframework.data.rest.core.annotation.RestResource;
 @Table(name = "novel")
 public class Novel {
 
+    public Novel()
+    {
+        this.draftnumber = 1;
+    }
+
     @Id
     @GeneratedValue(strategy =  GenerationType.SEQUENCE)
     private int novelID;
@@ -17,16 +22,16 @@ public class Novel {
     private String title;
 
     @Column(name = "authorname")
-    private String authorName;
+    private String authorname;
 
     @Column(name = "draftnumber")
-    private int draftNumber;
+    private int draftnumber;
 
     @Column(name = "synopsis")
     private String synopsis;
 
     @Column(name = "authorcontactinfo")
-    private String authorContactInfo;
+    private String authorcontactinfo;
 
     @OneToMany(mappedBy = "novel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Location> locations;
@@ -57,20 +62,20 @@ public class Novel {
         this.novelID = novelID;
     }
 
-    public String getAuthorName() {
-        return authorName;
+    public String getAuthorname() {
+        return authorname;
     }
 
-    public void setAuthorName(String authorName) {
-        this.authorName = authorName;
+    public void setAuthorname(String authorname) {
+        this.authorname = authorname;
     }
 
-    public int getDraftNumber() {
-        return draftNumber;
+    public int getDraftnumber() {
+        return draftnumber;
     }
 
-    public void setDraftNumber(int draftNumber) {
-        this.draftNumber = draftNumber;
+    public void setDraftnumber(int draftnumber) {
+        this.draftnumber = draftnumber;
     }
 
     public String getSynopsis() {
@@ -81,12 +86,12 @@ public class Novel {
         this.synopsis = synopsis;
     }
 
-    public String getAuthorContactInfo() {
-        return authorContactInfo;
+    public String getAuthorcontactinfo() {
+        return authorcontactinfo;
     }
 
-    public void setAuthorContactInfo(String authorContactInfo) {
-        this.authorContactInfo = authorContactInfo;
+    public void setAuthorcontactinfo(String authorcontactinfo) {
+        this.authorcontactinfo = authorcontactinfo;
     }
 
     public List<Location> getLocations() {return locations;}
@@ -108,4 +113,9 @@ public class Novel {
     public Corkboard getCorkboard() {return corkboard;}
 
     public void setCorkboard(Corkboard corkboard) {this.corkboard = corkboard;}
+
+    public void addCharacter(FWCharacter character)
+    {
+        characters.add(character);
+    }
 }

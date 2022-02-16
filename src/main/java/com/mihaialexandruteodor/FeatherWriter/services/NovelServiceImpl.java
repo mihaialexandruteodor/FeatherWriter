@@ -1,6 +1,7 @@
 package com.mihaialexandruteodor.FeatherWriter.services;
 
 import com.mihaialexandruteodor.FeatherWriter.model.Chapter;
+import com.mihaialexandruteodor.FeatherWriter.model.FWCharacter;
 import com.mihaialexandruteodor.FeatherWriter.model.Novel;
 import com.mihaialexandruteodor.FeatherWriter.repository.NovelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,17 @@ public class NovelServiceImpl implements  NovelService{
     @Override
     public void deleteNovelById(int id) {
         this.novelRepository.deleteById(id);
+    }
+
+    @Override
+    public void addTeamToProject(Novel project, FWCharacter character) {
+        project.addCharacter(character);
+        this.novelRepository.save(project);
+    }
+
+    @Override
+    public void removeTeamToProject(Novel project, FWCharacter character) {
+
     }
 
     @Override

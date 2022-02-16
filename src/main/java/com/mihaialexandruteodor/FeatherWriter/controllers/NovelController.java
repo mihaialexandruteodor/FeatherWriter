@@ -1,14 +1,13 @@
 package com.mihaialexandruteodor.FeatherWriter.controllers;
 
-import com.mihaialexandruteodor.FeatherWriter.model.Location;
+import com.mihaialexandruteodor.FeatherWriter.model.FWCharacter;
 import com.mihaialexandruteodor.FeatherWriter.model.Novel;
+import com.mihaialexandruteodor.FeatherWriter.services.FWCharacterService;
 import com.mihaialexandruteodor.FeatherWriter.services.NovelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -19,6 +18,9 @@ public class NovelController {
 
     @Autowired
     private NovelService novelService;
+
+    @Autowired
+    private FWCharacterService characterService;
 
     @Autowired
     public NovelController(NovelService novelService) {
@@ -32,6 +34,29 @@ public class NovelController {
 
     public ModelAndView loadProjectsPageData() {
         return findPaginated(1, "title", "asc");
+    }
+
+    @GetMapping("/newProject")
+    public ModelAndView newNovel(Model model) {
+        ModelAndView mv = new ModelAndView("project_editor_page");
+        return setUpProjPage(mv);
+    }
+
+    ModelAndView setUpProjPage(ModelAndView mv)
+    {
+        Novel novel = new Novel();
+        mv.addObject("novel",novel);
+        List<FWCharacter> characterList = characterService.getAllFWCharacters();
+        mv.addObject("characterList", characterList);
+        return mv;
+    }
+
+    @RequestMapping(value = "/addCharacterToProject/{characterID}/{novelID}")
+    public String addTeamToProject(@Valid @PathVariable (value = "characterID") int characterID, @Valid @PathVariable("novelID") int novelID){
+        FWCharacter charObj = characterService.getFWCharacterById(characterID);
+        Novel novelObj = novelService.getNovelById(novelID);
+        novelService.addTeamToProject(novelObj,charObj);
+        return "redirect:/showFormForUpdateProj/"+novelID;
     }
 
     @GetMapping("/projectsPage/page/{pageNo}")
