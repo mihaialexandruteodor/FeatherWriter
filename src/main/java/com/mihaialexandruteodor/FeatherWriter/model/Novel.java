@@ -9,11 +9,6 @@ import org.springframework.data.rest.core.annotation.RestResource;
 @Table(name = "novel")
 public class Novel {
 
-    public Novel()
-    {
-        this.draftnumber = 1;
-    }
-
     @Id
     @GeneratedValue(strategy =  GenerationType.SEQUENCE)
     private int novelID;
