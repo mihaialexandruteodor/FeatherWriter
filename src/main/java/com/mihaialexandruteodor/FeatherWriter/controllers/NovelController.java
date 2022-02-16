@@ -85,8 +85,8 @@ public class NovelController {
         return "redirect:/showFormForUpdateProj/"+novelID;
     }
 
-    @PostMapping("/saveProj")
-    public String saveProj(@Valid @ModelAttribute("novel") Novel novel) {
+    @PostMapping("/saveProject")
+    public String saveProject(@Valid @ModelAttribute("novel") Novel novel) {
         novelService.saveNovel(novel);
         return "redirect:/showFormForUpdateProj/"+novel.getNovelID();
     }
