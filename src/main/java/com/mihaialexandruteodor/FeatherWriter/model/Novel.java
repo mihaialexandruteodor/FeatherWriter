@@ -118,4 +118,8 @@ public class Novel {
     {
         characters.add(character);
     }
+
+    public void removeCharacter(FWCharacter character) {
+        characters.remove(character);
+    }
 }

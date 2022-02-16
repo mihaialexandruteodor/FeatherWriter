@@ -55,7 +55,8 @@ public class NovelServiceImpl implements  NovelService{
 
     @Override
     public void removeTeamToProject(Novel project, FWCharacter character) {
-
+        project.removeCharacter(character);
+        this.novelRepository.save(project);
     }
 
     @Override

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Add elements to project</title>
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+  <link rel="stylesheet" href="css/img1style.css">
+  <link rel="stylesheet" href="/css/button.css">
+  <link rel="stylesheet" href="/css/center.css">
+  <script src="../js/imgToBlob.js"></script>
+</head>
+<body>
+<div class="center">
+
+  <h1>New Project</h1>
+  <hr>
+
+  <form  th:action="@{/updateProject}" th:object="${novel}"  method="POST">
+
+
+    <h2>Characters to be added</h2>
+    <table border="none"  class = "table table-striped table-responsive-md">
+      <thead>
+      <tr>
+        <th>Character Name</th>
+        <th> Actions </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="character : ${characterList}">
+        <td th:text="${character.name}"></td>
+        <td>
+          <a th:href="@{/addCharacterToProject/{characterID}/{novelID}(characterID=${character.characterID}, novelID=${novel.novelID})}" class="button-78" >Add Character</a>
+        </td>
+      </tr>
+
+      </tbody>
+
+
+    </table><h2>Characters already added</h2>
+    <table border="none"  class = "table table-striped table-responsive-md">
+      <thead>
+      <tr>
+        <th>Character Name</th>
+        <th> Actions </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="character : ${assignedCharactersList}">
+        <td th:text="${character.name}"></td>
+        <td>
+          <a th:href="@{/removeCharacterFromProject/{characterID}/{novelID}(characterID=${character.characterID}, novelID=${novel.novelID})}" class="button-78" >Remove Character</a>
+        </td>
+      </tr>
+
+      </tbody>
+    </table>
+
+    <br/>
+    <br/>
+
+    <h2>Locations</h2>
+
+
+    <br/>
+    <br/>
+
+    <h2>Chapters</h2>
+
+
+    <br/>
+    <br/>
+
+    <h2>Notes</h2>
+
+
+    <br/>
+    <br/>
+
+    <button type="submit" class="button-78"> Save assignments</button>
+  </form>
+
+  <hr>
+
+  <a class="button-78" th:href = "@{/projectsPage}">Cancel</a>
+</div>
+</body>
+</html>
+
+
+
+

@@ -38,25 +38,64 @@ public class NovelController {
 
     @GetMapping("/newProject")
     public ModelAndView newNovel(Model model) {
-        ModelAndView mv = new ModelAndView("project_editor_page");
-        return setUpProjPage(mv);
+        Novel novel = new Novel();
+        return setUpProjPage(model, novel);
     }
 
-    ModelAndView setUpProjPage(ModelAndView mv)
+    @GetMapping("/decorateProject/{novelID}")
+    public ModelAndView decorateProject(Model model, @Valid @PathVariable("novelID") int novelID)
     {
-        Novel novel = new Novel();
+        Novel novelObj = novelService.getNovelById(novelID);
+        return setUpProjDecorationPage(model,novelObj);
+    }
+
+    ModelAndView setUpProjPage(Model model, Novel novel)
+    {
+        ModelAndView mv = new ModelAndView("project_editor_page");
         mv.addObject("novel",novel);
-        List<FWCharacter> characterList = characterService.getAllFWCharacters();
-        mv.addObject("characterList", characterList);
         return mv;
     }
 
+    ModelAndView setUpProjDecorationPage(Model model, Novel novel)
+    {
+        ModelAndView mv = new ModelAndView("project_decoration");
+        mv.addObject("novel",novel);
+        List<FWCharacter> characterList = characterService.getAllFWCharacters();
+        List<FWCharacter> assignedCharactersList = novel.getCharacters();
+        characterList.removeIf(assignedCharactersList::contains);
+        mv.addObject("characterList", characterList);
+        mv.addObject("assignedCharactersList", assignedCharactersList);
+        return mv;
+    }
+
+
     @RequestMapping(value = "/addCharacterToProject/{characterID}/{novelID}")
-    public String addTeamToProject(@Valid @PathVariable (value = "characterID") int characterID, @Valid @PathVariable("novelID") int novelID){
+    public String addTeamToProject(@Valid @PathVariable (value = "characterID") int characterID, @Valid @PathVariable("novelID") int novelID, Model model){
         FWCharacter charObj = characterService.getFWCharacterById(characterID);
         Novel novelObj = novelService.getNovelById(novelID);
         novelService.addTeamToProject(novelObj,charObj);
         return "redirect:/showFormForUpdateProj/"+novelID;
+    }
+
+    @RequestMapping(value = "/removeCharacterFromProject/{characterID}/{novelID}")
+    public String removeCharacterFromProject(@Valid @PathVariable (value = "characterID") int characterID, @Valid @PathVariable("novelID") int novelID, Model model){
+        FWCharacter charObj = characterService.getFWCharacterById(characterID);
+        Novel novelObj = novelService.getNovelById(novelID);
+        novelService.removeTeamToProject(novelObj,charObj);
+        return "redirect:/showFormForUpdateProj/"+novelID;
+    }
+
+    @PostMapping("/saveProj")
+    public String saveProj(@Valid @ModelAttribute("project") Novel novel) {
+        novelService.saveNovel(novel);
+        return "redirect:/showFormForUpdateProj/"+novel.getNovelID();
+    }
+
+    @GetMapping("/showFormForUpdateProj/{id}")
+    public ModelAndView showFormForUpdate(@Valid @PathVariable ( value = "novelID") int novelID, Model model)
+    {
+        Novel novelObj = novelService.getNovelById(novelID);
+        return setUpProjPage(model, novelObj);
     }
 
     @GetMapping("/projectsPage/page/{pageNo}")
