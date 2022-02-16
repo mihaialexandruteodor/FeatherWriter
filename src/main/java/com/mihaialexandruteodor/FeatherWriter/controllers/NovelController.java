@@ -42,12 +42,6 @@ public class NovelController {
         return setUpProjPage(model, novel);
     }
 
-    @GetMapping("/decorateProject/{novelID}")
-    public ModelAndView decorateProject(Model model, @Valid @PathVariable("novelID") int novelID)
-    {
-        Novel novelObj = novelService.getNovelById(novelID);
-        return setUpProjDecorationPage(model,novelObj);
-    }
 
     ModelAndView setUpProjPage(Model model, Novel novel)
     {
@@ -62,9 +56,11 @@ public class NovelController {
         mv.addObject("novel",novel);
         List<FWCharacter> characterList = characterService.getAllFWCharacters();
         List<FWCharacter> assignedCharactersList = novel.getCharacters();
-        characterList.removeIf(assignedCharactersList::contains);
+        if(assignedCharactersList != null) {
+            characterList.removeIf(assignedCharactersList::contains);
+            mv.addObject("assignedCharactersList", assignedCharactersList);
+        }
         mv.addObject("characterList", characterList);
-        mv.addObject("assignedCharactersList", assignedCharactersList);
         return mv;
     }
 
@@ -74,7 +70,7 @@ public class NovelController {
         FWCharacter charObj = characterService.getFWCharacterById(characterID);
         Novel novelObj = novelService.getNovelById(novelID);
         novelService.addTeamToProject(novelObj,charObj);
-        return "redirect:/showFormForUpdateProj/"+novelID;
+        return "redirect:/showFormForDecorationProj/"+novelID;
     }
 
     @RequestMapping(value = "/removeCharacterFromProject/{characterID}/{novelID}")
@@ -82,20 +78,28 @@ public class NovelController {
         FWCharacter charObj = characterService.getFWCharacterById(characterID);
         Novel novelObj = novelService.getNovelById(novelID);
         novelService.removeTeamToProject(novelObj,charObj);
-        return "redirect:/showFormForUpdateProj/"+novelID;
+        return "redirect:/showFormForDecorationProj/"+novelID;
     }
 
-    @RequestMapping("/saveProject")
-    public String saveProject(@Valid @ModelAttribute("novel") Novel novel) {
+    @PostMapping("/saveProject")
+    public ModelAndView saveProject(@Valid @ModelAttribute("novel") Novel novel, Model model) {
         novelService.saveNovel(novel);
-        return "redirect:/showFormForUpdateProj/"+novel.getNovelID();
+        return setUpProjDecorationPage(model,novel);
     }
 
-    @GetMapping("/showFormForUpdateProj/{id}")
+
+    @GetMapping("/showFormForUpdateProj/{novelID}")
     public ModelAndView showFormForUpdate(@Valid @PathVariable ( value = "novelID") int novelID, Model model)
     {
         Novel novelObj = novelService.getNovelById(novelID);
-        return setUpProjPage(model, novelObj);
+        return setUpProjPage(model,novelObj);
+    }
+
+    @GetMapping("/showFormForDecorationProj/{novelID}")
+    public ModelAndView showFormForDecorationProj(@Valid @PathVariable ( value = "novelID") int novelID, Model model)
+    {
+        Novel novel = novelService.getNovelById(novelID);
+        return setUpProjDecorationPage(model,novel);
     }
 
     @GetMapping("/projectsPage/page/{pageNo}")
