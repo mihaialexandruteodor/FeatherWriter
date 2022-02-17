@@ -28,16 +28,16 @@ public class Novel {
     @Column(name = "authorcontactinfo")
     private String authorcontactinfo;
 
-    @OneToMany(mappedBy = "novel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "novel", cascade = CascadeType.ALL)
     private List<Location> locations;
 
-    @OneToMany(mappedBy = "novel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "novel", cascade = CascadeType.ALL)
     private List<Chapter> chapters;
 
-    @OneToMany(mappedBy = "novel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "novel", cascade = CascadeType.ALL)
     private List<FWCharacter> characters;
 
-    @OneToMany(mappedBy = "novel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "novel", cascade = CascadeType.ALL)
     private List<Note> notes;
 
     @OneToOne

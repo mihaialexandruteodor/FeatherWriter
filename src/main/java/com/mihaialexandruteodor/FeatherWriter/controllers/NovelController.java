@@ -57,6 +57,7 @@ public class NovelController {
         List<FWCharacter> characterList = characterService.getAllFWCharacters();
         List<FWCharacter> assignedCharactersList = novel.getCharacters();
         if(assignedCharactersList != null) {
+            System.out.println("Characters assigned to Novel: " + assignedCharactersList.toString());
             characterList.removeIf(assignedCharactersList::contains);
             mv.addObject("assignedCharactersList", assignedCharactersList);
         }
@@ -65,20 +66,23 @@ public class NovelController {
     }
 
 
-    @RequestMapping(value = "/addCharacterToProject/{characterID}/{novelID}")
-    public String addTeamToProject(@Valid @PathVariable (value = "characterID") int characterID, @Valid @PathVariable("novelID") int novelID, Model model){
-        FWCharacter charObj = characterService.getFWCharacterById(characterID);
-        Novel novelObj = novelService.getNovelById(novelID);
-        novelService.addTeamToProject(novelObj,charObj);
-        return "redirect:/showFormForDecorationProj/"+novelID;
+    @RequestMapping("/addCharacterToProject/{characterID}/{novelID}")
+    public ModelAndView addCharacterToProject(@Valid @PathVariable("characterID") String characterID, @Valid @PathVariable("novelID") String  novelID, Model model){
+        System.out.println("ch id: " + characterID + " , nov id: " + novelID);
+        FWCharacter charObj = characterService.getFWCharacterById(Integer.parseInt(characterID));
+        Novel novelObj = novelService.getNovelById(Integer.parseInt(novelID));
+        novelService.addCharacterToProject(novelObj,charObj);
+        novelService.saveNovel(novelObj);
+        return setUpProjDecorationPage(model,novelObj);
     }
 
-    @RequestMapping(value = "/removeCharacterFromProject/{characterID}/{novelID}")
-    public String removeCharacterFromProject(@Valid @PathVariable (value = "characterID") int characterID, @Valid @PathVariable("novelID") int novelID, Model model){
-        FWCharacter charObj = characterService.getFWCharacterById(characterID);
-        Novel novelObj = novelService.getNovelById(novelID);
-        novelService.removeTeamToProject(novelObj,charObj);
-        return "redirect:/showFormForDecorationProj/"+novelID;
+    @RequestMapping("/removeCharacterFromProject/{characterID}/{novelID}")
+    public ModelAndView removeCharacterFromProject(@Valid @PathVariable("characterID") String  characterID, @Valid @PathVariable("novelID") String  novelID, Model model){
+        FWCharacter charObj = characterService.getFWCharacterById(Integer.parseInt(characterID));
+        Novel novelObj = novelService.getNovelById(Integer.parseInt(novelID));
+        novelService.removeCharacterFromProject(novelObj,charObj);
+        novelService.saveNovel(novelObj);
+        return setUpProjDecorationPage(model,novelObj);
     }
 
     @PostMapping("/saveProject")
@@ -89,21 +93,21 @@ public class NovelController {
 
 
     @GetMapping("/showFormForUpdateProj/{novelID}")
-    public ModelAndView showFormForUpdate(@Valid @PathVariable ( value = "novelID") int novelID, Model model)
+    public ModelAndView showFormForUpdate(@Valid @PathVariable("novelID") int novelID, Model model)
     {
         Novel novelObj = novelService.getNovelById(novelID);
         return setUpProjPage(model,novelObj);
     }
 
     @GetMapping("/showFormForDecorationProj/{novelID}")
-    public ModelAndView showFormForDecorationProj(@Valid @PathVariable ( value = "novelID") int novelID, Model model)
+    public ModelAndView showFormForDecorationProj(@Valid @PathVariable("novelID") int novelID, Model model)
     {
         Novel novel = novelService.getNovelById(novelID);
         return setUpProjDecorationPage(model,novel);
     }
 
     @GetMapping("/projectsPage/page/{pageNo}")
-    public ModelAndView findPaginated(@Valid @PathVariable(value = "pageNo") int pageNo,
+    public ModelAndView findPaginated(@Valid @PathVariable("pageNo") int pageNo,
                                       @Valid @RequestParam("sortField") String sortField,
                                       @Valid @RequestParam("sortDir") String sortDir) {
 

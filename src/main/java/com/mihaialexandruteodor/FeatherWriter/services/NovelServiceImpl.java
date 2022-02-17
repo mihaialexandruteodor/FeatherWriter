@@ -48,13 +48,13 @@ public class NovelServiceImpl implements  NovelService{
     }
 
     @Override
-    public void addTeamToProject(Novel project, FWCharacter character) {
+    public void addCharacterToProject(Novel project, FWCharacter character) {
         project.addCharacter(character);
         this.novelRepository.save(project);
     }
 
     @Override
-    public void removeTeamToProject(Novel project, FWCharacter character) {
+    public void removeCharacterFromProject(Novel project, FWCharacter character) {
         project.removeCharacter(character);
         this.novelRepository.save(project);
     }

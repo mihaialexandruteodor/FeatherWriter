@@ -11,7 +11,7 @@ public interface NovelService {
     void saveNovel(Novel novel);
     Novel getNovelById(int id);
     void deleteNovelById(int id);
-    void addTeamToProject(Novel project, FWCharacter character) ;
-    void removeTeamToProject(Novel project, FWCharacter character) ;
+    void addCharacterToProject(Novel project, FWCharacter character) ;
+    void removeCharacterFromProject(Novel project, FWCharacter character) ;
     Page<Novel> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
 }
