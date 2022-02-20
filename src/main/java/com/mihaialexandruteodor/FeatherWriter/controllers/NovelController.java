@@ -51,6 +51,15 @@ public class NovelController {
         return mv;
     }
 
+    ModelAndView setUpProjDetails(Model model, Novel novel)
+    {
+        ModelAndView mv = new ModelAndView("project_details");
+        mv.addObject("novel",novel);
+        List<FWCharacter> characterList = characterService.getAllFWCharacters();
+        mv.addObject("characterList", characterList);
+        return mv;
+    }
+
     ModelAndView setUpProjDecorationPage(Model model, Novel novel)
     {
         ModelAndView mv = new ModelAndView("project_decoration");
@@ -110,6 +119,12 @@ public class NovelController {
     {
         Novel novel = novelService.getNovelById(novelID);
         return setUpProjDecorationPage(model,novel);
+    }
+
+    @GetMapping("/novelPage/{novelID}")
+    public ModelAndView novelPage(@Valid @PathVariable("novelID") int novelID,Model model) {
+        Novel novel = novelService.getNovelById(novelID);
+        return setUpProjDetails(model, novel);
     }
 
     @GetMapping("/projectsPage/page/{pageNo}")
