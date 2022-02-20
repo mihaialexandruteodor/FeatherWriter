@@ -20,6 +20,7 @@
       <div class="card-body">
         <h5 class="card-title" th:text="${novel.title}"></h5>
         <p class="card-text" th:text="${novel.authorname}"></p>
+        <a th:href="@{'/showFormForUpdateProj/' + ${novel.novelID}}" class="button-78">Edit</a>
         <a th:href="@{'/novelPage/' + ${novel.novelID}}" class="button-78">Details</a>
       </div>
     </div>

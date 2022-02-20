@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class NovelController {
@@ -55,7 +56,7 @@ public class NovelController {
         ModelAndView mv = new ModelAndView("project_decoration");
         mv.addObject("novel",novel);
         List<FWCharacter> characterList = characterService.getAllFWCharacters();
-        List<FWCharacter> assignedCharactersList = novel.getCharacters();
+        Set<FWCharacter> assignedCharactersList = novel.getCharacters();
         if(assignedCharactersList != null) {
             System.out.println("Characters assigned to Novel: " + assignedCharactersList.toString());
             characterList.removeIf(assignedCharactersList::contains);
@@ -91,6 +92,11 @@ public class NovelController {
         return setUpProjDecorationPage(model,novel);
     }
 
+    @PostMapping("/updateProject")
+    public ModelAndView updateProject(@Valid @ModelAttribute("novel") Novel novel, Model model) {
+        novelService.saveNovel(novel);
+        return loadProjectsPageData();
+    }
 
     @GetMapping("/showFormForUpdateProj/{novelID}")
     public ModelAndView showFormForUpdate(@Valid @PathVariable("novelID") int novelID, Model model)

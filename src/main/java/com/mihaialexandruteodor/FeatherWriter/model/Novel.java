@@ -1,7 +1,8 @@
 package com.mihaialexandruteodor.FeatherWriter.model;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.data.rest.core.annotation.RestResource;
 
@@ -29,16 +30,16 @@ public class Novel {
     private String authorcontactinfo;
 
     @OneToMany(mappedBy = "novel", cascade = CascadeType.ALL)
-    private List<Location> locations;
+    private Set<Location> locations = new HashSet<>();
 
     @OneToMany(mappedBy = "novel", cascade = CascadeType.ALL)
-    private List<Chapter> chapters;
+    private Set<Chapter> chapters = new HashSet<>();
 
     @OneToMany(mappedBy = "novel", cascade = CascadeType.ALL)
-    private List<FWCharacter> characters;
+    private Set<FWCharacter> characters = new HashSet<>();
 
     @OneToMany(mappedBy = "novel", cascade = CascadeType.ALL)
-    private List<Note> notes;
+    private Set<Note> notes = new HashSet<>();
 
     @OneToOne
     @JoinColumn(name = "corkboardID")
@@ -89,21 +90,21 @@ public class Novel {
         this.authorcontactinfo = authorcontactinfo;
     }
 
-    public List<Location> getLocations() {return locations;}
+    public Set<Location> getLocations() {return locations;}
 
-    public void setLocations(List<Location> locations) {this.locations = locations;}
+    public void setLocations(Set<Location> locations) {this.locations = locations;}
 
-    public List<Chapter> getChapters() {return chapters;}
+    public Set<Chapter> getChapters() {return chapters;}
 
-    public void setChapters(List<Chapter> chapters) {this.chapters = chapters;}
+    public void setChapters(Set<Chapter> chapters) {this.chapters = chapters;}
 
-    public List<FWCharacter> getCharacters() {return characters;}
+    public Set<FWCharacter> getCharacters() {return characters;}
 
-    public void setCharacters(List<FWCharacter> characters) {this.characters = characters;}
+    public void setCharacters(Set<FWCharacter> characters) {this.characters = characters;}
 
-    public List<Note> getNotes() {return notes;}
+    public Set<Note> getNotes() {return notes;}
 
-    public void setNotes(List<Note> notes) {this.notes = notes;}
+    public void setNotes(Set<Note> notes) {this.notes = notes;}
 
     public Corkboard getCorkboard() {return corkboard;}
 
