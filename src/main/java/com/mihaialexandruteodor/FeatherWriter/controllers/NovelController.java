@@ -2,8 +2,7 @@ package com.mihaialexandruteodor.FeatherWriter.controllers;
 
 import com.mihaialexandruteodor.FeatherWriter.model.FWCharacter;
 import com.mihaialexandruteodor.FeatherWriter.model.Novel;
-import com.mihaialexandruteodor.FeatherWriter.services.FWCharacterService;
-import com.mihaialexandruteodor.FeatherWriter.services.NovelService;
+import com.mihaialexandruteodor.FeatherWriter.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.ui.Model;
@@ -22,6 +21,15 @@ public class NovelController {
 
     @Autowired
     private FWCharacterService characterService;
+
+    @Autowired
+    private LocationService locationService;
+
+    @Autowired
+    private ChapterService chapterService;
+
+    @Autowired
+    private NoteService noteService;
 
     @Autowired
     public NovelController(NovelService novelService) {
