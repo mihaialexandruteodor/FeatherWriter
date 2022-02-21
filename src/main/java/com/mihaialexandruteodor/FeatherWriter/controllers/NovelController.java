@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -62,10 +63,18 @@ public class NovelController {
     {
         ModelAndView mv = new ModelAndView("project_details");
         mv.addObject("novel",novel);
-        Set<FWCharacter> assignedCharacterList = novel.getCharacters();
-        Set<Chapter> assignedChapterList = novel.getChapters();
-        Set<Location> assignedLocationList = novel.getLocations();
-        Set<Note> assignedNoteList = novel.getNotes();
+        Set<FWCharacter> assignedCharacterSet = novel.getCharacters();
+        Set<Chapter> assignedChapterSet = novel.getChapters();
+        Set<Location> assignedLocationSet = novel.getLocations();
+        Set<Note> assignedNoteSet = novel.getNotes();
+        List<FWCharacter> assignedCharacterList = new ArrayList<>();
+        assignedCharacterList.addAll(assignedCharacterSet);
+        List<Chapter> assignedChapterList = new ArrayList<>();
+        assignedChapterList.addAll(assignedChapterSet);
+        List<Location> assignedLocationList = new ArrayList<>();
+        assignedLocationList.addAll(assignedLocationSet);
+        List<Note> assignedNoteList = new ArrayList<>();
+        assignedNoteList.addAll(assignedNoteSet);
         mv.addObject("assignedCharacterList", assignedCharacterList);
         mv.addObject("assignedChapterList", assignedChapterList);
         mv.addObject("assignedLocationList", assignedLocationList);
@@ -79,7 +88,9 @@ public class NovelController {
         mv.addObject("novel",novel);
         
         List<FWCharacter> characterList = characterService.getAllFWCharacters();
-        Set<FWCharacter> assignedCharacterList = novel.getCharacters();
+        Set<FWCharacter> assignedCharacterSet = novel.getCharacters();
+        List<FWCharacter> assignedCharacterList = new ArrayList<>();
+        assignedCharacterList.addAll(assignedCharacterSet);
         if(assignedCharacterList != null) {
             characterList.removeIf(assignedCharacterList::contains);
             mv.addObject("assignedCharacterList", assignedCharacterList);
@@ -87,7 +98,9 @@ public class NovelController {
         mv.addObject("characterList", characterList);
 
         List<Chapter> chapterList = chapterService.getAllChapters();
-        Set<Chapter> assignedChapterList = novel.getChapters();
+        Set<Chapter> assignedChapterSet = novel.getChapters();
+        List<Chapter> assignedChapterList = new ArrayList<>();
+        assignedChapterList.addAll(assignedChapterSet);
         if(assignedChapterList != null) {
             chapterList.removeIf(assignedChapterList::contains);
             mv.addObject("assignedChapterList", assignedChapterList);
@@ -95,7 +108,9 @@ public class NovelController {
         mv.addObject("chapterList", chapterList);
 
         List<Location> locationList = locationService.getAllLocations();
-        Set<Location> assignedLocationList = novel.getLocations();
+        Set<Location> assignedLocationSet = novel.getLocations();
+        List<Location> assignedLocationList = new ArrayList<>();
+        assignedLocationList.addAll(assignedLocationSet);
         if(assignedLocationList != null) {
             locationList.removeIf(assignedLocationList::contains);
             mv.addObject("assignedLocationList", assignedLocationList);
@@ -103,7 +118,9 @@ public class NovelController {
         mv.addObject("locationList", locationList);
 
         List<Note> noteList = noteService.getAllNotes();
-        Set<Note> assignedNoteList = novel.getNotes();
+        Set<Note> assignedNoteSet = novel.getNotes();
+        List<Note> assignedNoteList = new ArrayList<>();
+        assignedNoteList.addAll(assignedNoteSet);
         if(assignedNoteList != null) {
             noteList.removeIf(assignedNoteList::contains);
             mv.addObject("assignedNoteList", assignedNoteList);

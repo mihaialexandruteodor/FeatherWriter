@@ -49,7 +49,9 @@
         <table border="none"  class = "table table-striped table-responsive-md">
             <tbody>
             <tr th:each="character : ${assignedCharacterList}">
+                <td>
                 <label class="text_bg" th:text="${character.name}"></label>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -61,7 +63,9 @@
         <table border="none"  class = "table table-striped table-responsive-md">
             <tbody>
             <tr th:each="chapter : ${assignedChapterList}">
+                <td>
                 <label class="text_bg" th:text="${chapter.title}"></label>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -73,7 +77,9 @@
         <table border="none"  class = "table table-striped table-responsive-md">
             <tbody>
             <tr th:each="location : ${assignedLocationList}">
+                <td>
                 <label class="text_bg" th:text="${location.name}"></label>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -85,7 +91,9 @@
         <table border="none"  class = "table table-striped table-responsive-md">
             <tbody>
             <tr th:each="note : ${assignedNoteList}">
+                <td>
                 <label class="text_bg" th:text="${note.title}"></label>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -93,6 +101,8 @@
 
 
     </form>
+
+    <a class="button-78" th:href = "@{/projectsPage}">Projects page</a>
 </div>
 
 </body>
