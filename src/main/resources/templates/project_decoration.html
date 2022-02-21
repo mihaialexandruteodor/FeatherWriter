@@ -57,7 +57,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr th:each="character : ${assignedCharactersList}">
+      <tr th:each="character : ${assignedCharacterList}">
         <td th:text="${character.name}"></td>
         <td>
           <a style="width: 50%;" th:href="@{/removeCharacterFromProject/{characterID}/{novelID}(characterID=${character.characterID}, novelID=${novel.novelID})}" class="button-78" >Remove Character</a>
