@@ -1,7 +1,6 @@
 package com.mihaialexandruteodor.FeatherWriter.controllers;
 
-import com.mihaialexandruteodor.FeatherWriter.model.FWCharacter;
-import com.mihaialexandruteodor.FeatherWriter.model.Novel;
+import com.mihaialexandruteodor.FeatherWriter.model.*;
 import com.mihaialexandruteodor.FeatherWriter.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -63,8 +62,14 @@ public class NovelController {
     {
         ModelAndView mv = new ModelAndView("project_details");
         mv.addObject("novel",novel);
-        List<FWCharacter> characterList = characterService.getAllFWCharacters();
-        mv.addObject("characterList", characterList);
+        Set<FWCharacter> assignedCharacterList = novel.getCharacters();
+        Set<Chapter> assignedChapterList = novel.getChapters();
+        Set<Location> assignedLocationList = novel.getLocations();
+        Set<Note> assignedNoteList = novel.getNotes();
+        mv.addObject("assignedCharacterList", assignedCharacterList);
+        mv.addObject("assignedChapterList", assignedChapterList);
+        mv.addObject("assignedLocationList", assignedLocationList);
+        mv.addObject("assignedNoteList", assignedNoteList);
         return mv;
     }
 
@@ -72,21 +77,45 @@ public class NovelController {
     {
         ModelAndView mv = new ModelAndView("project_decoration");
         mv.addObject("novel",novel);
+        
         List<FWCharacter> characterList = characterService.getAllFWCharacters();
-        Set<FWCharacter> assignedCharactersList = novel.getCharacters();
-        if(assignedCharactersList != null) {
-            System.out.println("Characters assigned to Novel: " + assignedCharactersList.toString());
-            characterList.removeIf(assignedCharactersList::contains);
-            mv.addObject("assignedCharactersList", assignedCharactersList);
+        Set<FWCharacter> assignedCharacterList = novel.getCharacters();
+        if(assignedCharacterList != null) {
+            characterList.removeIf(assignedCharacterList::contains);
+            mv.addObject("assignedCharacterList", assignedCharacterList);
         }
         mv.addObject("characterList", characterList);
+
+        List<Chapter> chapterList = chapterService.getAllChapters();
+        Set<Chapter> assignedChapterList = novel.getChapters();
+        if(assignedChapterList != null) {
+            chapterList.removeIf(assignedChapterList::contains);
+            mv.addObject("assignedChapterList", assignedChapterList);
+        }
+        mv.addObject("chapterList", chapterList);
+
+        List<Location> locationList = locationService.getAllLocations();
+        Set<Location> assignedLocationList = novel.getLocations();
+        if(assignedLocationList != null) {
+            locationList.removeIf(assignedLocationList::contains);
+            mv.addObject("assignedLocationList", assignedLocationList);
+        }
+        mv.addObject("locationList", locationList);
+
+        List<Note> noteList = noteService.getAllNotes();
+        Set<Note> assignedNoteList = novel.getNotes();
+        if(assignedNoteList != null) {
+            noteList.removeIf(assignedNoteList::contains);
+            mv.addObject("assignedNoteList", assignedNoteList);
+        }
+        mv.addObject("noteList", noteList);
+        
         return mv;
     }
 
 
     @RequestMapping("/addCharacterToProject/{characterID}/{novelID}")
     public ModelAndView addCharacterToProject(@Valid @PathVariable("characterID") String characterID, @Valid @PathVariable("novelID") String  novelID, Model model){
-        System.out.println("ch id: " + characterID + " , nov id: " + novelID);
         FWCharacter charObj = characterService.getFWCharacterById(Integer.parseInt(characterID));
         Novel novelObj = novelService.getNovelById(Integer.parseInt(novelID));
         novelService.addCharacterToProject(novelObj,charObj);
@@ -99,6 +128,60 @@ public class NovelController {
         FWCharacter charObj = characterService.getFWCharacterById(Integer.parseInt(characterID));
         Novel novelObj = novelService.getNovelById(Integer.parseInt(novelID));
         novelService.removeCharacterFromProject(novelObj,charObj);
+        novelService.saveNovel(novelObj);
+        return setUpProjDecorationPage(model,novelObj);
+    }
+
+    @RequestMapping("/addChapterToProject/{chapterID}/{novelID}")
+    public ModelAndView addChapterToProject(@Valid @PathVariable("chapterID") String chapterID, @Valid @PathVariable("novelID") String  novelID, Model model){
+        Chapter chapObj = chapterService.getChapterById(Integer.parseInt(chapterID));
+        Novel novelObj = novelService.getNovelById(Integer.parseInt(novelID));
+        novelService.addChapterToProject(novelObj,chapObj);
+        novelService.saveNovel(novelObj);
+        return setUpProjDecorationPage(model,novelObj);
+    }
+
+    @RequestMapping("/removeChapterFromProject/{chapterID}/{novelID}")
+    public ModelAndView removeChapterFromProject(@Valid @PathVariable("chapterID") String  chapterID, @Valid @PathVariable("novelID") String  novelID, Model model){
+        Chapter chapObj = chapterService.getChapterById(Integer.parseInt(chapterID));
+        Novel novelObj = novelService.getNovelById(Integer.parseInt(novelID));
+        novelService.removeChapterFromProject(novelObj,chapObj);
+        novelService.saveNovel(novelObj);
+        return setUpProjDecorationPage(model,novelObj);
+    }
+
+    @RequestMapping("/addLocationToProject/{locationID}/{novelID}")
+    public ModelAndView addLocationToProject(@Valid @PathVariable("locationID") String locationID, @Valid @PathVariable("novelID") String  novelID, Model model){
+        Location locObj = locationService.getLocationById(Integer.parseInt(locationID));
+        Novel novelObj = novelService.getNovelById(Integer.parseInt(novelID));
+        novelService.addLocationToProject(novelObj,locObj);
+        novelService.saveNovel(novelObj);
+        return setUpProjDecorationPage(model,novelObj);
+    }
+
+    @RequestMapping("/removeLocationFromProject/{locationID}/{novelID}")
+    public ModelAndView removeLocationFromProject(@Valid @PathVariable("locationID") String  locationID, @Valid @PathVariable("novelID") String  novelID, Model model){
+        Location locObj = locationService.getLocationById(Integer.parseInt(locationID));
+        Novel novelObj = novelService.getNovelById(Integer.parseInt(novelID));
+        novelService.removeLocationFromProject(novelObj,locObj);
+        novelService.saveNovel(novelObj);
+        return setUpProjDecorationPage(model,novelObj);
+    }
+
+    @RequestMapping("/addNoteToProject/{noteID}/{novelID}")
+    public ModelAndView addNoteToProject(@Valid @PathVariable("noteID") String noteID, @Valid @PathVariable("novelID") String  novelID, Model model){
+        Note noteObj = noteService.getNoteById(Integer.parseInt(noteID));
+        Novel novelObj = novelService.getNovelById(Integer.parseInt(novelID));
+        novelService.addNoteToProject(novelObj,noteObj);
+        novelService.saveNovel(novelObj);
+        return setUpProjDecorationPage(model,novelObj);
+    }
+
+    @RequestMapping("/removeNoteFromProject/{noteID}/{novelID}")
+    public ModelAndView removeNoteFromProject(@Valid @PathVariable("noteID") String  noteID, @Valid @PathVariable("novelID") String  novelID, Model model){
+        Note noteObj = noteService.getNoteById(Integer.parseInt(noteID));
+        Novel novelObj = novelService.getNovelById(Integer.parseInt(novelID));
+        novelService.removeNoteFromProject(novelObj,noteObj);
         novelService.saveNovel(novelObj);
         return setUpProjDecorationPage(model,novelObj);
     }

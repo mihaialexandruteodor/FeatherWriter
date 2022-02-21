@@ -1,8 +1,6 @@
 package com.mihaialexandruteodor.FeatherWriter.services;
 
-import com.mihaialexandruteodor.FeatherWriter.model.Chapter;
-import com.mihaialexandruteodor.FeatherWriter.model.FWCharacter;
-import com.mihaialexandruteodor.FeatherWriter.model.Novel;
+import com.mihaialexandruteodor.FeatherWriter.model.*;
 import com.mihaialexandruteodor.FeatherWriter.repository.NovelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -56,6 +54,42 @@ public class NovelServiceImpl implements  NovelService{
     @Override
     public void removeCharacterFromProject(Novel project, FWCharacter character) {
         project.removeCharacter(character);
+        this.novelRepository.save(project);
+    }
+
+    @Override
+    public void addChapterToProject(Novel project, Chapter chapter) {
+        project.addChapter(chapter);
+        this.novelRepository.save(project);
+    }
+
+    @Override
+    public void removeChapterFromProject(Novel project, Chapter chapter) {
+        project.removeChapter(chapter);
+        this.novelRepository.save(project);
+    }
+
+    @Override
+    public void addLocationToProject(Novel project, Location location) {
+        project.addLocation(location);
+        this.novelRepository.save(project);
+    }
+
+    @Override
+    public void removeLocationFromProject(Novel project, Location location) {
+        project.removeLocation(location);
+        this.novelRepository.save(project);
+    }
+
+    @Override
+    public void addNoteToProject(Novel project, Note note) {
+        project.addNote(note);
+        this.novelRepository.save(project);
+    }
+
+    @Override
+    public void removeNoteFromProject(Novel project, Note note) {
+        project.removeNote(note);
         this.novelRepository.save(project);
     }
 

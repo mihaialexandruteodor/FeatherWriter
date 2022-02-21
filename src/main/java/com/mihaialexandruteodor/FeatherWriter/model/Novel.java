@@ -118,4 +118,31 @@ public class Novel {
     public void removeCharacter(FWCharacter character) {
         characters.remove(character);
     }
+
+    public void addChapter(Chapter chapter)
+    {
+        chapters.add(chapter);
+    }
+
+    public void removeChapter(Chapter chapter) {
+        chapters.remove(chapter);
+    }
+
+    public void addLocation(Location location)
+    {
+        locations.add(location);
+    }
+
+    public void removeLocation(Location location) {
+        locations.remove(location);
+    }
+
+    public void addNote(Note note)
+    {
+        notes.add(note);
+    }
+
+    public void removeNote(Note note) {
+        notes.remove(note);
+    }
 }

@@ -10,6 +10,9 @@ public class Note {
     @GeneratedValue(strategy =  GenerationType.SEQUENCE)
     private int noteID;
 
+    @Column(name = "title")
+    private String title;
+
     @Column(name = "text")
     private String text;
 
@@ -27,6 +30,14 @@ public class Note {
 
     public void setNoteID(int noteID) {
         this.noteID = noteID;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getText() {
