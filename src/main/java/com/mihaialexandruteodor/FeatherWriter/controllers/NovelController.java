@@ -135,6 +135,7 @@ public class NovelController {
         Novel novelObj = novelService.getNovelById(Integer.parseInt(novelID));
         novelService.addCharacterToProject(novelObj,charObj);
         novelService.saveNovel(novelObj);
+        novelObj = novelService.getNovelById(Integer.parseInt(novelID));
         return setUpProjDecorationPage(model,novelObj);
     }
 
@@ -144,6 +145,7 @@ public class NovelController {
         Novel novelObj = novelService.getNovelById(Integer.parseInt(novelID));
         novelService.removeCharacterFromProject(novelObj,charObj);
         novelService.saveNovel(novelObj);
+        novelObj = novelService.getNovelById(Integer.parseInt(novelID));
         return setUpProjDecorationPage(model,novelObj);
     }
 
@@ -153,6 +155,7 @@ public class NovelController {
         Novel novelObj = novelService.getNovelById(Integer.parseInt(novelID));
         novelService.addChapterToProject(novelObj,chapObj);
         novelService.saveNovel(novelObj);
+        novelObj = novelService.getNovelById(Integer.parseInt(novelID));
         return setUpProjDecorationPage(model,novelObj);
     }
 
@@ -162,6 +165,7 @@ public class NovelController {
         Novel novelObj = novelService.getNovelById(Integer.parseInt(novelID));
         novelService.removeChapterFromProject(novelObj,chapObj);
         novelService.saveNovel(novelObj);
+        novelObj = novelService.getNovelById(Integer.parseInt(novelID));
         return setUpProjDecorationPage(model,novelObj);
     }
 
@@ -171,6 +175,7 @@ public class NovelController {
         Novel novelObj = novelService.getNovelById(Integer.parseInt(novelID));
         novelService.addLocationToProject(novelObj,locObj);
         novelService.saveNovel(novelObj);
+        novelObj = novelService.getNovelById(Integer.parseInt(novelID));
         return setUpProjDecorationPage(model,novelObj);
     }
 
@@ -180,6 +185,7 @@ public class NovelController {
         Novel novelObj = novelService.getNovelById(Integer.parseInt(novelID));
         novelService.removeLocationFromProject(novelObj,locObj);
         novelService.saveNovel(novelObj);
+        novelObj = novelService.getNovelById(Integer.parseInt(novelID));
         return setUpProjDecorationPage(model,novelObj);
     }
 
@@ -189,6 +195,7 @@ public class NovelController {
         Novel novelObj = novelService.getNovelById(Integer.parseInt(novelID));
         novelService.addNoteToProject(novelObj,noteObj);
         novelService.saveNovel(novelObj);
+        novelObj = novelService.getNovelById(Integer.parseInt(novelID));
         return setUpProjDecorationPage(model,novelObj);
     }
 
@@ -198,6 +205,7 @@ public class NovelController {
         Novel novelObj = novelService.getNovelById(Integer.parseInt(novelID));
         novelService.removeNoteFromProject(novelObj,noteObj);
         novelService.saveNovel(novelObj);
+        novelObj = novelService.getNovelById(Integer.parseInt(novelID));
         return setUpProjDecorationPage(model,novelObj);
     }
 
@@ -208,7 +216,7 @@ public class NovelController {
     }
 
     @PostMapping("/updateProject")
-    public ModelAndView updateProject(@Valid @ModelAttribute("novel") Novel novel, Model model) {
+    public ModelAndView updateProject(@Valid @ModelAttribute("novel") Novel novel) {
         novelService.saveNovel(novel);
         return loadProjectsPageData();
     }
