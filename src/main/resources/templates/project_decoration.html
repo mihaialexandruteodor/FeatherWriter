@@ -35,9 +35,9 @@
       </thead>
       <tbody>
       <tr th:each="character : ${characterList}">
-        <td th:text="${character.name}"></td>
+        <td  th:text="${character.name}"></td>
         <td>
-          <a th:href="@{/addCharacterToProject/{characterID}/{novelID}(characterID=${character.characterID}, novelID=${novel.novelID})}" class="button-78" >Add Character</a>
+          <a style="width: 50%;   margin: auto;" th:href="@{/addCharacterToProject/{characterID}/{novelID}(characterID=${character.characterID}, novelID=${novel.novelID})}" class="button-78" >Add Character</a>
         </td>
       </tr>
 
