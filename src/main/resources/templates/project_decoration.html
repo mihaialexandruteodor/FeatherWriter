@@ -31,7 +31,18 @@
       <tr th:each="character : ${characterList}">
         <td  th:text="${character.name}"></td>
         <td>
-          <a style="width: 50%;   margin: auto;" th:href="@{/addCharacterToProject/{characterID}/{novelID}(characterID=${character.characterID}, novelID=${novel.novelID})}" class="button-78" >Add Character</a>
+        <form method="POST" th:object="${novel}" th:action="@{/addCharacterToProject/{characterID}(characterID=${character.characterID})}">
+          <input type="hidden" th:field="*{novelID}" />
+          <input type="hidden" th:field="*{title}" />
+          <input type="hidden" th:field="*{authorname}" />
+          <input type="hidden" th:field="*{synopsis}" />
+          <input type="hidden" th:field="*{authorcontactinfo}" />
+          <input type="hidden" th:field="*{locations}" />
+          <input type="hidden" th:field="*{chapters}" />
+          <input type="hidden" th:field="*{characters}" />
+          <input type="hidden" th:field="*{notes}" >
+          <button style="width: 50%;   margin: auto;" type="submit" value="value"  class="button-78" >Add Character</button>
+        </form>
         </td>
       </tr>
 

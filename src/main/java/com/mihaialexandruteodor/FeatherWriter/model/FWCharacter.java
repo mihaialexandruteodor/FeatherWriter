@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class FWCharacter {
 
     @Id
-    @GeneratedValue(strategy =  GenerationType.SEQUENCE)
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private int characterID;
 
     @Column(name = "name")

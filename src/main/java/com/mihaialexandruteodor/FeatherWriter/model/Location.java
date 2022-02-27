@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Location {
 
     @Id
-    @GeneratedValue(strategy =  GenerationType.SEQUENCE)
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private int locationID;
 
     @Column(name = "name")

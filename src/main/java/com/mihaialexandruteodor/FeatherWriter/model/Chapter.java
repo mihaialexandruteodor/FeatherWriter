@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Chapter {
 
     @Id
-    @GeneratedValue(strategy =  GenerationType.SEQUENCE)
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private int chapterID;
 
     @Column(name = "title")

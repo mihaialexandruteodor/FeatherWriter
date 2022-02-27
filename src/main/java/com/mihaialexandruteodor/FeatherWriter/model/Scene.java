@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Scene {
 
     @Id
-    @GeneratedValue(strategy =  GenerationType.SEQUENCE)
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private int sceneID;
 
     @Column(name = "text")

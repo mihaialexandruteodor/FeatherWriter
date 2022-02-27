@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Corkboard {
 
     @Id
-    @GeneratedValue(strategy =  GenerationType.SEQUENCE)
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private int corkboardID;
 
     @Column(name = "orderofsceneids")

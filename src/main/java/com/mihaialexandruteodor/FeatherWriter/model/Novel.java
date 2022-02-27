@@ -11,7 +11,7 @@ import org.springframework.data.rest.core.annotation.RestResource;
 public class Novel {
 
     @Id
-    @GeneratedValue(strategy =  GenerationType.SEQUENCE)
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private int novelID;
 
     @Column(name = "title")

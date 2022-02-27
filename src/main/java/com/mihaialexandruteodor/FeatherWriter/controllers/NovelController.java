@@ -129,24 +129,20 @@ public class NovelController {
     }
 
 
-    @RequestMapping("/addCharacterToProject/{characterID}/{novelID}")
-    public ModelAndView addCharacterToProject(@Valid @PathVariable("characterID") String characterID, @Valid @PathVariable("novelID") String  novelID, Model model){
+    @PostMapping("/addCharacterToProject/{characterID}")
+    public ModelAndView addCharacterToProject(@Valid @PathVariable("characterID") String characterID, @Valid@ModelAttribute("novel") Novel  novel, Model model){
         FWCharacter charObj = characterService.getFWCharacterById(Integer.parseInt(characterID));
-        Novel novelObj = novelService.getNovelById(Integer.parseInt(novelID));
-        novelService.addCharacterToProject(novelObj,charObj);
-        novelService.saveNovel(novelObj);
-        novelObj = novelService.getNovelById(Integer.parseInt(novelID));
-        return setUpProjDecorationPage(model,novelObj);
+        novelService.addCharacterToProject(novel,charObj);
+        novelService.saveNovel(novel);
+        return setUpProjDecorationPage(model,novel);
     }
 
-    @RequestMapping("/removeCharacterFromProject/{characterID}/{novelID}")
-    public ModelAndView removeCharacterFromProject(@Valid @PathVariable("characterID") String  characterID, @Valid @PathVariable("novelID") String  novelID, Model model){
+    @RequestMapping("/removeCharacterFromProject/{characterID}")
+    public ModelAndView removeCharacterFromProject(@Valid @PathVariable("characterID") String  characterID, @Valid @ModelAttribute("novel") Novel  novel, Model model){
         FWCharacter charObj = characterService.getFWCharacterById(Integer.parseInt(characterID));
-        Novel novelObj = novelService.getNovelById(Integer.parseInt(novelID));
-        novelService.removeCharacterFromProject(novelObj,charObj);
-        novelService.saveNovel(novelObj);
-        novelObj = novelService.getNovelById(Integer.parseInt(novelID));
-        return setUpProjDecorationPage(model,novelObj);
+        novelService.removeCharacterFromProject(novel,charObj);
+        novelService.saveNovel(novel);
+        return setUpProjDecorationPage(model,novel);
     }
 
     @RequestMapping("/addChapterToProject/{chapterID}/{novelID}")
