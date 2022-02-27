@@ -1,6 +1,7 @@
 package com.mihaialexandruteodor.FeatherWriter.services;
 
 import com.mihaialexandruteodor.FeatherWriter.model.Note;
+import com.mihaialexandruteodor.FeatherWriter.model.Novel;
 import com.mihaialexandruteodor.FeatherWriter.repository.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,6 +26,18 @@ public class NoteServiceImpl implements  NoteService{
 
     @Override
     public void saveNote(Note note) {
+        this.noteRepository.save(note);
+    }
+
+    @Override
+    public void addProjectToNote(Novel novel, Note note) {
+        note.setNovel(novel);
+        this.noteRepository.save(note);
+    }
+
+    @Override
+    public void removeProjectFromNote(Note note) {
+        note.removeNovel();
         this.noteRepository.save(note);
     }
 

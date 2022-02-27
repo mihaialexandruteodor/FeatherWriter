@@ -21,10 +21,6 @@
     <form  th:action="@{/saveProject}" th:object="${novel}"  method="POST">
 
         <input type="hidden" th:field="*{novelID}" />
-        <!--input type="hidden" th:field="*{locations}" />
-        <input type="hidden" th:field="*{chapters}" />
-        <input type="hidden" th:field="*{characters}" />
-        <input type="hidden" th:field="*{notes}" /-->
 
         <h2>Title</h2>
         <input class="center" type="text" th:field="*{title}" placeholder="Title">

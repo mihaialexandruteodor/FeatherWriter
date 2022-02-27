@@ -39,4 +39,7 @@ public class Chapter {
         this.novel = novel;
     }
 
+    public void removeNovel() {
+        this.novel = null;
+    }
 }

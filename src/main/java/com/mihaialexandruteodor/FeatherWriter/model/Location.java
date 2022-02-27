@@ -70,4 +70,8 @@ public class Location {
     public Novel getNovel() {return novel;}
 
     public void setNovel(Novel novel) {this.novel = novel;}
+
+    public void removeNovel() {
+        this.novel = null;
+    }
 }

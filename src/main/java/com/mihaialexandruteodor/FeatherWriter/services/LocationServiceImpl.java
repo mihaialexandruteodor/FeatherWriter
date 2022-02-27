@@ -1,6 +1,7 @@
 package com.mihaialexandruteodor.FeatherWriter.services;
 
 import com.mihaialexandruteodor.FeatherWriter.model.Location;
+import com.mihaialexandruteodor.FeatherWriter.model.Novel;
 import com.mihaialexandruteodor.FeatherWriter.repository.LocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,6 +26,18 @@ public class LocationServiceImpl implements LocationService{
 
     @Override
     public void saveLocation(Location location) {
+        this.locationRepository.save(location);
+    }
+
+    @Override
+    public void addProjectToLocation(Novel novel, Location location) {
+        location.setNovel(novel);
+        this.locationRepository.save(location);
+    }
+
+    @Override
+    public void removeProjectFromLocation(Location location) {
+        location.removeNovel();
         this.locationRepository.save(location);
     }
 

@@ -1,6 +1,7 @@
 package com.mihaialexandruteodor.FeatherWriter.services;
 
 import com.mihaialexandruteodor.FeatherWriter.model.FWCharacter;
+import com.mihaialexandruteodor.FeatherWriter.model.Novel;
 import com.mihaialexandruteodor.FeatherWriter.repository.FWCharacterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,6 +26,18 @@ public class FWCharacterServiceImpl implements FWCharacterService{
 
     @Override
     public void saveFWCharacter(FWCharacter fwCharacter) {
+        this.fwCharacterRepository.save(fwCharacter);
+    }
+
+    @Override
+    public void addProjectToCharacter(Novel novel, FWCharacter fwCharacter) {
+        fwCharacter.setNovel(novel);
+        this.fwCharacterRepository.save(fwCharacter);
+    }
+
+    @Override
+    public void removeProjectFromCharacter( FWCharacter fwCharacter) {
+        fwCharacter.removeNovel();
         this.fwCharacterRepository.save(fwCharacter);
     }
 

@@ -116,4 +116,6 @@ public class FWCharacter {
     public void setNovel(Novel novel) {
         this.novel = novel;
     }
+
+    public void removeNovel() { this.novel = null;}
 }

@@ -55,4 +55,16 @@ public class Note {
     public void setImage(String image) {
         this.image = image;
     }
+
+    public Novel getNovel() {
+        return novel;
+    }
+
+    public void setNovel(Novel novel) {
+        this.novel = novel;
+    }
+
+    public void removeNovel() {
+        this.novel = null;
+    }
 }
