@@ -50,7 +50,7 @@
             <tbody>
             <tr th:each="character : ${assignedCharacterList}">
                 <td>
-                <label class="text_bg" th:text="${character.name}"></label>
+                <a class="text_bg" th:text="${character.name}" th:href="@{'/characterProfile/' + ${character.characterID}}"></a>
                 </td>
             </tr>
             </tbody>
@@ -64,7 +64,7 @@
             <tbody>
             <tr th:each="chapter : ${assignedChapterList}">
                 <td>
-                <label class="text_bg" th:text="${chapter.title}"></label>
+                <a class="text_bg" th:text="${chapter.title}" th:href="@{'/chapterPage/' + ${chapter.chapterID}}"></a>
                 </td>
             </tr>
             </tbody>
@@ -78,7 +78,7 @@
             <tbody>
             <tr th:each="location : ${assignedLocationList}">
                 <td>
-                <label class="text_bg" th:text="${location.name}"></label>
+                <a class="text_bg" th:text="${location.name}" th:href="@{'/locationProfile/' + ${location.locationID}}"></a>
                 </td>
             </tr>
             </tbody>
@@ -92,7 +92,7 @@
             <tbody>
             <tr th:each="note : ${assignedNoteList}">
                 <td>
-                <label class="text_bg" th:text="${note.title}"></label>
+                <a class="text_bg" th:text="${note.title}" th:href="@{'/notePage/' + ${note.noteID}}"></a>
                 </td>
             </tr>
             </tbody>
