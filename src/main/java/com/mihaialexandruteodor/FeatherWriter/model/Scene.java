@@ -16,6 +16,10 @@ public class Scene {
     @Column(name = "corkboardtext")
     private String corkboardtext;
 
+    @ManyToOne
+    @JoinColumn(name="chapterID")
+    private Chapter chapter;
+
     public int getSceneID() {
         return sceneID;
     }
@@ -38,5 +42,13 @@ public class Scene {
 
     public void setCorkboardtext(String corkboardtext) {
         this.corkboardtext = corkboardtext;
+    }
+
+    public Chapter getChapter() {
+        return chapter;
+    }
+
+    public void setChapter(Chapter chapter) {
+        this.chapter = chapter;
     }
 }

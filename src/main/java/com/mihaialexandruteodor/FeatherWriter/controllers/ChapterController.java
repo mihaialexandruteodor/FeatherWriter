@@ -1,10 +1,13 @@
 package com.mihaialexandruteodor.FeatherWriter.controllers;
 
 import com.mihaialexandruteodor.FeatherWriter.model.Chapter;
+import com.mihaialexandruteodor.FeatherWriter.model.Novel;
 import com.mihaialexandruteodor.FeatherWriter.services.ChapterService;
+import com.mihaialexandruteodor.FeatherWriter.services.NovelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,8 +24,29 @@ public class ChapterController {
     private ChapterService chapterService;
 
     @Autowired
-    public ChapterController(ChapterService chapterService) {
+    private NovelService novelService;
+
+    @Autowired
+    public ChapterController(ChapterService chapterService, NovelService novelService) {
         this.chapterService = chapterService;
+        this.novelService = novelService;
+    }
+
+    @GetMapping("/allChaptersPage/{novelID}")
+    public ModelAndView allChaptersPage(@Valid @PathVariable("novelID") int novelID, Model model)
+    {
+        Novel novelObj = novelService.getNovelById(novelID);
+        return setUpChaptersPage(model,novelObj);
+    }
+
+    ModelAndView setUpChaptersPage(Model model, Novel novel)
+    {
+        ModelAndView mv = new ModelAndView("project_chapters_timeline");
+        List<Chapter> assignedChapterList = novel.getChapters();
+
+        mv.addObject("novel",novel);
+        mv.addObject("assignedChapterList", assignedChapterList);
+        return mv;
     }
 
     @GetMapping("/cp/page/{pageNo}")

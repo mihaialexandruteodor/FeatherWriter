@@ -1,6 +1,8 @@
 package com.mihaialexandruteodor.FeatherWriter.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "chapter")
@@ -16,6 +18,9 @@ public class Chapter {
     @ManyToOne
     @JoinColumn(name="novelID")
     private Novel novel;
+
+    @OneToMany(mappedBy = "chapter", cascade = CascadeType.MERGE)
+    private List<Scene> scenes = new ArrayList<>();
 
     public int getChapterID() {
         return chapterID;
@@ -41,5 +46,13 @@ public class Chapter {
 
     public void removeNovel() {
         this.novel = null;
+    }
+
+    public List<Scene> getScenes() {
+        return scenes;
+    }
+
+    public void setScenes(List<Scene> scenes) {
+        this.scenes = scenes;
     }
 }
