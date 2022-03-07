@@ -39,6 +39,16 @@ public class ChapterController {
         return setUpChaptersPage(model,novelObj);
     }
 
+    @GetMapping("/newChapter/{novelID}")
+    public String newChapter(@Valid @PathVariable("novelID") int novelID, Model model)
+    {
+        Chapter chapter = new Chapter();
+        Novel novelObj = novelService.getNovelById(novelID);
+        model.addAttribute("chapter",chapter);
+        model.addAttribute("novelObj",novelObj);
+        return "chapter_creation";
+    }
+
     ModelAndView setUpChaptersPage(Model model, Novel novel)
     {
         ModelAndView mv = new ModelAndView("project_chapters_timeline");
