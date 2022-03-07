@@ -21,10 +21,10 @@
 
   <form  th:action="@{/saveChapter}" th:object="${chapter}"  method="POST">
 
-
-
-
-
+    <h2>Title</h2>
+    <input class="center" type="text" th:field="*{title}" placeholder="Title">
+    <br/>
+    <br/>
 
     <button type="submit" class="button-78"> Save Chapter</button>
   </form>
