@@ -16,13 +16,15 @@
 <div class="center">
 
   <h1>New Chapter</h1>
-  <h1  th:text="'Belongs to project ' +${novelObj.title}"></h1>
+  <h1  th:text="'Belongs to chapter ' +${chapter.title}"></h1>
   <hr>
 
-  <form  th:action="@{/saveChapter}" th:object="${chapter}"  method="POST">
+  <form  th:action="@{/saveScene}" th:object="${scene}"  method="POST">
 
-    <h2>Title</h2>
-    <input class="center" type="text" th:field="*{title}" placeholder="Title">
+    <h2>Corkboard Text</h2>
+    <textarea th:field="*{corkboardtext}" placeholder="This text will appear in the previews and on the corkboard card" rows="8" cols="50">
+        </textarea>
+
     <br/>
     <br/>
 
@@ -31,7 +33,7 @@
 
   <hr>
 
-  <button class="button-78" th:href = "@{/setUpChaptersPage}">Chapters timeline</button>
+  <button class="button-78" th:href = "@{'/showSceneTimeline' + ${chapter.chapterID}}">Chapters timeline</button>
 </div>
 </body>
 </html>

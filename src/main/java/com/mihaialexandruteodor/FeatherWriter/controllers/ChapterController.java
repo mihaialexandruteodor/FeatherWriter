@@ -2,16 +2,14 @@ package com.mihaialexandruteodor.FeatherWriter.controllers;
 
 import com.mihaialexandruteodor.FeatherWriter.model.Chapter;
 import com.mihaialexandruteodor.FeatherWriter.model.Novel;
+import com.mihaialexandruteodor.FeatherWriter.model.Scene;
 import com.mihaialexandruteodor.FeatherWriter.services.ChapterService;
 import com.mihaialexandruteodor.FeatherWriter.services.NovelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -47,6 +45,29 @@ public class ChapterController {
         model.addAttribute("chapter",chapter);
         model.addAttribute("novelObj",novelObj);
         return "chapter_creation";
+    }
+
+    @PostMapping("/saveChapter")
+    public ModelAndView saveChapter(@Valid @ModelAttribute("chapter") Chapter chapter, Model model) {
+        chapterService.saveChapter(chapter);
+        return setUpSceneTimeline(model,chapter);
+    }
+
+    @GetMapping("/showSceneTimeline/{chapterID}")
+    public ModelAndView setUpSceneTimeline(Model model, @Valid @PathVariable("chapterID") int chapterID)
+    {
+        Chapter chapter = chapterService.getChapterById(chapterID);
+        return setUpSceneTimeline( model,  chapter);
+    }
+
+    public ModelAndView setUpSceneTimeline(Model model, Chapter chapter)
+    {
+        ModelAndView mv = new ModelAndView("chapter_scenes_timeline");
+        List<Scene> assignedSceneList = chapter.getScenes();
+
+        mv.addObject("chapter",chapter);
+        mv.addObject("assignedSceneList", assignedSceneList);
+        return mv;
     }
 
     ModelAndView setUpChaptersPage(Model model, Novel novel)

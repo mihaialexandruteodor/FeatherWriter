@@ -1,7 +1,10 @@
 package com.mihaialexandruteodor.FeatherWriter.controllers;
 
+import com.mihaialexandruteodor.FeatherWriter.model.Chapter;
 import com.mihaialexandruteodor.FeatherWriter.model.FWCharacter;
+import com.mihaialexandruteodor.FeatherWriter.model.Novel;
 import com.mihaialexandruteodor.FeatherWriter.model.Scene;
+import com.mihaialexandruteodor.FeatherWriter.services.ChapterService;
 import com.mihaialexandruteodor.FeatherWriter.services.SceneService;
 import com.mihaialexandruteodor.FeatherWriter.utlis.FileExporter;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
@@ -33,17 +36,21 @@ public class SceneEditorController {
     private SceneService sceneService;
 
     @Autowired
+    private ChapterService chapterService;
+
+    @Autowired
     public SceneEditorController(SceneService _sceneService)
     {
         sceneService = _sceneService;
+        chapterService = chapterService;
     }
 
     @Autowired
     private FileExporter fileExporter;
 
-    @RequestMapping("/sceneEditor/{scene_id}")
-    public ModelAndView viewSceneEditor( @Valid @PathVariable(value = "scene_id") int scene_id) {
-        Scene scene = sceneService.getSceneById(scene_id);
+    @RequestMapping("/sceneEditor/{sceneID}")
+    public ModelAndView viewSceneEditor( @Valid @PathVariable(value = "sceneID") int sceneID) {
+        Scene scene = sceneService.getSceneById(sceneID);
         ModelAndView mv = new ModelAndView("scene_editor_page");
         mv.addObject("scene", scene);
         return mv;
@@ -52,21 +59,24 @@ public class SceneEditorController {
     @PostMapping("/saveScene")
     public String saveCharacter(@Valid @ModelAttribute("scene") Scene scene) {
         sceneService.saveScene(scene);
+        return "redirect:/sceneEditor/"+scene.getSceneID();
+    }
+
+    @GetMapping("/deleteScene/{sceneID}")
+    public String deleteCharacterProfile(@Valid @PathVariable(value = "scene_id") int sceneID) {
+        sceneService.deleteSceneById(sceneID);
         return "redirect:/scenesPage";
     }
 
-    @GetMapping("/deleteScene/{scene_id}")
-    public String deleteCharacterProfile(@Valid @PathVariable(value = "scene_id") int scene_id) {
-        sceneService.deleteSceneById(scene_id);
-        return "redirect:/scenesPage";
-    }
 
-    @GetMapping("/newScene")
-    public ModelAndView newScene(Model model) {
+    @GetMapping("/newScene/{chapterID}")
+    public String newScene(@Valid @PathVariable("chapterID") int chapterID, Model model)
+    {
         Scene scene = new Scene();
-        ModelAndView mv = new ModelAndView("scene_editor_page");
-        mv.addObject("scene",scene);
-        return mv;
+        Chapter chapter = chapterService.getChapterById(chapterID);
+        model.addAttribute("scene",scene);
+        model.addAttribute("chapter",chapter);
+        return "scene_creation";
     }
 
     @RequestMapping(value = "/downloadTextFileScene", method = POST)

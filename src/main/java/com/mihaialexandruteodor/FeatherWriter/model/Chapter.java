@@ -55,4 +55,5 @@ public class Chapter {
     public void setScenes(List<Scene> scenes) {
         this.scenes = scenes;
     }
+
 }
