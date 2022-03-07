@@ -1,5 +1,6 @@
 package com.mihaialexandruteodor.FeatherWriter.services;
 
+import com.mihaialexandruteodor.FeatherWriter.model.Chapter;
 import com.mihaialexandruteodor.FeatherWriter.model.Scene;
 import org.springframework.data.domain.Page;
 
@@ -10,5 +11,7 @@ public interface SceneService {
     void saveScene(Scene scene);
     Scene getSceneById(int id);
     void deleteSceneById(int id);
+    void addChapterToScene(Scene scene, Chapter chapter);
+    void removeChapterToScene(Scene scene);
     Page<Scene> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
 }

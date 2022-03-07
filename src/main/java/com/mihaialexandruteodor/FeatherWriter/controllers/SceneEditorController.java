@@ -62,10 +62,18 @@ public class SceneEditorController {
         return "redirect:/sceneEditor/"+scene.getSceneID();
     }
 
+    @PostMapping("/saveSceneText")
+    public String saveSceneText(@Valid @ModelAttribute("scene") Scene scene, @Valid @ModelAttribute("chapter") Chapter chapter) {
+        sceneService.addChapterToScene(scene, chapter);
+        chapterService.addSceneToChapter(scene,chapter);
+        return  "redirect:/showSceneTimeline/" + chapter.getChapterID();
+    }
+
     @GetMapping("/deleteScene/{sceneID}")
     public String deleteCharacterProfile(@Valid @PathVariable(value = "scene_id") int sceneID) {
+        int chapterID = sceneService.getSceneById(sceneID).getChapter().getChapterID();
         sceneService.deleteSceneById(sceneID);
-        return "redirect:/scenesPage";
+        return  "redirect:/showSceneTimeline/" + chapterID;
     }
 
 

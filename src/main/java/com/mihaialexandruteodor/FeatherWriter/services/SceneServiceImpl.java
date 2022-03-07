@@ -1,5 +1,6 @@
 package com.mihaialexandruteodor.FeatherWriter.services;
 
+import com.mihaialexandruteodor.FeatherWriter.model.Chapter;
 import com.mihaialexandruteodor.FeatherWriter.model.Scene;
 import com.mihaialexandruteodor.FeatherWriter.repository.SceneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,18 @@ public class SceneServiceImpl implements SceneService{
     @Override
     public void deleteSceneById(int id) {
         this.sceneRepository.deleteById(id);
+    }
+
+    @Override
+    public void addChapterToScene(Scene scene, Chapter chapter) {
+        scene.setChapter(chapter);
+        this.sceneRepository.save(scene);
+    }
+
+    @Override
+    public void removeChapterToScene(Scene scene) {
+        scene.removeChapter();
+        this.sceneRepository.save(scene);
     }
 
     @Override

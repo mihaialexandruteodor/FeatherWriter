@@ -9,14 +9,14 @@ import java.util.List;
 public class Chapter {
 
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int chapterID;
 
     @Column(name = "title")
     private String title;
 
     @ManyToOne
-    @JoinColumn(name="novelID")
+    @JoinColumn(name = "novelID")
     private Novel novel;
 
     @OneToMany(mappedBy = "chapter", cascade = CascadeType.MERGE)
@@ -38,7 +38,9 @@ public class Chapter {
         this.title = title;
     }
 
-    public Novel getNovel() {return novel;}
+    public Novel getNovel() {
+        return novel;
+    }
 
     public void setNovel(Novel novel) {
         this.novel = novel;
@@ -54,6 +56,15 @@ public class Chapter {
 
     public void setScenes(List<Scene> scenes) {
         this.scenes = scenes;
+    }
+
+    public void addScene(Scene scene) {
+        this.scenes.add(scene);
+    }
+
+    public void removeScene(Scene scene)
+    {
+        this.scenes.remove(scene);
     }
 
 }

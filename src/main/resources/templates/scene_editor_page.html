@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="/css/button.css">
 </head>
 <body>
-<form  th:action="@{/saveScene}" th:object="${scene}"  method="POST">
+<form  th:action="@{/saveSceneText}" th:object="${scene}"  method="POST">
   <input type="hidden" th:field="*{sceneID}" />
 <br><br>
 <div class="block">
@@ -71,13 +71,8 @@
 
 
   </script>
-  <div class="block">
-  <h2 >Corkboard text</h2>
-    <br/>
-    <br/>
-  <textarea th:field="*{corkboardtext}" placeholder="Physical Description" rows="8" cols="50">
-        </textarea>
 
+  <div class="block">
   <br/>
   <br/>
     <button class="button-78" type="submit" >Save</button>

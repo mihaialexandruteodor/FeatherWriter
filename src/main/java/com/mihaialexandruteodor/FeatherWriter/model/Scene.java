@@ -51,4 +51,8 @@ public class Scene {
     public void setChapter(Chapter chapter) {
         this.chapter = chapter;
     }
+    public void removeChapter()
+    {
+        this.chapter = null;
+    }
 }

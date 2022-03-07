@@ -2,6 +2,7 @@ package com.mihaialexandruteodor.FeatherWriter.services;
 
 import com.mihaialexandruteodor.FeatherWriter.model.Chapter;
 import com.mihaialexandruteodor.FeatherWriter.model.Novel;
+import com.mihaialexandruteodor.FeatherWriter.model.Scene;
 import com.mihaialexandruteodor.FeatherWriter.repository.ChapterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -38,6 +39,18 @@ public class ChapterServiceImpl implements ChapterService{
     @Override
     public void removeProjectFromChapter(Chapter chapter) {
         chapter.removeNovel();
+        this.chapterRepository.save(chapter);
+    }
+
+    @Override
+    public void addSceneToChapter(Scene scene, Chapter chapter) {
+        chapter.addScene(scene);
+        this.chapterRepository.save(chapter);
+    }
+
+    @Override
+    public void removeSceneFromChapter(Scene scene, Chapter chapter) {
+        chapter.removeScene(scene);
         this.chapterRepository.save(chapter);
     }
 
