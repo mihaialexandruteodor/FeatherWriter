@@ -14,7 +14,7 @@
 </head>
 <body>
 <div class="block">
-  <div id="summernote"><p th:text="*{text}"></p></div></div>
+  <div id="summernote"><p th:text="${scene.text}"></p></div></div>
     <script th:inline="javascript">
         $(document).ready(function() {
             $('#summernote').summernote({
