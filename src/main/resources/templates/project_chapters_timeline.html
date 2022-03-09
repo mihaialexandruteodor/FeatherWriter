@@ -13,10 +13,11 @@
   <link rel="stylesheet" href="/css/chcards.css">
 </head>
 <body>
-<div class="cards">
+<div class="container">
+<div class="center">
 
   <tr th:each="chapter : ${assignedChapterList}">
-    <div class="card text-white border-light bg-dark mb-3" style="max-width: 18rem;">
+    <div class="card text-white border-light bg-dark" style="max-width: 18rem;  display: flex; align-items: center; justify-content: center;">
       <div class="card-body">
         <h5 class="card-title" th:text="${chapter.title}"></h5>
         <a th:href="@{'/showChapterScenes/' + ${chapter.chapterID}}" class="button-78">Scenes</a>
@@ -25,7 +26,7 @@
   </tr>
   </tbody>
 </div>
-
+</div>
 
 <div class="container">
   <div class="center">

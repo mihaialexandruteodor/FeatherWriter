@@ -13,74 +13,84 @@
   <link rel="stylesheet" href="/css/button.css">
 </head>
 <body>
-<form  th:action="@{/saveSceneText}" th:object="${scene}"  method="POST">
-  <input type="hidden" th:field="*{sceneID}" />
-<br><br>
 <div class="block">
-<div id="summernote"><p th:field="*{text}"/></div></div>
-<script>
-    $(document).ready(function() {
-        $('#summernote').summernote({
-        placeholder: 'Hello stand alone ui',
-        tabsize: 2,
-        width: 1500,
-        height: 800,
-        toolbar: [
-          ['style', ['style']],
-          ['font', ['bold', 'underline', 'clear']],
-          ['color', ['color']],
-          ['para', ['ul', 'ol', 'paragraph']],
-          ['table', ['table']],
-          ['insert', ['link', 'picture', 'video']],
-          ['view', ['fullscreen', 'codeview', 'help']]
-        ]
-      });
-    });
-
-
-    function saveFileLocally()
-      {
-          var html = $("#summernote").summernote("code");
-
-           return $.ajax({type: "POST",
-              url: "/downloadTextFile?fileContent="+html,
-              success: function (data) {
-                    //Convert the Byte Data to BLOB object.
-                    var blob = new Blob([data], { type: "application/octetstream" });
-
-                    //Check the Browser type and download the File.
-                    var isIE = false || !!document.documentMode;
-                    if (isIE) {
-                        window.navigator.msSaveBlob(blob, "PLACEHOLDER_USE_FUNC_PARAM.xml");
-                    } else {
-                        var url = window.URL || window.webkitURL;
-                        link = url.createObjectURL(blob);
-                        var a = $("<a />");
-                        a.attr("download", "PLACEHOLDER_USE_FUNC_PARAM.xml");
-                        a.attr("href", link);
-                        $("body").append(a);
-                        a[0].click();
-                        $("body").remove(a);
-                    }
-                },
-              error:function(result) {
-                alert('error');
-              }
+  <div id="summernote"><p th:text="*{text}"></p></div></div>
+    <script>
+        $(document).ready(function() {
+            $('#summernote').summernote({
+            placeholder: 'Hello stand alone ui',
+            tabsize: 2,
+            width: 1500,
+            height: 800,
+            toolbar: [
+              ['style', ['style']],
+              ['font', ['bold', 'underline', 'clear']],
+              ['color', ['color']],
+              ['para', ['ul', 'ol', 'paragraph']],
+              ['table', ['table']],
+              ['insert', ['link', 'picture', 'video']],
+              ['view', ['fullscreen', 'codeview', 'help']]
+            ]
           });
+        });
+
+      function saveSceneText()
+          {
+              var html = $("#summernote").summernote("code");
+               return $.ajax(
+               {
+                  type: "POST",
+                  url: "/saveSceneText",
+                  data:
+                  {   fileContent:html,
+                        sceneID:$("scene.sceneID"),
+                        chapterID:$("chapter.chapterID")
+                  }
+               });
+          };
+
+        function saveSceneLocally()
+        {
+              var html = $("#summernote").summernote("code");
+
+               return $.ajax({type: "POST",
+                  url: "/downloadTextFile?fileContent="+html,
+                  success: function (data) {
+                        //Convert the Byte Data to BLOB object.
+                        var blob = new Blob([data], { type: "application/octetstream" });
+
+                        //Check the Browser type and download the File.
+                        var isIE = false || !!document.documentMode;
+                        if (isIE) {
+                            window.navigator.msSaveBlob(blob, "PLACEHOLDER_USE_FUNC_PARAM.xml");
+                        } else {
+                            var url = window.URL || window.webkitURL;
+                            link = url.createObjectURL(blob);
+                            var a = $("<a />");
+                            a.attr("download", "PLACEHOLDER_USE_FUNC_PARAM.xml");
+                            a.attr("href", link);
+                            $("body").append(a);
+                            a[0].click();
+                            $("body").remove(a);
+                        }
+                    },
+                  error:function(result) {
+                    alert('error');
+                  }
+              });
           };
 
 
-  </script>
+    </script>
 
   <div class="block">
-  <br/>
-  <br/>
-    <button class="button-78" type="submit" >Save</button>
+    <br/>
+    <br/>
+    <button class="button-78" type="submit" th:onclick="'saveSceneText();'" >Save</button>
+    <br/>
+    <br/>
+    <button th:onclick="'saveSceneLocally();'"  id="button_1"  name="but1" class="button-78">Export text as .docx</button>
   </div>
-
-</form>
 </body>
-<div class="center">
-  <button th:onclick="'saveSceneLocally();'"  id="button_1"  name="but1" class="button-78">Export text as .docx</button>
-</div>
+
 </html>
