@@ -86,6 +86,9 @@ public class SceneEditorController {
     {
         Scene scene = new Scene();
         Chapter chapter = chapterService.getChapterById(chapterID);
+        sceneService.saveScene(scene);
+        sceneService.addChapterToScene(scene,chapter);
+        chapterService.addSceneToChapter(scene,chapter);
         ModelAndView mv = new ModelAndView("scene_editor_page");
         mv.addObject("scene",scene);
         mv.addObject("chapter",chapter);
@@ -96,6 +99,7 @@ public class SceneEditorController {
     public ModelAndView editScene(@Valid @PathVariable("sceneID") int sceneID)
     {
         Scene scene = sceneService.getSceneById(sceneID);
+        //System.out.println("TEST: " + scene.getText());
         Chapter chapter = scene.getChapter();
         ModelAndView mv = new ModelAndView("scene_editor_page");
         mv.addObject("scene",scene);
@@ -106,9 +110,9 @@ public class SceneEditorController {
     @RequestMapping(value = "/saveSceneText", method = POST)
     @ResponseBody
     public ResponseEntity<?> saveSceneText(@RequestParam(value = "fileContent", required = false, defaultValue = "<p>test</p>") String fileContent, @RequestParam(value = "sceneID") int sceneID, @RequestParam(value = "chapterID") int chapterID) throws JAXBException, IOException, ParserConfigurationException, TransformerException, InterruptedException, Docx4JException {
-
         Chapter chapter = chapterService.getChapterById(chapterID);
         Scene scene = sceneService.getSceneById(sceneID);
+        scene.setText(fileContent);
         sceneService.addChapterToScene(scene, chapter);
         chapterService.addSceneToChapter(scene,chapter);
         return new ResponseEntity<>(null, HttpStatus.OK);
