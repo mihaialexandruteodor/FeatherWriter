@@ -15,7 +15,7 @@
 <body>
 <div class="block">
   <div id="summernote"><p th:text="*{text}"></p></div></div>
-    <script>
+    <script th:inline="javascript">
         $(document).ready(function() {
             $('#summernote').summernote({
             placeholder: 'Hello stand alone ui',
@@ -43,12 +43,12 @@
                   url: "/saveSceneText",
                   data:
                   {   fileContent:html,
-                        sceneID:$("scene.sceneID"),
-                        chapterID:$("chapter.chapterID")
+                        sceneID:[[${scene.sceneID}]],
+                        chapterID:[[${chapter.chapterID}]]
                   },
                   success: function(data)
                   {
-                    top.location.href = showSceneTimeline/ + $("chapter.chapterID");
+                    top.location.href = showSceneTimeline/ + [[${chapter.chapterID}]]
                   }
                });
           };
