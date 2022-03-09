@@ -11,6 +11,7 @@ import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -104,13 +105,13 @@ public class SceneEditorController {
 
     @RequestMapping(value = "/saveSceneText", method = POST)
     @ResponseBody
-    public String saveSceneText(@RequestParam(value = "fileContent", required = false, defaultValue = "<p>test</p>") String fileContent, @RequestParam(value = "sceneID") int sceneID, @RequestParam(value = "chapterID") int chapterID) throws JAXBException, IOException, ParserConfigurationException, TransformerException, InterruptedException, Docx4JException {
+    public ResponseEntity<?> saveSceneText(@RequestParam(value = "fileContent", required = false, defaultValue = "<p>test</p>") String fileContent, @RequestParam(value = "sceneID") int sceneID, @RequestParam(value = "chapterID") int chapterID) throws JAXBException, IOException, ParserConfigurationException, TransformerException, InterruptedException, Docx4JException {
 
         Chapter chapter = chapterService.getChapterById(chapterID);
         Scene scene = sceneService.getSceneById(sceneID);
         sceneService.addChapterToScene(scene, chapter);
         chapterService.addSceneToChapter(scene,chapter);
-        return  "redirect:/showSceneTimeline/" + chapterID;
+        return new ResponseEntity<>(null, HttpStatus.OK);
 
     }
 

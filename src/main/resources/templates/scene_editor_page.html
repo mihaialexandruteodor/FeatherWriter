@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
-  <title>Summernote</title>
+  <title th:text="${chapter.title} + ' scene #' +  ${scene.sceneID}"></title>
   <link href="//bootswatch.com/3/darkly/bootstrap.css" rel="stylesheet">
   <link rel="stylesheet" href="css/img4style.css">
   <link rel="stylesheet" href="/css/center.css">
@@ -37,7 +37,7 @@
       function saveSceneText()
           {
               var html = $("#summernote").summernote("code");
-               return $.ajax(
+               $.ajax(
                {
                   type: "POST",
                   url: "/saveSceneText",
@@ -45,6 +45,10 @@
                   {   fileContent:html,
                         sceneID:$("scene.sceneID"),
                         chapterID:$("chapter.chapterID")
+                  },
+                  success: function(data)
+                  {
+                    top.location.href = showSceneTimeline/ + $("chapter.chapterID");
                   }
                });
           };
