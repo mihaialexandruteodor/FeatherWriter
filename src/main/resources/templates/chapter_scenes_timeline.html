@@ -25,10 +25,10 @@
 </div>
 
 
-<div class="container">
+<div class="cards">
 
   <tr th:each="scene : ${assignedSceneList}">
-    <div class="card text-white border-light bg-dark" style=" float: none; max-width: 30em;">
+    <div class="card text-white border-light bg-dark" >
       <div class="card-body">
         <h5 class="card-text" th:text="${scene.corkboardtext}"></h5>
         <a th:href="@{'/editScene/' + ${scene.sceneID}}" class="button-78">Edit Scene</a>

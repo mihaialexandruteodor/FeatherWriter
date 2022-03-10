@@ -62,12 +62,12 @@ public class ChapterController {
     }
 
     @GetMapping("/deleteChapter/{chapterID}")
-    public String deleteChapter(@Valid @PathVariable (value = "chapterID") int chapterID) {
+    public ModelAndView deleteChapter(@Valid @PathVariable (value = "chapterID") int chapterID, @Valid @ModelAttribute("novel") Novel novel, Model model) {
         List<Scene> scenes = chapterService.getChapterById(chapterID).getScenes();
         for(Scene scene : scenes)
             sceneService.deleteSceneById(scene.getSceneID());
         chapterService.deleteChapterById(chapterID);
-        return "redirect:/";
+        return setUpChaptersPage(model,novel);
     }
 
     @GetMapping("/showSceneTimeline/{chapterID}")

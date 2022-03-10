@@ -23,10 +23,10 @@
   </div>
 </div>
 
-<div class="container">
+<div class="cards">
 
   <tr th:each="chapter : ${assignedChapterList}">
-    <div class="card text-white border-light bg-dark" style=" float: none; max-width: 30em;">
+    <div class="card text-white border-light bg-dark">
       <div class="card-body">
         <h5 class="card-title" th:text="${chapter.title}"></h5>
         <a th:href="@{'/showSceneTimeline/' + ${chapter.chapterID}}" class="button-78">Scenes</a>

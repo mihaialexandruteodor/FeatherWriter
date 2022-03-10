@@ -1,13 +1,14 @@
 .cards {
 
-display: grid;
+display: flex;
 
-grid-template-columns: repeat(1, 1fr);
+flex-direction: column;
 
-grid-auto-rows: auto;
+gap: 1rem;
 
-grid-gap: 1rem;
+align-items: center;
 
+justify-content: center;
 }
 
 
@@ -18,5 +19,9 @@ border: 2px solid #e7e7e7;
 border-radius: 4px;
 
 padding: .5rem;
+
+float: none;
+
+max-width: 30em;
 
 }
