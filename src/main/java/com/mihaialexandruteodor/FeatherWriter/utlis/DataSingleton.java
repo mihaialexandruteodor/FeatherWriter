@@ -2,6 +2,7 @@ package com.mihaialexandruteodor.FeatherWriter.utlis;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.List;
 
 public class DataSingleton {
 
@@ -71,5 +72,17 @@ public class DataSingleton {
             downloadPath = System.getProperty("file.separator") + "FeatherWriter" + System.getProperty("file.separator");
         }
 
+    }
+
+    public String mergeStringHTMLChunks(List<String> chunks)
+    {
+        String res = "";
+        String breakStr = "<br/><br/>";
+        for (String chunk:   chunks) {
+            res += chunk;
+            res += breakStr;
+        }
+
+        return res;
     }
 }
