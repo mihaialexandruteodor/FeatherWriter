@@ -31,6 +31,8 @@
         <h5 class="card-title" th:text="${chapter.title}"></h5>
         <a th:href="@{'/showSceneTimeline/' + ${chapter.chapterID}}" class="button-78">Scenes</a>
         <a th:href="@{'/deleteChapter/' + ${chapter.chapterID}}" class="button-78">Delete Chapter</a>
+        <a th:href="@{'/moveUpInTimeline/' + ${novel.novelID} + '/' + ${chapter.chapterID}}" class="button-78">^</a>
+        <a th:href="@{'/moveDownInTimeline/' + ${novel.novelID} + '/' + ${chapter.chapterID}}" class="button-78">v</a>
       </div>
     </div>
   </tr>

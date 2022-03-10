@@ -33,6 +33,8 @@
         <h5 class="card-text" th:text="${scene.corkboardtext}"></h5>
         <a th:href="@{'/editScene/' + ${scene.sceneID}}" class="button-78">Edit Scene</a>
         <a th:href="@{'/deleteScene/' + ${scene.sceneID} + '/' + ${chapter.chapterID}}" class="button-78">Delete Scene</a>
+        <a th:href="@{'/moveUpInTimeline/' + ${scene.sceneID} + '/' + ${chapter.chapterID}}" class="button-78">^</a>
+        <a th:href="@{'/moveDownInTimeline/' + ${scene.sceneID} + '/' + ${chapter.chapterID}}" class="button-78">v</a>
       </div>
     </div>
   </tr>
