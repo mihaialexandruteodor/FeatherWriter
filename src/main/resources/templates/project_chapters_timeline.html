@@ -29,10 +29,10 @@
     <div class="card text-white border-light bg-dark">
       <div class="card-body">
         <h5 class="card-title" th:text="${chapter.title}"></h5>
+        <button th:href="@{'/moveUpInTimeline/' + ${novel.novelID} + '/' + ${chapter.chapterID}}" class="button-78">^</button>
         <a th:href="@{'/showSceneTimeline/' + ${chapter.chapterID}}" class="button-78">Scenes</a>
         <a th:href="@{'/deleteChapter/' + ${chapter.chapterID}}" class="button-78">Delete Chapter</a>
-        <a th:href="@{'/moveUpInTimeline/' + ${novel.novelID} + '/' + ${chapter.chapterID}}" class="button-78">^</a>
-        <a th:href="@{'/moveDownInTimeline/' + ${novel.novelID} + '/' + ${chapter.chapterID}}" class="button-78">v</a>
+        <button th:href="@{'/moveDownInTimeline/' + ${novel.novelID} + '/' + ${chapter.chapterID}}" class="button-78">v</button>
       </div>
     </div>
   </tr>

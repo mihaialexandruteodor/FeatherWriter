@@ -31,10 +31,10 @@
     <div class="card text-white border-light bg-dark" >
       <div class="card-body">
         <h5 class="card-text" th:text="${scene.corkboardtext}"></h5>
+        <button th:href="@{'/moveUpInTimeline/' + ${scene.sceneID} + '/' + ${chapter.chapterID}}" class="button-78">^</button>
         <a th:href="@{'/editScene/' + ${scene.sceneID}}" class="button-78">Edit Scene</a>
         <a th:href="@{'/deleteScene/' + ${scene.sceneID} + '/' + ${chapter.chapterID}}" class="button-78">Delete Scene</a>
-        <a th:href="@{'/moveUpInTimeline/' + ${scene.sceneID} + '/' + ${chapter.chapterID}}" class="button-78">^</a>
-        <a th:href="@{'/moveDownInTimeline/' + ${scene.sceneID} + '/' + ${chapter.chapterID}}" class="button-78">v</a>
+        <button th:href="@{'/moveDownInTimeline/' + ${scene.sceneID} + '/' + ${chapter.chapterID}}" class="button-78">v</button>
       </div>
     </div>
   </tr>
