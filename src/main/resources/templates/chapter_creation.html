@@ -19,7 +19,7 @@
   <h1  th:text="'Belongs to project ' +${novelObj.title}"></h1>
   <hr>
 
-  <form  th:action="@{/saveChapter}" th:object="${chapter}"  method="POST">
+  <form  th:action="@{'/saveChapter/' + ${novelObj.novelID}}" th:object="${chapter}"  method="POST">
 
     <h2>Title</h2>
     <input class="center" type="text" th:field="*{title}" placeholder="Title">
@@ -31,7 +31,7 @@
 
   <hr>
 
-  <button class="button-78" th:href = "@{/setUpChaptersPage}">Chapters timeline</button>
+  <button class="button-78" th:href = "@{'/allChaptersPage/' + ${novelObj.novelID}}">Chapters timeline</button>
 </div>
 </body>
 </html>

@@ -52,10 +52,13 @@ public class ChapterController {
         return "chapter_creation";
     }
 
-    @PostMapping("/saveChapter")
-    public ModelAndView saveChapter(@Valid @ModelAttribute("chapter") Chapter chapter, Model model) {
+    @PostMapping("/saveChapter/{novelID}")
+    public ModelAndView saveChapter(@Valid @PathVariable("novelID") int novelID, @Valid @ModelAttribute("chapter") Chapter chapter, Model model) {
         chapterService.saveChapter(chapter);
-        return setUpSceneTimeline(model,chapter);
+        Novel novel = novelService.getNovelById(novelID);
+        chapterService.addProjectToChapter(novel,chapter);
+        novelService.addChapterToProject(novel,chapter);
+        return setUpChaptersPage(model,novel);
     }
 
     @GetMapping("/deleteChapter/{chapterID}")
@@ -84,7 +87,7 @@ public class ChapterController {
         return mv;
     }
 
-    ModelAndView setUpChaptersPage(Model model, Novel novel)
+    public ModelAndView setUpChaptersPage(Model model, Novel novel)
     {
         ModelAndView mv = new ModelAndView("project_chapters_timeline");
         List<Chapter> assignedChapterList = novel.getChapters();

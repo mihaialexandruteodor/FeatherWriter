@@ -26,10 +26,9 @@
 
 
 <div class="container">
-<div class="center">
 
   <tr th:each="scene : ${assignedSceneList}">
-    <div class="card text-white border-light bg-dark mb-3" style="max-width: 18rem;">
+    <div class="card text-white border-light bg-dark" style=" float: none; max-width: 30em;">
       <div class="card-body">
         <h5 class="card-text" th:text="${scene.corkboardtext}"></h5>
         <a th:href="@{'/editScene/' + ${scene.sceneID}}" class="button-78">Edit Scene</a>
@@ -38,7 +37,6 @@
     </div>
   </tr>
   </tbody>
-</div>
 </div>
 
 <button th:onclick="topFunction();" class="button-78" id="topBtn" style="position: fixed;bottom: 20px;right: 30px;z-index: 99;" title="Go to top">Scroll to Top</button>
