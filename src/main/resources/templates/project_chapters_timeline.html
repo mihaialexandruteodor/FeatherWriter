@@ -31,6 +31,7 @@
       <div class="card-body">
         <h5 class="card-title" th:text="${chapter.title}"></h5>
         <a th:href="@{'/showChapterScenes/' + ${chapter.chapterID}}" class="button-78">Scenes</a>
+        <a th:href="@{'/deleteChapter/' + ${chapter.chapterID}}" class="button-78">Delete Chapter</a>
       </div>
     </div>
   </tr>

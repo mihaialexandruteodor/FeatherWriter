@@ -5,6 +5,7 @@ import com.mihaialexandruteodor.FeatherWriter.model.Novel;
 import com.mihaialexandruteodor.FeatherWriter.model.Scene;
 import com.mihaialexandruteodor.FeatherWriter.services.ChapterService;
 import com.mihaialexandruteodor.FeatherWriter.services.NovelService;
+import com.mihaialexandruteodor.FeatherWriter.services.SceneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -22,12 +23,16 @@ public class ChapterController {
     private ChapterService chapterService;
 
     @Autowired
+    private SceneService sceneService;
+
+    @Autowired
     private NovelService novelService;
 
     @Autowired
-    public ChapterController(ChapterService chapterService, NovelService novelService) {
+    public ChapterController(ChapterService chapterService, NovelService novelService, SceneService _sceneService) {
         this.chapterService = chapterService;
         this.novelService = novelService;
+        this.sceneService = _sceneService;
     }
 
     @GetMapping("/allChaptersPage/{novelID}")
@@ -51,6 +56,15 @@ public class ChapterController {
     public ModelAndView saveChapter(@Valid @ModelAttribute("chapter") Chapter chapter, Model model) {
         chapterService.saveChapter(chapter);
         return setUpSceneTimeline(model,chapter);
+    }
+
+    @GetMapping("/deleteChapter/{chapterID}")
+    public String deleteChapter(@Valid @PathVariable (value = "chapterID") int chapterID) {
+        List<Scene> scenes = chapterService.getChapterById(chapterID).getScenes();
+        for(Scene scene : scenes)
+            sceneService.deleteSceneById(scene.getSceneID());
+        chapterService.deleteChapterById(chapterID);
+        return "redirect:/";
     }
 
     @GetMapping("/showSceneTimeline/{chapterID}")

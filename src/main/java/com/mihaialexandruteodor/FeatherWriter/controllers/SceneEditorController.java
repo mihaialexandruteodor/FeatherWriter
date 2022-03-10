@@ -40,10 +40,10 @@ public class SceneEditorController {
     private ChapterService chapterService;
 
     @Autowired
-    public SceneEditorController(SceneService _sceneService)
+    public SceneEditorController(SceneService _sceneService, ChapterService _chapterService)
     {
         sceneService = _sceneService;
-        chapterService = chapterService;
+        chapterService = _chapterService;
     }
 
     @Autowired
@@ -73,9 +73,8 @@ public class SceneEditorController {
         return  "redirect:/showSceneTimeline/" + chapter.getChapterID();
     }
 
-    @GetMapping("/deleteScene/{sceneID}")
-    public String deleteCharacterProfile(@Valid @PathVariable(value = "scene_id") int sceneID) {
-        int chapterID = sceneService.getSceneById(sceneID).getChapter().getChapterID();
+    @GetMapping("/deleteScene/{sceneID}/{chapterID}")
+    public String deleteScene(@Valid @PathVariable(value = "sceneID") int sceneID, @Valid @PathVariable(value = "chapterID") int chapterID) {
         sceneService.deleteSceneById(sceneID);
         return  "redirect:/showSceneTimeline/" + chapterID;
     }
