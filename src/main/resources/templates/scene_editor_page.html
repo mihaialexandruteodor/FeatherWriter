@@ -36,7 +36,7 @@
 
       function saveSceneText()
           {
-              var html = $("#summernote").summernote("code");
+              var html = $("#summernote").summernote("code").replace('<p>','').replace('</p>','');
                $.ajax(
                {
                   type: "POST",
