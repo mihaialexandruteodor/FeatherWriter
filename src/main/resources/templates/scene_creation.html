@@ -22,7 +22,7 @@
   <form  th:action="@{/saveScene}" th:object="${scene}"  method="POST">
 
     <h2>Corkboard Text</h2>
-    <textarea th:field="*{corkboardtext}" placeholder="This text will appear in the previews and on the corkboard card" rows="8" cols="50">
+    <textarea th:field="*{descriptiontext}" placeholder="This text will appear in the previews" rows="8" cols="50">
         </textarea>
 
     <br/>

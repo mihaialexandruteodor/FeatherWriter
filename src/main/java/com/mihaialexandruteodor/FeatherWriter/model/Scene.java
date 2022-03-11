@@ -13,8 +13,8 @@ public class Scene {
     @Column(name = "text")
     private String text;
 
-    @Column(name = "corkboardtext")
-    private String corkboardtext;
+    @Column(name = "descriptiontext")
+    private String descriptiontext;
 
     @ManyToOne
     @JoinColumn(name="chapterID")
@@ -36,12 +36,12 @@ public class Scene {
         this.text = text;
     }
 
-    public String getCorkboardtext() {
-        return corkboardtext;
+    public String getDescriptiontext() {
+        return descriptiontext;
     }
 
-    public void setCorkboardtext(String corkboardtext) {
-        this.corkboardtext = corkboardtext;
+    public void setDescriptiontext(String descriptiontext) {
+        this.descriptiontext = descriptiontext;
     }
 
     public Chapter getChapter() {

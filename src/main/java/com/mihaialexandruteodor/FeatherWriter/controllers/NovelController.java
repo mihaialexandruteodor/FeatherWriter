@@ -30,11 +30,15 @@ public class NovelController {
     private ChapterService chapterService;
 
     @Autowired
-    private NoteService noteService;
+    private CorkboardService corkboardService;
+
 
     @Autowired
-    public NovelController(NovelService novelService) {
+    public NovelController(NovelService novelService, CorkboardService _corkboardService, ChapterService _chapterService, LocationService _locationService) {
         this.novelService = novelService;
+        this.corkboardService = _corkboardService;
+        this.chapterService = _chapterService;
+        this.locationService = _locationService;
     }
 
     @GetMapping("/projectsPage")
@@ -67,11 +71,9 @@ public class NovelController {
         List<FWCharacter> assignedCharacterList = novel.getCharacters();
         List<Chapter> assignedChapterList = novel.getChapters();
         List<Location> assignedLocationList = novel.getLocations();
-        List<Note> assignedNoteList = novel.getNotes();
         mv.addObject("assignedCharacterList", assignedCharacterList);
         mv.addObject("assignedChapterList", assignedChapterList);
         mv.addObject("assignedLocationList", assignedLocationList);
-        mv.addObject("assignedNoteList", assignedNoteList);
         return mv;
     }
 
@@ -98,16 +100,10 @@ public class NovelController {
         mv.addObject("assignedLocationList", assignedLocationList);
         mv.addObject("locationList", locationList);
 
-        List<Note> noteList = noteService.getAllNotes();
-        List<Note> assignedNoteList = novel.getNotes();
-        noteList.removeIf(assignedNoteList::contains);
-        mv.addObject("assignedNoteList", assignedNoteList);
-        mv.addObject("noteList", noteList);
 
         System.out.println(Arrays.toString(assignedCharacterList.toArray()));
         System.out.println(Arrays.toString(assignedChapterList.toArray()));
         System.out.println(Arrays.toString(assignedLocationList.toArray()));
-        System.out.println(Arrays.toString(assignedNoteList.toArray()));
         
         return mv;
     }
@@ -167,26 +163,9 @@ public class NovelController {
         return setUpProjDecorationPage(model,novelObj);
     }
 
-    @RequestMapping(value ="/addNoteToProject/{noteID}/{novelID}")
-    public ModelAndView addNoteToProject(@Valid @PathVariable(value ="noteID") int noteID, @Valid  @PathVariable(value = "novelID") int  novelID, Model model){
-        Note noteObj = noteService.getNoteById(noteID);
-        Novel novelObj = novelService.getNovelById(novelID);
-        novelService.addNoteToProject(novelObj,noteObj);
-        noteService.addProjectToNote(novelObj,noteObj);
-        return setUpProjDecorationPage(model,novelObj);
-    }
-
-    @RequestMapping(value ="/removeNoteFromProject/{noteID}/{novelID}")
-    public ModelAndView removeNoteFromProject(@Valid @PathVariable(value ="noteID") int  noteID, @Valid  @PathVariable(value = "novelID") int  novelID, Model model){
-        Note noteObj = noteService.getNoteById(noteID);
-        Novel novelObj = novelService.getNovelById(novelID);
-        novelService.removeNoteFromProject(novelObj,noteObj);
-        noteService.removeProjectFromNote(noteObj);
-        return setUpProjDecorationPage(model,novelObj);
-    }
-
     @PostMapping("/saveProject")
     public ModelAndView saveProject(@Valid @ModelAttribute("novel") Novel novel, Model model) {
+        corkboardService.saveCorkboard(novel.getCorkboard());
         novelService.saveNovel(novel);
         return setUpProjDecorationPage(model,novel);
     }

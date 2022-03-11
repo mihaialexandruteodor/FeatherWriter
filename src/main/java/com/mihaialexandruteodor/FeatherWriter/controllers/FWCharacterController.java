@@ -53,4 +53,45 @@ public class FWCharacterController {
         return "redirect:/charactersPage";
     }
 
+    @GetMapping("/characterProfile/{id}")
+    public ModelAndView characterProfile(@Valid @PathVariable(value = "id") int id) {
+        FWCharacter fwcharacter = fwCharacterService.getFWCharacterById(id);
+        ModelAndView mv = new ModelAndView("character_profile");
+        mv.addObject("fwcharacter", fwcharacter);
+        return mv;
+    }
+
+    @GetMapping("/charactersPage")
+    public ModelAndView charactersPage() {
+        return loadCharactersPageData();
+    }
+
+    public ModelAndView loadCharactersPageData() {
+        return findPaginated(1, "name", "asc");
+    }
+
+    @GetMapping("/charactersPage/page/{pageNo}")
+    public ModelAndView findPaginated(@Valid @PathVariable(value = "pageNo") int pageNo,
+                                      @Valid @RequestParam("sortField") String sortField,
+                                      @Valid @RequestParam("sortDir") String sortDir) {
+
+        ModelAndView model = new ModelAndView("characters_page");
+        int pageSize = 12;
+
+        Page<FWCharacter> page = fwCharacterService.findPaginated(pageNo, pageSize, sortField, sortDir);
+        List<FWCharacter> fwCharacterList = page.getContent();
+
+        model.addObject("currentPage", pageNo);
+        model.addObject("totalPages", page.getTotalPages());
+        model.addObject("totalItems", page.getTotalElements());
+
+        model.addObject("sortField", sortField);
+        model.addObject("sortDir", sortDir);
+        model.addObject("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
+        model.addObject("fwCharacterList", fwCharacterList);
+
+        return model;
+    }
+
 }

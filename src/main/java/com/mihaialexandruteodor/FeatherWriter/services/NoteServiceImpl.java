@@ -1,5 +1,6 @@
 package com.mihaialexandruteodor.FeatherWriter.services;
 
+import com.mihaialexandruteodor.FeatherWriter.model.Corkboard;
 import com.mihaialexandruteodor.FeatherWriter.model.Note;
 import com.mihaialexandruteodor.FeatherWriter.model.Novel;
 import com.mihaialexandruteodor.FeatherWriter.repository.NoteRepository;
@@ -30,14 +31,14 @@ public class NoteServiceImpl implements  NoteService{
     }
 
     @Override
-    public void addProjectToNote(Novel novel, Note note) {
-        note.setNovel(novel);
+    public void addCorkboardToNote(Corkboard corkboard, Note note) {
+        note.setCorkboard(corkboard);
         this.noteRepository.save(note);
     }
 
     @Override
-    public void removeProjectFromNote(Note note) {
-        note.removeNovel();
+    public void removeCorkboardFromNote(Note note) {
+        note.removeCorkboard();
         this.noteRepository.save(note);
     }
 

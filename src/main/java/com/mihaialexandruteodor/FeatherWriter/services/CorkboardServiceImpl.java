@@ -1,6 +1,8 @@
 package com.mihaialexandruteodor.FeatherWriter.services;
 
 import com.mihaialexandruteodor.FeatherWriter.model.Corkboard;
+import com.mihaialexandruteodor.FeatherWriter.model.Note;
+import com.mihaialexandruteodor.FeatherWriter.model.Novel;
 import com.mihaialexandruteodor.FeatherWriter.repository.CorkboardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -38,6 +40,18 @@ public class CorkboardServiceImpl implements  CorkboardService{
             throw new RuntimeException(" Corkboard not found for id :: " + id);
         }
         return corkboard;
+    }
+
+    @Override
+    public void addNoteToCorkboard(Corkboard corkboard, Note note) {
+        corkboard.addNote(note);
+        this.corkboardRepository.save(corkboard);
+    }
+
+    @Override
+    public void removeNoteFromCorkboard(Corkboard corkboard, Note note) {
+        corkboard.removeNote(note);
+        this.corkboardRepository.save(corkboard);
     }
 
     @Override

@@ -4,14 +4,14 @@ import com.mihaialexandruteodor.FeatherWriter.model.FWCharacter;
 import com.mihaialexandruteodor.FeatherWriter.model.Location;
 import com.mihaialexandruteodor.FeatherWriter.services.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class LocationController {
@@ -49,5 +49,46 @@ public class LocationController {
     public String deleteLocationProfile(@Valid @PathVariable (value = "id") int id) {
         locationService.deleteLocationById(id);
         return "redirect:/locationsPage";
+    }
+
+    @GetMapping("/locationProfile/{id}")
+    public ModelAndView locationProfile(@Valid @PathVariable(value = "id") int id) {
+        Location location = locationService.getLocationById(id);
+        ModelAndView mv = new ModelAndView("location_profile");
+        mv.addObject("location", location);
+        return mv;
+    }
+
+    @GetMapping("/locationsPage")
+    public ModelAndView locationsPage() {
+        return loadLocationsPageData();
+    }
+
+    public ModelAndView loadLocationsPageData() {
+        return findPaginated(1, "name", "asc");
+    }
+
+    @GetMapping("/locationsPage/page/{pageNo}")
+    public ModelAndView findPaginated(@Valid @PathVariable(value = "pageNo") int pageNo,
+                                      @Valid @RequestParam("sortField") String sortField,
+                                      @Valid @RequestParam("sortDir") String sortDir) {
+
+        ModelAndView model = new ModelAndView("locations_page");
+        int pageSize = 12;
+
+        Page<Location> page = locationService.findPaginated(pageNo, pageSize, sortField, sortDir);
+        List<Location> locationList = page.getContent();
+
+        model.addObject("currentPage", pageNo);
+        model.addObject("totalPages", page.getTotalPages());
+        model.addObject("totalItems", page.getTotalElements());
+
+        model.addObject("sortField", sortField);
+        model.addObject("sortDir", sortDir);
+        model.addObject("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
+        model.addObject("locationList", locationList);
+
+        return model;
     }
 }

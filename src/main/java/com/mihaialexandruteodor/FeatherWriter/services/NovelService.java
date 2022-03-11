@@ -16,7 +16,5 @@ public interface NovelService {
     void removeChapterFromProject(Novel project, Chapter chapter) ;
     void addLocationToProject(Novel project, Location location) ;
     void removeLocationFromProject(Novel project, Location location) ;
-    void addNoteToProject(Novel project, Note note) ;
-    void removeNoteFromProject(Novel project, Note note) ;
     Page<Novel> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
 }

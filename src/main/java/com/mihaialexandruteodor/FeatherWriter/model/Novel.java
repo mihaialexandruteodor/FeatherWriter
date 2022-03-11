@@ -38,13 +38,11 @@ public class Novel {
     @OneToMany(mappedBy = "novel", cascade = CascadeType.MERGE)
     private List<FWCharacter> characters = new ArrayList<>();
 
-    @OneToMany(mappedBy = "novel", cascade = CascadeType.MERGE)
-    private List<Note> notes = new ArrayList<>();
 
     @OneToOne
     @JoinColumn(name = "corkboardID")
     @RestResource(path = "novelCorkboard", rel="corkboard")
-    private Corkboard corkboard;
+    private Corkboard corkboard = new Corkboard();
 
     public int getNovelID() {
         return novelID;
@@ -102,10 +100,6 @@ public class Novel {
 
     public void setCharacters(List<FWCharacter> characters) {this.characters = characters;}
 
-    public List<Note> getNotes() {return notes;}
-
-    public void setNotes(List<Note> notes) {this.notes = notes;}
-
     public Corkboard getCorkboard() {return corkboard;}
 
     public void setCorkboard(Corkboard corkboard) {this.corkboard = corkboard;}
@@ -137,12 +131,4 @@ public class Novel {
         locations.remove(location);
     }
 
-    public void addNote(Note note)
-    {
-        notes.add(note);
-    }
-
-    public void removeNote(Note note) {
-        notes.remove(note);
-    }
 }

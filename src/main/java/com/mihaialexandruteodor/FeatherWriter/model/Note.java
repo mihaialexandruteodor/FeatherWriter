@@ -21,8 +21,8 @@ public class Note {
     private String image;
 
     @ManyToOne
-    @JoinColumn(name="novelID")
-    private Novel novel;
+    @JoinColumn(name="corkboardID")
+    private Corkboard corkboard;
 
     public int getNoteID() {
         return noteID;
@@ -56,15 +56,15 @@ public class Note {
         this.image = image;
     }
 
-    public Novel getNovel() {
-        return novel;
+    public Corkboard getCorkboard() {
+        return corkboard;
     }
 
-    public void setNovel(Novel novel) {
-        this.novel = novel;
+    public void setCorkboard(Corkboard corkboard) {
+        this.corkboard = corkboard;
     }
 
-    public void removeNovel() {
-        this.novel = null;
+    public void removeCorkboard() {
+        this.corkboard = null;
     }
 }

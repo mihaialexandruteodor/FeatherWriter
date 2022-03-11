@@ -82,18 +82,6 @@ public class NovelServiceImpl implements  NovelService{
     }
 
     @Override
-    public void addNoteToProject(Novel project, Note note) {
-        project.addNote(note);
-        this.novelRepository.save(project);
-    }
-
-    @Override
-    public void removeNoteFromProject(Novel project, Note note) {
-        project.removeNote(note);
-        this.novelRepository.save(project);
-    }
-
-    @Override
     public Page<Novel> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
                 Sort.by(sortField).descending();
