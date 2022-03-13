@@ -13,5 +13,6 @@ public interface SceneService {
     void deleteSceneById(int id);
     void addChapterToScene(Scene scene, Chapter chapter);
     void removeChapterToScene(Scene scene);
+    void swapScenesText(Scene donor, Scene receiver);
     Page<Scene> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
 }

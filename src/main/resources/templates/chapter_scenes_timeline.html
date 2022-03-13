@@ -27,14 +27,14 @@
 <br/>
 <div class="cards">
 
-  <tr th:each="scene : ${assignedSceneList}">
+  <tr th:each="scene, iterator : ${assignedSceneList}">
     <div class="card text-white border-light bg-dark" >
       <div class="card-body">
         <h5 class="card-text" th:text="${scene.descriptiontext}"></h5>
-        <button th:href="@{'/moveUpInTimeline/' + ${scene.sceneID} + '/' + ${chapter.chapterID}}" class="button-78">^</button>
+        <button th:if="${iterator.first != true}" class="button-78" th:href="@{'/moveUpInTimeline/' + ${scene.sceneID} + '/' + ${chapter.chapterID}}">^</button>
         <a th:href="@{'/editScene/' + ${scene.sceneID}}" class="button-78">Edit Scene</a>
         <a th:href="@{'/deleteScene/' + ${scene.sceneID} + '/' + ${chapter.chapterID}}" class="button-78">Delete Scene</a>
-        <button th:href="@{'/moveDownInTimeline/' + ${scene.sceneID} + '/' + ${chapter.chapterID}}" class="button-78">v</button>
+        <button th:if="${iterator.last != true}" th:href="@{'/moveDownInTimeline/' + ${scene.sceneID} + '/' + ${chapter.chapterID}}" class="button-78">v</button>
       </div>
     </div>
   </tr>

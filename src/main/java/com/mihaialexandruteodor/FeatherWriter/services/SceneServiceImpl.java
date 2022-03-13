@@ -59,6 +59,18 @@ public class SceneServiceImpl implements SceneService{
     }
 
     @Override
+    public void swapScenesText(Scene donor, Scene receiver) {
+        String textAux = donor.getText();
+        String textDescriptionAux = donor.getDescriptiontext();
+        donor.setText(receiver.getText());
+        donor.setDescriptiontext(receiver.getDescriptiontext());
+        receiver.setText(textAux);
+        receiver.setDescriptiontext(textDescriptionAux);
+        this.sceneRepository.save(donor);
+        this.sceneRepository.save(receiver);
+    }
+
+    @Override
     public Page<Scene> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
                 Sort.by(sortField).descending();
