@@ -77,6 +77,16 @@ public class ChapterController {
         return setUpSceneTimeline( model,  chapter);
     }
 
+    @PostMapping("/moveUpInTimeline/{chapterID}")
+    public ModelAndView moveUpInTimeline(Model model, @Valid @PathVariable("chapterID") int chapterID, @Valid @PathVariable("sceneID") int sceneID)
+    {
+        Scene donor = sceneService.getSceneById(sceneID);
+        Scene receiver = sceneService.getSceneById(sceneID-1);
+        sceneService.swapScenesText(donor, receiver);
+        Chapter chapter = chapterService.getChapterById(chapterID);
+        return setUpSceneTimeline( model,  chapter);
+    }
+
     public ModelAndView setUpSceneTimeline(Model model, Chapter chapter)
     {
         ModelAndView mv = new ModelAndView("chapter_scenes_timeline");

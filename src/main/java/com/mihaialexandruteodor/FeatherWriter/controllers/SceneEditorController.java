@@ -49,71 +49,14 @@ public class SceneEditorController {
     @Autowired
     private FileExporter fileExporter;
 
-    @RequestMapping("/sceneEditor/{sceneID}/{chapterID}")
-    public ModelAndView viewSceneEditor( @Valid @PathVariable(value = "sceneID") int sceneID, @Valid @PathVariable(value = "chapterID") int chapterID) {
-        Scene scene = sceneService.getSceneById(sceneID);
-        Chapter chapter = chapterService.getChapterById(chapterID);
-        ModelAndView mv = new ModelAndView("scene_editor_page");
-        mv.addObject("scene", scene);
-        mv.addObject("chapter", chapter);
-        return mv;
-    }
 
-    @PostMapping("/saveScene")
-    public String saveScene(@Valid @ModelAttribute("scene") Scene scene, @Valid @ModelAttribute("chapter") Chapter chapter) {
-        sceneService.saveScene(scene);
-        return "redirect:/sceneEditor/"+scene.getSceneID()+"/"+chapter.getChapterID();
-    }
-
-    @PostMapping("/saveSceneText/{chapterID}")
-    public String saveSceneText(@Valid @ModelAttribute("scene") Scene scene, @Valid @PathVariable("chapterID") int chapterID) {
-        Chapter chapter = chapterService.getChapterById(chapterID);
-        sceneService.addChapterToScene(scene, chapter);
-        chapterService.addSceneToChapter(scene,chapter);
-        return  "redirect:/showSceneTimeline/" + chapter.getChapterID();
-    }
-
-    @GetMapping("/deleteScene/{sceneID}/{chapterID}")
-    public String deleteScene(@Valid @PathVariable(value = "sceneID") int sceneID, @Valid @PathVariable(value = "chapterID") int chapterID) {
-        sceneService.deleteSceneById(sceneID);
-        return  "redirect:/showSceneTimeline/" + chapterID;
-    }
-
-
-    @GetMapping("/newScene/{chapterID}")
-    public ModelAndView newScene(@Valid @PathVariable("chapterID") int chapterID)
-    {
-        Scene scene = new Scene();
-        Chapter chapter = chapterService.getChapterById(chapterID);
-        sceneService.saveScene(scene);
-        sceneService.addChapterToScene(scene,chapter);
-        chapterService.addSceneToChapter(scene,chapter);
-        ModelAndView mv = new ModelAndView("scene_editor_page");
-        mv.addObject("scene",scene);
-        mv.addObject("chapter",chapter);
-        return mv;
-    }
-
-    @GetMapping("/editScene/{sceneID}")
-    public ModelAndView editScene(@Valid @PathVariable("sceneID") int sceneID)
-    {
-        Scene scene = sceneService.getSceneById(sceneID);
-        //System.out.println("TEST: " + scene.getText());
-        Chapter chapter = scene.getChapter();
-        ModelAndView mv = new ModelAndView("scene_editor_page");
-        mv.addObject("scene",scene);
-        mv.addObject("chapter",chapter);
-        return mv;
-    }
 
     @RequestMapping(value = "/saveSceneText", method = POST)
     @ResponseBody
-    public ResponseEntity<?> saveSceneText(@RequestParam(value = "fileContent", required = false, defaultValue = "<p>test</p>") String fileContent, @RequestParam(value = "sceneID") int sceneID, @RequestParam(value = "chapterID") int chapterID) throws JAXBException, IOException, ParserConfigurationException, TransformerException, InterruptedException, Docx4JException {
-        Chapter chapter = chapterService.getChapterById(chapterID);
+    public ResponseEntity<?> saveSceneText(@RequestParam(value = "fileContent", required = false, defaultValue = "<p>test</p>") String fileContent, @RequestParam(value = "sceneID") int sceneID) throws JAXBException, IOException, ParserConfigurationException, TransformerException, InterruptedException, Docx4JException {
         Scene scene = sceneService.getSceneById(sceneID);
         scene.setText(fileContent);
-        sceneService.addChapterToScene(scene, chapter);
-        chapterService.addSceneToChapter(scene,chapter);
+        sceneService.saveScene(scene);
         return new ResponseEntity<>(null, HttpStatus.OK);
 
     }
