@@ -2,6 +2,8 @@ package com.mihaialexandruteodor.FeatherWriter.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Entity
@@ -65,6 +67,16 @@ public class Chapter {
     public void removeScene(Scene scene)
     {
         this.scenes.remove(scene);
+    }
+
+    public void sortScenes()
+    {
+        Collections.sort(scenes, (s1, s2) -> {
+            Integer id1 = s1.getSceneID();
+            Integer id2 = s2.getSceneID();
+
+            return id1.compareTo(id2);
+        });
     }
 
 }
