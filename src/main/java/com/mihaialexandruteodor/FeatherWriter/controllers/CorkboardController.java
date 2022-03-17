@@ -3,16 +3,11 @@ package com.mihaialexandruteodor.FeatherWriter.controllers;
 import com.mihaialexandruteodor.FeatherWriter.model.Corkboard;
 import com.mihaialexandruteodor.FeatherWriter.model.Note;
 import com.mihaialexandruteodor.FeatherWriter.model.Novel;
-import com.mihaialexandruteodor.FeatherWriter.repository.CorkboardRepository;
 import com.mihaialexandruteodor.FeatherWriter.services.CorkboardService;
 import com.mihaialexandruteodor.FeatherWriter.services.NoteService;
 import com.mihaialexandruteodor.FeatherWriter.services.NovelService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -37,7 +32,7 @@ public class CorkboardController {
     }
 
     @GetMapping("/corkboardPage/{novelID}")
-    public ModelAndView projectsPage(@Valid  @PathVariable(value = "novelID") int  novelID) {
+    public ModelAndView corkboardPage(@Valid  @PathVariable(value = "novelID") int  novelID) {
 
         Novel novel = novelService.getNovelById(novelID);
         return setUpCorkboardPage(novel);
@@ -49,24 +44,57 @@ public class CorkboardController {
         Corkboard corkboard = novel.getCorkboard();
         mv.addObject("novel",novel);
         mv.addObject("corkboard",corkboard);
+        mv.addObject("listNotes",corkboard.getNotes());
         return mv;
     }
 
-    @RequestMapping(value ="/addNoteToCorkboard/{novelID}/{noteID}/{corkboardID}")
-    public ModelAndView addNoteToCorkboard(@Valid @PathVariable(value ="noteID") int noteID, @Valid  @PathVariable(value = "corkboardID") int  corkboardID, @Valid  @PathVariable(value = "novelID") int  novelID){
-        Note noteObj = noteService.getNoteById(noteID);
-        Corkboard corkboard = corkboardService.getCorkboardById(corkboardID);
+    @GetMapping("/newNote/{novelID}")
+    public ModelAndView newNote(@Valid @PathVariable("novelID") int novelID)
+    {
+        ModelAndView mv = new ModelAndView("note_creation");
+        Note note = new Note();
+        Novel novelObj = novelService.getNovelById(novelID);
+        mv.addObject("note",note);
+        mv.addObject("novel",novelObj);
+        return mv;
+    }
+
+    @GetMapping("/removeNote/{novelID}/{noteID}")
+    public ModelAndView newNote(@Valid @PathVariable("novelID") int novelID, @Valid @PathVariable("noteID") int noteID)
+    {
+        Note note = noteService.getNoteById(noteID);
+        Novel novelObj = novelService.getNovelById(novelID);
+        novelObj.getCorkboard().removeNote(note);
+        noteService.deleteNoteById(noteID);
+        corkboardService.saveCorkboard(novelObj.getCorkboard());
+        return corkboardPage(novelID);
+    }
+
+    @GetMapping("/editNote/{noteID}")
+    public ModelAndView editNote(@Valid @PathVariable("noteID") int noteID)
+    {
+        Note note = noteService.getNoteById(noteID);
+        ModelAndView mv = new ModelAndView("note_creation");
+        mv.addObject("note",note);
+        return mv;
+    }
+
+    @RequestMapping(value ="/addNoteToCorkboard/{novelID}")
+    public ModelAndView addNoteToCorkboard(@Valid @ModelAttribute(value ="note") Note noteObj, @Valid  @PathVariable(value = "novelID") int  novelID){
+        Novel novel = novelService.getNovelById(novelID);
+        Corkboard corkboard = novel.getCorkboard();
         corkboardService.addNoteToCorkboard(corkboard,noteObj);
         noteService.addCorkboardToNote(corkboard,noteObj);
         return setUpCorkboardPage(novelService.getNovelById(novelID));
     }
 
-    @RequestMapping(value ="/removeNoteFromCorkboard/{novelID}/{noteID}/{corkboardID}")
-    public ModelAndView removeNoteFromCorkboard(@Valid @PathVariable(value ="noteID") int  noteID, @Valid  @PathVariable(value = "corkboardID") int  corkboardID, @Valid  @PathVariable(value = "novelID") int  novelID){
-        Note noteObj = noteService.getNoteById(noteID);
-        Corkboard corkboard = corkboardService.getCorkboardById(corkboardID);
+    @RequestMapping(value ="/removeNoteFromCorkboard/{novelID}/{noteID}")
+    public ModelAndView removeNoteFromCorkboard(@Valid @ModelAttribute(value ="note") Note  noteObj, @Valid  @PathVariable(value = "novelID") int  novelID){
+        Novel novel = novelService.getNovelById(novelID);
+        int noteID = noteObj.getNoteID();
+        Corkboard corkboard = novel.getCorkboard();
         corkboardService.removeNoteFromCorkboard(corkboard,noteObj);
-        noteService.removeCorkboardFromNote(noteObj);
+        noteService.deleteNoteById(noteID);
         return setUpCorkboardPage(novelService.getNovelById(novelID));
     }
 }

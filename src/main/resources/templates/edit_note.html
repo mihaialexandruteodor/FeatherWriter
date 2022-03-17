@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>New Note</title>
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/img1style.css">
+  <link rel="stylesheet" href="/css/button.css">
+  <link rel="stylesheet" href="/css/center.css">
+  <script src="../js/imgToBlob.js"></script>
+</head>
+<body>
+<div class="center">
+
+  <h1>New Note</h1>
+  <hr>
+
+  <form  th:action="@{'/addNoteToCorkboard/'+${novel.novelID}}" th:object="${note}"  method="POST">
+
+    <input type="hidden" th:field="*{noteID}" />
+
+    <h2>Title</h2>
+    <input class="center" type="text" th:field="*{title}" placeholder="Title">
+    <br/>
+    <br/>
+
+    <h2>Text</h2>
+    <textarea th:field="*{text}" placeholder="Note goes here" rows="25" cols="50">
+        </textarea>
+
+    <br/>
+    <br/>
+
+    <h2>Image</h2>
+    <label for="imgChar">Select image:</label>
+    <input class="button-78" type="file" id="imgChar" name="img" accept="image/*" onchange="encodeImageFileAsURL(this)" >
+    <input type="hidden" name="blob" id="blobVal" th:field="*{image}"/>
+    <br/>
+    <br/>
+
+    <button type="submit" class="button-78"> Save Scene</button>
+  </form>
+
+  <hr>
+
+  <button class="button-78" th:href = "@{'/allChaptersPage/' + ${novel.novelID}}">Chapters timeline</button>
+</div>
+</body>
+</html>

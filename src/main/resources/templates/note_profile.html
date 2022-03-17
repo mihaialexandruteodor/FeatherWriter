@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title  th:text="${note.title}"></title>
+    <link rel="stylesheet" type="text/css" href="/css/img3style.css">
+    <link rel="stylesheet" href="/css/button.css">
+    <link rel="stylesheet" href="/css/center.css">
+    <link rel="stylesheet" href="/css/profile.css">
+</head>
+<body>
+<div class="resume-wrapper">
+    <section class="profile section-padding">
+        <div class="container">
+            <div class="picture-resume-wrapper">
+                <div class="picture-resume">
+
+                    <img th:if="${note.image != ''}"    th:src="${note.image}">
+
+                </div>
+            </div>
+            <div class="name-wrapper">
+                <h1 th:text="${note.title}"></h1>
+            </div>
+
+            <div class="text_bg" th:text="${note.text}"></div>
+
+        </div>
+    </section>
+
+    <button class="button-78" th:href = "@{'/allChaptersPage/' + ${novel.novelID}}">Chapters timeline</button>
+</div>
+</body>
+</html>
