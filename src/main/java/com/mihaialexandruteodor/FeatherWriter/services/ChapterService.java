@@ -17,5 +17,6 @@ public interface ChapterService {
     void removeSceneFromChapter(Scene scene, Chapter chapter);
     Chapter getChapterById(int id);
     void deleteChapterById(int id);
+    void swapChapters(Chapter donor, Chapter receiver);
     Page<Chapter> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
 }

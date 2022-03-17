@@ -1,6 +1,9 @@
 package com.mihaialexandruteodor.FeatherWriter.controllers;
 
-import com.mihaialexandruteodor.FeatherWriter.model.*;
+import com.mihaialexandruteodor.FeatherWriter.model.Chapter;
+import com.mihaialexandruteodor.FeatherWriter.model.FWCharacter;
+import com.mihaialexandruteodor.FeatherWriter.model.Location;
+import com.mihaialexandruteodor.FeatherWriter.model.Novel;
 import com.mihaialexandruteodor.FeatherWriter.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,10 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 public class NovelController {

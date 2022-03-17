@@ -107,6 +107,26 @@ public class ChapterController {
         return mv;
     }
 
+    @GetMapping("/moveChapterUpInTimeline/{novelID}/{chapterID}")
+    public ModelAndView moveChapterUpInTimeline(Model model, @Valid @PathVariable("chapterID") int chapterID, @Valid @PathVariable("novelID") int novelID)
+    {
+        Chapter donor = chapterService.getChapterById(chapterID);
+        Chapter receiver = chapterService.getChapterById(chapterID-1);
+        chapterService.swapChapters(donor, receiver);
+        Novel novel = novelService.getNovelById(novelID);
+        return setUpChaptersPage(model, novel);
+    }
+
+    @GetMapping("/moveChapterDownInTimeline/{novelID}/{chapterID}")
+    public ModelAndView moveChapterDownInTimeline(Model model, @Valid @PathVariable("chapterID") int chapterID, @Valid @PathVariable("novelID") int novelID)
+    {
+        Chapter donor = chapterService.getChapterById(chapterID);
+        Chapter receiver = chapterService.getChapterById(chapterID+1);
+        chapterService.swapChapters(donor, receiver);
+        Novel novel = novelService.getNovelById(novelID);
+        return setUpChaptersPage(model, novel);
+    }
+
     public ModelAndView setUpChaptersPage(Model model, Novel novel)
     {
         ModelAndView mv = new ModelAndView("project_chapters_timeline");

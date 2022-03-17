@@ -67,6 +67,18 @@ public class ChapterServiceImpl implements ChapterService{
     }
 
     @Override
+    public void swapChapters(Chapter donor, Chapter receiver) {
+        String auxTitle = donor.getTitle();
+        donor.setTitle(receiver.getTitle());
+        receiver.setTitle(auxTitle);
+        List<Scene> auxScenes = donor.getScenes();
+        donor.setScenes(receiver.getScenes());
+        receiver.setScenes(auxScenes);
+        chapterRepository.save(donor);
+        chapterRepository.save(receiver);
+    }
+
+    @Override
     public void deleteChapterById(int id) {
         this.chapterRepository.deleteById(id);
     }
