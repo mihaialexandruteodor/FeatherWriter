@@ -59,6 +59,17 @@ public class CorkboardController {
         return mv;
     }
 
+    @GetMapping("/noteProfile/{novelID}/{noteID}")
+    public ModelAndView noteProfile(@Valid @PathVariable("novelID") int novelID, @Valid @PathVariable("noteID") int noteID)
+    {
+        ModelAndView mv = new ModelAndView("note_profile");
+        Novel novelObj = novelService.getNovelById(novelID);
+        Note note =noteService.getNoteById(noteID);
+        mv.addObject("note",note);
+        mv.addObject("novel",novelObj);
+        return mv;
+    }
+
     @GetMapping("/removeNote/{novelID}/{noteID}")
     public ModelAndView newNote(@Valid @PathVariable("novelID") int novelID, @Valid @PathVariable("noteID") int noteID)
     {
@@ -70,12 +81,14 @@ public class CorkboardController {
         return corkboardPage(novelID);
     }
 
-    @GetMapping("/editNote/{noteID}")
-    public ModelAndView editNote(@Valid @PathVariable("noteID") int noteID)
+    @GetMapping("/editNote/{novelID}/{noteID}")
+    public ModelAndView editNote(@Valid @PathVariable("novelID") int novelID, @Valid @PathVariable("noteID") int noteID)
     {
         Note note = noteService.getNoteById(noteID);
-        ModelAndView mv = new ModelAndView("note_creation");
+        Novel novelObj = novelService.getNovelById(novelID);
+        ModelAndView mv = new ModelAndView("edit_note");
         mv.addObject("note",note);
+        mv.addObject("novel",novelObj);
         return mv;
     }
 
@@ -89,11 +102,11 @@ public class CorkboardController {
     }
 
     @RequestMapping(value ="/removeNoteFromCorkboard/{novelID}/{noteID}")
-    public ModelAndView removeNoteFromCorkboard(@Valid @ModelAttribute(value ="note") Note  noteObj, @Valid  @PathVariable(value = "novelID") int  novelID){
+    public ModelAndView removeNoteFromCorkboard(@Valid @PathVariable("noteID") int noteID, @Valid  @PathVariable(value = "novelID") int  novelID){
         Novel novel = novelService.getNovelById(novelID);
-        int noteID = noteObj.getNoteID();
+        Note note = noteService.getNoteById(noteID);
         Corkboard corkboard = novel.getCorkboard();
-        corkboardService.removeNoteFromCorkboard(corkboard,noteObj);
+        corkboardService.removeNoteFromCorkboard(corkboard,note);
         noteService.deleteNoteById(noteID);
         return setUpCorkboardPage(novelService.getNovelById(novelID));
     }
