@@ -1,8 +1,6 @@
 package com.mihaialexandruteodor.FeatherWriter.controllers;
 
-import com.mihaialexandruteodor.FeatherWriter.model.Chapter;
-import com.mihaialexandruteodor.FeatherWriter.model.FWCharacter;
-import com.mihaialexandruteodor.FeatherWriter.model.Novel;
+
 import com.mihaialexandruteodor.FeatherWriter.model.Scene;
 import com.mihaialexandruteodor.FeatherWriter.services.ChapterService;
 import com.mihaialexandruteodor.FeatherWriter.services.SceneService;
@@ -15,11 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.validation.Valid;
+;
 import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -28,7 +23,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @Controller
 public class SceneEditorController {
@@ -62,15 +57,14 @@ public class SceneEditorController {
     }
 
 
-    @RequestMapping(value = "/downloadTextFileScene", method = POST)
+    @RequestMapping(value = "/downloadTextFileScene", method = GET)
     @ResponseBody
     public ResponseEntity<InputStreamResource> saveSceneLocally(@RequestParam(value = "fileContent", required = false, defaultValue = "<p>test</p>") String fileContent) throws JAXBException, IOException, ParserConfigurationException, TransformerException, InterruptedException, Docx4JException {
-        String fileName = "PLACEHOLDER_USE_FUNC_PARAM.xml";
+        String fileName = "PLACEHOLDER_USE_FUNC_PARAM.docx";
 
         // Create text file
         Path exportedPath = fileExporter.export(fileContent, fileName);
 
-        System.out.println("EXPORTED PATH: " + exportedPath);
 
         // Download file with InputStreamResource
         try{
@@ -87,7 +81,7 @@ public class SceneEditorController {
         }
         finally {
             // cleanup local folder
-            fileExporter.remove(exportedPath);
+            //  fileExporter.remove(exportedPath);
         }
 
     }

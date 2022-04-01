@@ -70,6 +70,9 @@ public class DataSingleton {
         else if(isDocker)
         {
             downloadPath = System.getProperty("file.separator") + "FeatherWriter" + System.getProperty("file.separator");
+            File directory = new File(downloadPath);
+            if (! directory.exists())
+                directory.mkdir();
         }
 
     }

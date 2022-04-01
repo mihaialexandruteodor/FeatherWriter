@@ -33,7 +33,10 @@ public class TextFileExporter implements FileExporter {
 
     @Override
     public Path export(String fileContent, String fileName) throws JAXBException, Docx4JException, IOException {
+
         Path filePath = Paths.get(EXPORT_DIRECTORY, fileName);
+        if(filePath.toFile().renameTo(filePath.toFile()))
+             Files.delete(filePath);
 
         WordprocessingMLPackage docxOut = WordprocessingMLPackage.createPackage();
         NumberingDefinitionsPart ndp = new NumberingDefinitionsPart();
@@ -42,18 +45,17 @@ public class TextFileExporter implements FileExporter {
 
         XHTMLImporterImpl XHTMLImporter = new XHTMLImporterImpl(docxOut);
 
+        String xhtml=
+                "<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:100%;\"><tbody><tr><td>test</td><td>test</td></tr><tr><td>test</td><td>test</td></tr><tr><td>test</td><td>test</td></tr></tbody></table>";
+
 
         docxOut.getMainDocumentPart().getContent().addAll(
-                XHTMLImporter.convert( fileContent, null) );
+               // XHTMLImporter.convert( fileContent, null) );
+                XHTMLImporter.convert( xhtml, null) );
 
- //       docxOut.save(new java.io.File(filePath.toString()));
-
-        String xhtml = XmlUtils.marshaltoString(docxOut
-                .getMainDocumentPart().getJaxbElement(), true, true);
-
-        Files.write(filePath, xhtml.getBytes(), StandardOpenOption.CREATE);
-
-
+        docxOut.save(new java.io.File(EXPORT_DIRECTORY+fileName));
+        Files.delete(filePath);
+        docxOut.save(new java.io.File(EXPORT_DIRECTORY+fileName));      //strange fix for LibreOfice bug
 
         return filePath;
 
