@@ -50,9 +50,9 @@ public class TextFileExporter implements FileExporter {
         //XHTMLImporter.setDivHandler(new DivToSdt());
 
 
-        System.out.println("***********");
-        System.out.println(fileContent);
-        System.out.println("***********");
+       // System.out.println("***********");
+       // System.out.println(fileContent);
+      //  System.out.println("***********");
 
         wordMLPackage.getMainDocumentPart().getContent().addAll(
                 XHTMLImporter.convert( fileContent, null) );
