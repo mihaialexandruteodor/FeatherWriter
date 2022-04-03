@@ -2,6 +2,7 @@ package com.mihaialexandruteodor.FeatherWriter.utlis;
 
 
 import org.docx4j.XmlUtils;
+import org.docx4j.convert.in.xhtml.FormattingOption;
 import org.docx4j.convert.in.xhtml.XHTMLImporterImpl;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.docx4j.openpackaging.exceptions.InvalidFormatException;
@@ -34,28 +35,34 @@ public class TextFileExporter implements FileExporter {
     @Override
     public Path export(String fileContent, String fileName) throws JAXBException, Docx4JException, IOException {
 
+        fileContent = fileContent.replaceAll("&nbsp;", " ");
+        fileContent = fileContent.replaceAll("<br>", "<br/>");
+        fileContent = "<body>"+fileContent + "</body>";
+
         Path filePath = Paths.get(EXPORT_DIRECTORY, fileName);
         if(filePath.toFile().renameTo(filePath.toFile()))
              Files.delete(filePath);
 
-        WordprocessingMLPackage docxOut = WordprocessingMLPackage.createPackage();
-        NumberingDefinitionsPart ndp = new NumberingDefinitionsPart();
-        docxOut.getMainDocumentPart().addTargetPart(ndp);
-        ndp.unmarshalDefaultNumbering();
+        WordprocessingMLPackage wordMLPackage = WordprocessingMLPackage.createPackage();
 
-        XHTMLImporterImpl XHTMLImporter = new XHTMLImporterImpl(docxOut);
-
-        String xhtml=
-                "<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:100%;\"><tbody><tr><td>test</td><td>test</td></tr><tr><td>test</td><td>test</td></tr><tr><td>test</td><td>test</td></tr></tbody></table>";
+        XHTMLImporterImpl XHTMLImporter = new XHTMLImporterImpl(wordMLPackage);
+        XHTMLImporter.setRunFormatting(FormattingOption.CLASS_TO_STYLE_ONLY);
+        //XHTMLImporter.setDivHandler(new DivToSdt());
 
 
-        docxOut.getMainDocumentPart().getContent().addAll(
-               // XHTMLImporter.convert( fileContent, null) );
-                XHTMLImporter.convert( xhtml, null) );
+        System.out.println("***********");
+        System.out.println(fileContent);
+        System.out.println("***********");
 
-        docxOut.save(new java.io.File(EXPORT_DIRECTORY+fileName));
+        wordMLPackage.getMainDocumentPart().getContent().addAll(
+                XHTMLImporter.convert( fileContent, null) );
+
+        System.out.println(XmlUtils.marshaltoString(wordMLPackage
+                .getMainDocumentPart().getJaxbElement(), true, true));
+
+        wordMLPackage.save(new java.io.File(EXPORT_DIRECTORY+fileName));
         Files.delete(filePath);
-        docxOut.save(new java.io.File(EXPORT_DIRECTORY+fileName));      //strange fix for LibreOfice bug
+        wordMLPackage.save(new java.io.File(EXPORT_DIRECTORY+fileName));      //strange fix for LibreOfice bug
 
         return filePath;
 

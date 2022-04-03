@@ -54,6 +54,14 @@
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.docx4j/docx4j -->
+		<dependency>
+			<groupId>org.docx4j</groupId>
+			<artifactId>docx4j</artifactId>
+			<version>6.1.2</version>
+		</dependency>
+
+
 		<!-- https://mvnrepository.com/artifact/org.docx4j/docx4j-ImportXHTML -->
 		<dependency>
 			<groupId>org.docx4j</groupId>
@@ -67,6 +75,13 @@
 			<version>8.1.0</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.w3c/dom -->
+		<dependency>
+			<groupId>org.w3c</groupId>
+			<artifactId>dom</artifactId>
+			<version>2.3.0-jaxb-1.0.6</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -75,6 +90,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${project.parent.version}</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

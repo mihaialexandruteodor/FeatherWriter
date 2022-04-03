@@ -58,7 +58,7 @@
           var html = $("#summernote").summernote("code");
 
                var req = new XMLHttpRequest();
-               req.open("GET", "/downloadTextFile?fileContent="+html, true);
+               req.open("GET", "/downloadTextFile?fileContent="+encodeURIComponent(html), true);
                req.responseType = "blob";
                req.onload = function (event) {
                    var blob = req.response;
