@@ -16,6 +16,14 @@ https://hub.docker.com/repository/docker/mihaialexandruteodor/featherwriter
 ## Diagram:
 <img src="https://raw.githubusercontent.com/mihaialexandruteodor/mihaialexandruteodor/master/repoImages/FeatherWriter/Diagram_FW.png" width="800">
 
+## Accesing the app
+The Feather Writer app requires the .traefik.me magic domain to bypass Google OAuth, unless you want to edit your own domain alias to the container's IP in your local machine's hosts file, or you don't want to run Feather Writer in Docker.
+
+The url format is
+```
+<docker.container.ip>.traefik.me:8081
+```
+
 ## Google Cloud Kubernetes Quickstart:
 
 https://www.youtube.com/watch?v=jSYxW_c3M_E
@@ -34,6 +42,11 @@ or
 
 ```
  docker-compose up --force-recreate --build 
+```
+
+Running the app container with cli access is also possible. After building the app using docker-compose, stop the web-app container and restart it from the docker-compose.yml file location by running
+```
+sudo docker-compose run --rm web-app
 ```
 
 if a rebuild is necessary. For Linux, add 'sudo' to the commands. You can also add the -d flag to run detached.

@@ -47,18 +47,13 @@ public class TextFileExporter implements FileExporter {
 
         XHTMLImporterImpl XHTMLImporter = new XHTMLImporterImpl(wordMLPackage);
         XHTMLImporter.setRunFormatting(FormattingOption.CLASS_TO_STYLE_ONLY);
-        //XHTMLImporter.setDivHandler(new DivToSdt());
 
-
-       // System.out.println("***********");
-       // System.out.println(fileContent);
-      //  System.out.println("***********");
 
         wordMLPackage.getMainDocumentPart().getContent().addAll(
                 XHTMLImporter.convert( fileContent, null) );
 
-        System.out.println(XmlUtils.marshaltoString(wordMLPackage
-                .getMainDocumentPart().getJaxbElement(), true, true));
+      //  System.out.println(XmlUtils.marshaltoString(wordMLPackage
+       //         .getMainDocumentPart().getJaxbElement(), true, true));
 
         wordMLPackage.save(new java.io.File(EXPORT_DIRECTORY+fileName));
         Files.delete(filePath);

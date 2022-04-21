@@ -32,8 +32,8 @@ public class LiveEditorController {
 
     @RequestMapping(value = "/downloadTextFile", method = GET)
     @ResponseBody
-    public ResponseEntity<InputStreamResource> saveFileLocally(@RequestParam(value = "fileContent", required = false, defaultValue = "<p>test</p>") String fileContent) throws JAXBException, IOException, ParserConfigurationException, TransformerException, InterruptedException, Docx4JException {
-        String fileName = "PLACEHOLDER_USE_FUNC_PARAM.docx";
+    public ResponseEntity<InputStreamResource> saveFileLocally(@RequestParam(value = "fileContent", required = false, defaultValue = "<p></p>") String fileContent) throws JAXBException, IOException, ParserConfigurationException, TransformerException, InterruptedException, Docx4JException {
+        String fileName = "FeatherWriter.docx";
 
         // Create text file
         Path exportedPath = fileExporter.export(fileContent, fileName);
@@ -54,7 +54,7 @@ public class LiveEditorController {
         }
         finally {
             // cleanup local folder
-          //  fileExporter.remove(exportedPath);
+            fileExporter.remove(exportedPath);
         }
 
     }

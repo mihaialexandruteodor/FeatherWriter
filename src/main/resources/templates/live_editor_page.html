@@ -46,7 +46,7 @@
                req.onload = function (event) {
                    var blob = req.response;
                   // var fileName = req.getResponseHeader("fileName"); //if you have the fileName header available
-                   var fileName = "PLACEHOLDER_USE_FUNC_PARAM.docx";
+                   var fileName = "FeatherWriter.docx";
                    var link=document.createElement('a');
                    link.href=window.URL.createObjectURL(blob);
                    link.download=fileName;
@@ -54,6 +54,7 @@
                };
 
                req.send();
+               alert("Please wait until the Word file is ready!");
           };
 
 
