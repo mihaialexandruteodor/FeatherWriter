@@ -53,17 +53,17 @@
                });
           };
 
-         function saveFileLocally()
+         function saveSceneLocally()
       {
           var html = $("#summernote").summernote("code");
 
                var req = new XMLHttpRequest();
-               req.open("GET", "/downloadTextFile?fileContent="+encodeURIComponent(html), true);
+               req.open("GET", "/downloadTextFileScene?fileContent="+encodeURIComponent(html), true);
                req.responseType = "blob";
                req.onload = function (event) {
                    var blob = req.response;
                   // var fileName = req.getResponseHeader("fileName"); //if you have the fileName header available
-                   var fileName = "PLACEHOLDER_USE_FUNC_PARAM.docx";
+                   var fileName = [[${chapter.title}]]+"_scene_"+[[${scene.sceneID}]]+".docx";
                    var link=document.createElement('a');
                    link.href=window.URL.createObjectURL(blob);
                    link.download=fileName;
