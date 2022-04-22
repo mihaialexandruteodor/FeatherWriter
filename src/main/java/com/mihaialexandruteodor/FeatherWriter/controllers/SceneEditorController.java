@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 ;
 import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
@@ -46,16 +47,6 @@ public class SceneEditorController {
 
 
 
-    @RequestMapping(value = "/saveSceneText", method = POST)
-    @ResponseBody
-    public ResponseEntity<?> saveSceneText(@RequestParam(value = "fileContent", required = false, defaultValue = "<p>test</p>") String fileContent, @RequestParam(value = "sceneID") int sceneID) throws JAXBException, IOException, ParserConfigurationException, TransformerException, InterruptedException, Docx4JException {
-        Scene scene = sceneService.getSceneById(sceneID);
-        scene.setText(fileContent);
-        sceneService.saveScene(scene);
-        return new ResponseEntity<>(null, HttpStatus.OK);
-
-    }
-
 
     @RequestMapping(value = "/downloadTextFileScene", method = GET)
     @ResponseBody
@@ -81,7 +72,7 @@ public class SceneEditorController {
         }
         finally {
             // cleanup local folder
-            //  fileExporter.remove(exportedPath);
+              fileExporter.remove(exportedPath);
         }
 
     }

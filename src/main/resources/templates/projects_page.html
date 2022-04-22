@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="/css/button.css">
   <link rel="stylesheet" href="/css/center.css">
   <script src="js/modernizr.js"></script>
+  <script src="js/downloadnovel.js"></script>
 </head>
 <body>
 
@@ -24,6 +25,7 @@
         <a th:href="@{'/novelPage/' + ${novel.novelID}}" class="button-78">Details</a>
         <a th:href="@{'/allChaptersPage/' + ${novel.novelID}}" class="button-78">Chapters</a>
         <a th:href="@{'/corkboardPage/' + ${novel.novelID}}" class="button-78">Corkboard</a>
+        <a th:onclick="javascript:alert('Please wait until the Word file is ready!');" th:href="@{'/getNovelAsDocx/' + ${novel.novelID}}" class="button-78">Download as .docx</a>
       </div>
     </div>
   </tr>

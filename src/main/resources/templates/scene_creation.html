@@ -19,7 +19,7 @@
   <h1  th:text="'Belongs to chapter ' +${chapter.title}"></h1>
   <hr>
 
-  <form  th:action="@{'/saveScene/'+${chapter.chapterID}}" th:object="${scene}"  method="POST">
+  <form  th:action="@{'/saveScene/'+${chapter.chapterID} + '/' + ${novel.novelID}}" th:object="${scene}"  method="POST">
 
     <h2>Corkboard Text</h2>
     <textarea th:field="*{descriptiontext}" placeholder="This text will appear in the previews" rows="8" cols="50">

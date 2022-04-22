@@ -1,17 +1,29 @@
 package com.mihaialexandruteodor.FeatherWriter.controllers;
 
-import com.mihaialexandruteodor.FeatherWriter.model.Chapter;
-import com.mihaialexandruteodor.FeatherWriter.model.FWCharacter;
-import com.mihaialexandruteodor.FeatherWriter.model.Location;
-import com.mihaialexandruteodor.FeatherWriter.model.Novel;
+import com.mihaialexandruteodor.FeatherWriter.model.*;
 import com.mihaialexandruteodor.FeatherWriter.services.*;
+import com.mihaialexandruteodor.FeatherWriter.utlis.FileExporter;
+import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import javax.xml.bind.JAXBException;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,6 +44,9 @@ public class NovelController {
 
     @Autowired
     private CorkboardService corkboardService;
+
+    @Autowired
+    private FileExporter fileExporter;
 
 
     @Autowired
@@ -189,6 +204,51 @@ public class NovelController {
     {
         Novel novel = novelService.getNovelById(novelID);
         return setUpProjDecorationPage(model,novel);
+    }
+
+    @GetMapping("/getNovelAsDocx/{novelID}")
+    public ResponseEntity<InputStreamResource> getNovelAsDocx(@Valid @PathVariable("novelID") int novelID) throws IOException, InterruptedException, JAXBException, ParserConfigurationException, Docx4JException, TransformerException {
+
+        // Download file with InputStreamResource
+        Path exportedPath = null;
+        try {
+            Novel novel = novelService.getNovelById(novelID);
+            List<Chapter> chapters = novel.getChapters();
+            List<Scene> scenes = new ArrayList<>();
+
+            String fileName = novel.getTitle() + ".docx";
+
+            String novelContent = "<center><h1>" + novel.getTitle() + "</h1></center><br/><center><h3>a novel</h3></center><br/><center><h3>by "+novel.getAuthorname() + "</h3></center><br/>";
+
+            for (Chapter ch : chapters) {
+                novelContent += "<h2>" + ch.getTitle() + "</h2><br/>";
+                List<Scene> chScenes = ch.getScenes();
+                for (Scene s : chScenes) {
+                    novelContent += s.getText() + "<br/><center>*</center><br/>";
+                }
+            }
+
+            // Create text file
+            exportedPath = fileExporter.export(novelContent, fileName);
+
+            File exportedFile = exportedPath.toFile();
+            long contentLength = exportedFile.length();
+            FileInputStream fileInputStream = new FileInputStream(exportedFile);
+            InputStreamResource inputStreamResource = new InputStreamResource(fileInputStream);
+
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + fileName)
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .contentLength(contentLength)
+                    .body(inputStreamResource);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            // cleanup local folder
+            fileExporter.remove(exportedPath);
+        }
+        return null;
     }
 
     @GetMapping("/novelPage/{novelID}")

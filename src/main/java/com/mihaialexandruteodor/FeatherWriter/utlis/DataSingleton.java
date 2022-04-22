@@ -77,15 +77,5 @@ public class DataSingleton {
 
     }
 
-    public String mergeStringHTMLChunks(List<String> chunks)
-    {
-        String res = "";
-        String breakStr = "<br/><br/>";
-        for (String chunk:   chunks) {
-            res += chunk;
-            res += breakStr;
-        }
 
-        return res;
-    }
 }

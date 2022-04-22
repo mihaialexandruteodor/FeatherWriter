@@ -17,9 +17,10 @@
 
 <div class="container">
   <div class="center">
-    <a class="button-78" th:href = "@{'/newScene/' + ${chapter.chapterID}}">New Scene</a>
+    <a class="button-78" th:href = "@{'/newScene/' + ${chapter.chapterID} +'/' + ${novel.novelID}}">New Scene</a>
   </div>
   <div class="center">
+    <a th:href="@{'/allChaptersPage/' + ${novel.novelID}}" class="button-78">Chapters</a>
     <a class="button-78" th:href = "@{/home}">Back to Main Page</a>
   </div>
 </div>
@@ -31,10 +32,10 @@
     <div class="card text-white border-light bg-dark" >
       <div class="card-body">
         <h5 class="card-text" th:text="${scene.descriptiontext}"></h5>
-        <a th:if="${iterator.first != true}" class="button-78" th:href="@{'/moveUpSceneInTimeline/' + ${scene.sceneID} + '/' + ${chapter.chapterID}}">^</a>
+        <a th:if="${iterator.first != true}" class="button-78" th:href="@{'/moveUpSceneInTimeline/' + ${scene.sceneID} + '/' + ${chapter.chapterID}+'/' + ${novel.novelID}}">^</a>
         <a th:href="@{'/editScene/' + ${scene.sceneID}}" class="button-78">Edit Scene</a>
         <a th:href="@{'/deleteScene/' + ${scene.sceneID} + '/' + ${chapter.chapterID}}" class="button-78">Delete Scene</a>
-        <a th:if="${iterator.last != true}" th:href="@{'/moveDownSceneInTimeline/' + ${scene.sceneID} + '/' + ${chapter.chapterID}}" class="button-78">v</a>
+        <a th:if="${iterator.last != true}" th:href="@{'/moveDownSceneInTimeline/' + ${scene.sceneID} + '/' + ${chapter.chapterID}+'/' + ${novel.novelID}}" class="button-78">v</a>
       </div>
     </div>
   </tr>

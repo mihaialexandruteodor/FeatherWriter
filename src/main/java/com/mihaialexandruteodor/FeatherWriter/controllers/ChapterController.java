@@ -6,6 +6,7 @@ import com.mihaialexandruteodor.FeatherWriter.model.Scene;
 import com.mihaialexandruteodor.FeatherWriter.services.ChapterService;
 import com.mihaialexandruteodor.FeatherWriter.services.NovelService;
 import com.mihaialexandruteodor.FeatherWriter.services.SceneService;
+import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import javax.xml.bind.JAXBException;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+import java.io.IOException;
 import java.util.List;
+
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
 public class ChapterController {
@@ -70,39 +78,57 @@ public class ChapterController {
         return setUpChaptersPage(model,novel);
     }
 
-    @GetMapping("/showSceneTimeline/{chapterID}")
-    public ModelAndView setUpSceneTimeline(Model model, @Valid @PathVariable("chapterID") int chapterID)
+    @GetMapping("/showSceneTimeline/{chapterID}/{novelID}")
+    public ModelAndView setUpSceneTimeline(Model model, @Valid @PathVariable("chapterID") int chapterID, @Valid @PathVariable("novelID") int novelID)
     {
         Chapter chapter = chapterService.getChapterById(chapterID);
-        return setUpSceneTimeline( model,  chapter);
+        Novel novel = novelService.getNovelById(novelID);
+        return setUpSceneTimeline( model,  chapter, novel);
     }
 
-    @GetMapping("/moveUpSceneInTimeline/{sceneID}/{chapterID}")
-    public ModelAndView moveUpSceneInTimeline(Model model, @Valid @PathVariable("chapterID") int chapterID, @Valid @PathVariable("sceneID") int sceneID)
+    @RequestMapping(value = "/saveSceneText", method = GET)
+    @ResponseBody
+    public ModelAndView saveSceneText(@RequestParam(value = "fileContent", required = false, defaultValue = "<p></p>") String fileContent, @RequestParam("chapterID") int chapterID, @RequestParam(value = "novelID") int novelID , @RequestParam(value = "sceneID") int sceneID,Model model) throws JAXBException, IOException, ParserConfigurationException, TransformerException, InterruptedException, Docx4JException {
+        Scene scene = sceneService.getSceneById(sceneID);
+        scene.setText(fileContent);
+        Chapter chapter = chapterService.getChapterById(chapterID);
+        Novel novel = novelService.getNovelById(novelID);
+
+        sceneService.saveScene(scene);
+
+        return setUpSceneTimeline(model,chapter,novel);
+
+    }
+
+    @GetMapping("/moveUpSceneInTimeline/{sceneID}/{chapterID}/{novelID}")
+    public ModelAndView moveUpSceneInTimeline(Model model, @Valid @PathVariable("chapterID") int chapterID, @Valid @PathVariable("sceneID") int sceneID, @Valid @PathVariable("novelID") int novelID)
     {
         Scene donor = sceneService.getSceneById(sceneID);
         Scene receiver = sceneService.getSceneById(sceneID-1);
         Chapter chapter = chapterService.getChapterById(chapterID);
+        Novel novel = novelService.getNovelById(novelID);
         sceneService.swapScenesText(donor, receiver);
-        return setUpSceneTimeline(model, chapter);
+        return setUpSceneTimeline(model, chapter, novel);
     }
 
-    @GetMapping("/moveDownSceneInTimeline/{sceneID}/{chapterID}")
-    public ModelAndView moveDownSceneInTimeline(Model model, @Valid @PathVariable("chapterID") int chapterID, @Valid @PathVariable("sceneID") int sceneID)
+    @GetMapping("/moveDownSceneInTimeline/{sceneID}/{chapterID}/{novelID}")
+    public ModelAndView moveDownSceneInTimeline(Model model, @Valid @PathVariable("chapterID") int chapterID, @Valid @PathVariable("sceneID") int sceneID, @Valid @PathVariable("novelID") int novelID)
     {
         Scene donor = sceneService.getSceneById(sceneID);
         Scene receiver = sceneService.getSceneById(sceneID+1);
         Chapter chapter = chapterService.getChapterById(chapterID);
+        Novel novel = novelService.getNovelById(novelID);
         sceneService.swapScenesText(donor, receiver);
-        return setUpSceneTimeline(model, chapter);
+        return setUpSceneTimeline(model, chapter, novel);
     }
 
-    public ModelAndView setUpSceneTimeline(Model model, Chapter chapter)
+    public ModelAndView setUpSceneTimeline(Model model, Chapter chapter, Novel novel)
     {
         ModelAndView mv = new ModelAndView("chapter_scenes_timeline");
         List<Scene> assignedSceneList = chapter.getScenes();
 
         mv.addObject("chapter",chapter);
+        mv.addObject("novel",novel);
         mv.addObject("assignedSceneList", assignedSceneList);
         return mv;
     }

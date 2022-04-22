@@ -19,6 +19,7 @@
     <a class="button-78" th:href = "@{'/newChapter/' + ${novel.novelID}}">New Chapter</a>
   </div>
   <div class="center">
+    <a th:href = "@{/projectsPage}" class="button-78"> Projects </a>
     <a class="button-78" th:href = "@{/home}">Back to Main Page</a>
   </div>
 </div>
@@ -31,7 +32,7 @@
       <div class="card-body">
         <h5 class="card-title" th:text="${chapter.title}"></h5>
         <a th:if="${iterator.first != true}" th:href="@{'/moveChapterUpInTimeline/' + ${novel.novelID} + '/' + ${chapter.chapterID}}" class="button-78">^</a>
-        <a th:href="@{'/showSceneTimeline/' + ${chapter.chapterID}}" class="button-78">Scenes</a>
+        <a th:href="@{'/showSceneTimeline/' + ${chapter.chapterID}+'/' + ${novel.novelID}}" class="button-78">Scenes</a>
         <a th:href="@{'/deleteChapter/' + ${chapter.chapterID}}" class="button-78">Delete Chapter</a>
         <a th:if="${iterator.first != true}" th:href="@{'/moveChapterDownInTimeline/' + ${novel.novelID} + '/' + ${chapter.chapterID}}" class="button-78">v</a>
       </div>

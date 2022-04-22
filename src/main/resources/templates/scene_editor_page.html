@@ -40,15 +40,17 @@
               var html = $("#summernote").summernote("code");
                $.ajax(
                {
-                  type: "POST",
+                  type: "GET",
                   url: "/saveSceneText",
                   data:
                   {   fileContent:html,
-                        sceneID:[[${scene.sceneID}]]
+                        sceneID:[[${scene.sceneID}]],
+                        novelID:[[${novel.novelID}]],
+                        chapterID:[[${chapter.chapterID}]]
                   },
                   success: function(data)
                   {
-                    window.location.href = "/showSceneTimeline/" + [[${chapter.chapterID}]]
+                    window.location.href = "/showSceneTimeline/" + [[${chapter.chapterID}]] + "/" + [[${novel.novelID}]]
                   }
                });
           };
