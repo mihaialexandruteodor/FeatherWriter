@@ -2,6 +2,7 @@ package com.mihaialexandruteodor.FeatherWriter.controllers;
 
 import com.mihaialexandruteodor.FeatherWriter.model.*;
 import com.mihaialexandruteodor.FeatherWriter.services.*;
+import com.mihaialexandruteodor.FeatherWriter.utlis.DataSingleton;
 import com.mihaialexandruteodor.FeatherWriter.utlis.FileExporter;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +70,7 @@ public class NovelController {
     @GetMapping("/newProject")
     public ModelAndView newNovel(Model model) {
         Novel novel = new Novel();
+        novel.setUsername(DataSingleton.getInstance().getCurrentUser());
         return setUpProjPage(model, novel);
     }
 

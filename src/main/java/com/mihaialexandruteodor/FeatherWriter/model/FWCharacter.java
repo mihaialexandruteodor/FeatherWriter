@@ -10,6 +10,9 @@ public class FWCharacter {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private int characterID;
 
+    @Column(name = "username")
+    private String username;
+
     @Column(name = "name")
     private String name;
 
@@ -118,4 +121,8 @@ public class FWCharacter {
     }
 
     public void removeNovel() { this.novel = null;}
+
+    public String getUsername() {return username;}
+
+    public void setUsername(String username) {this.username = username;}
 }

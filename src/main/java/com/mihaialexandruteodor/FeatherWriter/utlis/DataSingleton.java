@@ -9,6 +9,8 @@ public class DataSingleton {
     private static DataSingleton single_instance = null;
     String downloadPath;
 
+    String currentUser;
+
     private DataSingleton() {
 
         setDownloadPath();
@@ -77,5 +79,11 @@ public class DataSingleton {
 
     }
 
+    public String getCurrentUser() {
+        return currentUser;
+    }
 
+    public void setCurrentUser(String currentUser) {
+        this.currentUser = currentUser;
+    }
 }

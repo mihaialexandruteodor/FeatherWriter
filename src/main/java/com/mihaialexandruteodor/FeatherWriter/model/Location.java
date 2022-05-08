@@ -10,6 +10,9 @@ public class Location {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private int locationID;
 
+    @Column(name = "username")
+    private String username;
+
     @Column(name = "name")
     private String name;
 
@@ -74,4 +77,8 @@ public class Location {
     public void removeNovel() {
         this.novel = null;
     }
+
+    public String getUsername() {return username;}
+
+    public void setUsername(String username) {this.username = username;}
 }

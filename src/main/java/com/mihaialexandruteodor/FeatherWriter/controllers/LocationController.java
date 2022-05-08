@@ -3,6 +3,7 @@ package com.mihaialexandruteodor.FeatherWriter.controllers;
 import com.mihaialexandruteodor.FeatherWriter.model.FWCharacter;
 import com.mihaialexandruteodor.FeatherWriter.model.Location;
 import com.mihaialexandruteodor.FeatherWriter.services.LocationService;
+import com.mihaialexandruteodor.FeatherWriter.utlis.DataSingleton;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,7 @@ public class LocationController {
     public String viewLocationPage(Model model) {
 
         Location location = new Location();
+        location.setUsername(DataSingleton.getInstance().getCurrentUser());
         model.addAttribute("location",location);
         return "location_creation";
     }

@@ -14,6 +14,9 @@ public class Novel {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private int novelID;
 
+    @Column(name = "username")
+    private String username;
+
     @Column(name = "title")
     private String title;
 
@@ -131,4 +134,7 @@ public class Novel {
         locations.remove(location);
     }
 
+    public String getUsername() {return username;}
+
+    public void setUsername(String username) {this.username = username;}
 }

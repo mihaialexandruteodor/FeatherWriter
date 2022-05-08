@@ -2,6 +2,7 @@ package com.mihaialexandruteodor.FeatherWriter.controllers;
 
 import com.mihaialexandruteodor.FeatherWriter.model.FWCharacter;
 import com.mihaialexandruteodor.FeatherWriter.services.FWCharacterService;
+import com.mihaialexandruteodor.FeatherWriter.utlis.DataSingleton;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,7 @@ public class FWCharacterController {
     public String viewCharacterPage(Model model) {
 
         FWCharacter fwCharacter = new FWCharacter();
+        fwCharacter.setUsername(DataSingleton.getInstance().getCurrentUser());
         model.addAttribute("fwcharacter",fwCharacter);
         return "character_creation";
     }

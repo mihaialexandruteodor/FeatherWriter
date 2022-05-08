@@ -1,5 +1,6 @@
 package com.mihaialexandruteodor.FeatherWriter.oauth;
 
+import com.mihaialexandruteodor.FeatherWriter.utlis.DataSingleton;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,9 @@ public class UserService {
     private UserRepository repo;
 
     public void processOAuthPostLogin(String username) {
+
+        DataSingleton.getInstance().setCurrentUser(username);
+
         User existUser = repo.getUserByUsername(username);
 
         if (existUser == null) {
