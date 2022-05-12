@@ -100,7 +100,7 @@ public class NovelController {
         ModelAndView mv = new ModelAndView("project_decoration");
         mv.addObject("novel",novel);
         
-        List<FWCharacter> characterList = characterService.getAllFWCharacters();
+        List<FWCharacter> characterList = characterService.getAllFWCharacters(DataSingleton.getInstance().getCurrentUser());
         List<FWCharacter> assignedCharacterList = novel.getCharacters();
         characterList.removeIf(assignedCharacterList::contains);
         mv.addObject("assignedCharacterList", assignedCharacterList);
@@ -112,7 +112,7 @@ public class NovelController {
         mv.addObject("assignedChapterList", assignedChapterList);
         mv.addObject("chapterList", chapterList);
 
-        List<Location> locationList = locationService.getAllLocations();
+        List<Location> locationList = locationService.getAllLocations(DataSingleton.getInstance().getCurrentUser());
         List<Location> assignedLocationList = novel.getLocations();
         locationList.removeIf(assignedLocationList::contains);
         mv.addObject("assignedLocationList", assignedLocationList);

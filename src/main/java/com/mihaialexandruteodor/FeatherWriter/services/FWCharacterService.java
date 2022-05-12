@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface FWCharacterService {
-    List<FWCharacter> getAllFWCharacters();
+    List<FWCharacter> getAllFWCharacters(String username);
     void saveFWCharacter(FWCharacter fwCharacter);
     void addProjectToCharacter(Novel novel, FWCharacter fwCharacter);
     void removeProjectFromCharacter( FWCharacter fwCharacter);

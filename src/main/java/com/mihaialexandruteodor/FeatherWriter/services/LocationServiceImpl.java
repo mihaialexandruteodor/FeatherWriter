@@ -20,8 +20,8 @@ public class LocationServiceImpl implements LocationService{
     private LocationRepository locationRepository;
 
     @Override
-    public List<Location> getAllLocations() {
-        return this.locationRepository.findAll();
+    public List<Location> getAllLocations(String username) {
+        return this.locationRepository.getLocationsForCurrentUser(username);
     }
 
     @Override

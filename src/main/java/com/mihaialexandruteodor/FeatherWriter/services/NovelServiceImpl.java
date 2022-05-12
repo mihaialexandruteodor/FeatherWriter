@@ -19,8 +19,8 @@ public class NovelServiceImpl implements  NovelService{
     private NovelRepository novelRepository;
 
     @Override
-    public List<Novel> getAllNovels() {
-        return this.novelRepository.findAll();
+    public List<Novel> getAllNovels(String username) {
+        return this.novelRepository.getNovelForCurrentUser(username);
     }
 
     @Override

@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface LocationService {
-    List<Location> getAllLocations();
+    List<Location> getAllLocations(String username);
     void saveLocation(Location location);
     void addProjectToLocation(Novel novel, Location location);
     void removeProjectFromLocation(Location location);

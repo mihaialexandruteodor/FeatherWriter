@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface NovelService {
-    List<Novel> getAllNovels();
+    List<Novel> getAllNovels(String username);
     void saveNovel(Novel novel);
     Novel getNovelById(int id);
     void deleteNovelById(int id);

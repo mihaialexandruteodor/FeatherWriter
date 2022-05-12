@@ -20,8 +20,8 @@ public class FWCharacterServiceImpl implements FWCharacterService{
     private FWCharacterRepository fwCharacterRepository;
 
     @Override
-    public List<FWCharacter> getAllFWCharacters() {
-        return this.fwCharacterRepository.findAll();
+    public List<FWCharacter> getAllFWCharacters(String username) {
+        return this.fwCharacterRepository.getCharactersForCurrentUser(username);
     }
 
     @Override
