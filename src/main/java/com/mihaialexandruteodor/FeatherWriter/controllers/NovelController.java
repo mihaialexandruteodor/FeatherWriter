@@ -105,7 +105,7 @@ public class NovelController {
         mv.addObject("assignedCharacterList", assignedCharacterList);
         mv.addObject("characterList", characterList);
 
-        List<Chapter> chapterList = chapterService.getAllChapters();
+        List<Chapter> chapterList = chapterService.getAllChapters(DataSingleton.getInstance().getCurrentUser());
         List<Chapter> assignedChapterList = novel.getChapters();
         chapterList.removeIf(assignedChapterList::contains);
         mv.addObject("assignedChapterList", assignedChapterList);
@@ -182,7 +182,9 @@ public class NovelController {
 
     @PostMapping("/saveProject")
     public ModelAndView saveProject(@Valid @ModelAttribute("novel") Novel novel, Model model) {
-        corkboardService.saveCorkboard(novel.getCorkboard());
+        Corkboard corkboard = novel.getCorkboard();
+        corkboard.setUsername(DataSingleton.getInstance().getCurrentUser());
+        corkboardService.saveCorkboard(corkboard);
         novel.setUsername(DataSingleton.getInstance().getCurrentUser());
         novelService.saveNovel(novel);
         return setUpProjDecorationPage(model,novel);

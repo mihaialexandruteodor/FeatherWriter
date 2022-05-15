@@ -6,6 +6,7 @@ import com.mihaialexandruteodor.FeatherWriter.model.Scene;
 import com.mihaialexandruteodor.FeatherWriter.services.ChapterService;
 import com.mihaialexandruteodor.FeatherWriter.services.NovelService;
 import com.mihaialexandruteodor.FeatherWriter.services.SceneService;
+import com.mihaialexandruteodor.FeatherWriter.utlis.DataSingleton;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -62,6 +63,7 @@ public class ChapterController {
 
     @PostMapping("/saveChapter/{novelID}")
     public ModelAndView saveChapter(@Valid @PathVariable("novelID") int novelID, @Valid @ModelAttribute("chapter") Chapter chapter, Model model) {
+        chapter.setUsername(DataSingleton.getInstance().getCurrentUser());
         chapterService.saveChapter(chapter);
         Novel novel = novelService.getNovelById(novelID);
         chapterService.addProjectToChapter(novel,chapter);

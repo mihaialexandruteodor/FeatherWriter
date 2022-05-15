@@ -21,8 +21,8 @@ public class CorkboardServiceImpl implements  CorkboardService{
     private CorkboardRepository corkboardRepository;
 
     @Override
-    public List<Corkboard> getAllCorkboards() {
-        return this.corkboardRepository.findAll();
+    public List<Corkboard> getAllCorkboards(String username) {
+        return this.corkboardRepository.getCorkboardForCurrentUser(username);
     }
 
     @Override

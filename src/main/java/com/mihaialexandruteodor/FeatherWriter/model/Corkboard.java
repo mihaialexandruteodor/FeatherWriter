@@ -8,6 +8,9 @@ import java.util.List;
 @Table(name = "corkboard")
 public class Corkboard {
 
+    @Column(name = "username")
+    private String username;
+
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private int corkboardID;
@@ -38,4 +41,12 @@ public class Corkboard {
     public void removeNote(Note note) {
         notes.remove(note);
     }
+
+    public String getUsername() {return username;}
+
+    public void setUsername(String username) {this.username = username;}
+
+    public Novel getNovel() {return novel;}
+
+    public void setNovel(Novel novel) {this.novel = novel;}
 }

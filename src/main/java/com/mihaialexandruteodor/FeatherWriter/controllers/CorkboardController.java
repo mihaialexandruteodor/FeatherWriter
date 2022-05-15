@@ -1,16 +1,19 @@
 package com.mihaialexandruteodor.FeatherWriter.controllers;
 
 import com.mihaialexandruteodor.FeatherWriter.model.Corkboard;
+import com.mihaialexandruteodor.FeatherWriter.model.Location;
 import com.mihaialexandruteodor.FeatherWriter.model.Note;
 import com.mihaialexandruteodor.FeatherWriter.model.Novel;
 import com.mihaialexandruteodor.FeatherWriter.services.CorkboardService;
 import com.mihaialexandruteodor.FeatherWriter.services.NoteService;
 import com.mihaialexandruteodor.FeatherWriter.services.NovelService;
+import com.mihaialexandruteodor.FeatherWriter.utlis.DataSingleton;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 public class CorkboardController {
@@ -89,6 +92,18 @@ public class CorkboardController {
         ModelAndView mv = new ModelAndView("edit_note");
         mv.addObject("note",note);
         mv.addObject("novel",novelObj);
+        return mv;
+    }
+
+    @GetMapping(path = {"/noteSearch/{novelID}"})
+    public ModelAndView noteSearch(@Valid @PathVariable("novelID") int novelID, @Valid @RequestParam(value = "keyword") String keyword) {
+        ModelAndView mv = new ModelAndView("note_search_result");
+        if(keyword!=null) {
+            List<Note> listNotes = noteService.searchNoteByTitle(DataSingleton.getInstance().getCurrentUser(), keyword);
+            Novel novel = novelService.getNovelById(novelID);
+            mv.addObject("listNotes", listNotes);
+            mv.addObject("novel", novel);
+        }
         return mv;
     }
 

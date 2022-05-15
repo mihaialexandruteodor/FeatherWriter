@@ -6,6 +6,9 @@ import javax.persistence.*;
 @Table(name = "scene")
 public class Scene {
 
+    @Column(name = "username")
+    private String username;
+
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private int sceneID;
@@ -51,8 +54,13 @@ public class Scene {
     public void setChapter(Chapter chapter) {
         this.chapter = chapter;
     }
+
     public void removeChapter()
     {
         this.chapter = null;
     }
+
+    public String getUsername() {return username;}
+
+    public void setUsername(String username) {this.username = username;}
 }

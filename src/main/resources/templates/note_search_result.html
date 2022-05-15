@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Corkboard</title>
+    <title>Search result</title>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/img3style.css">
     <link rel="stylesheet" type="text/css" href="/css/cards.css">
@@ -11,12 +11,7 @@
 </head>
 <body>
 
-<h2 class="center">Notes</h2>
-
-<form th:action="@{'/noteSearch/' + ${novel.novelID}}" method="get">
-    <input type="text" name="keyword" th:value="${keyword}"  placeholder="Search for a note" size="50" >
-    <button type="submit" class="button-78" >Search</button>
-</form>
+<h2 class="center">Search result</h2>
 
 <div class="cards">
 
@@ -40,28 +35,7 @@
         <a class="button-78" th:href = "@{'/newNote/' + ${novel.novelID} }">New Note</a>
     </div>
     <div class="center">
-        <a class="button-78" th:href = "@{/home}">Back to Main Page</a>
-    </div>
-    <div th:if = "${totalPages > 1}">
-
-        <div class="center">
-            <a class="button-78" th:if="${currentPage != 1}" th:href="@{/corkboardPage}">First</a>
-        </div>
-        <div class="center">
-            <a class="button-78" th:if="${currentPage < totalPages}" th:href="@{'/corkboardPage/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
-            <span class="button-78" th:unless="${currentPage < totalPages}">Next</span>
-        </div>
-
-        <div class="center">
-            <a class="button-78" th:if="${currentPage < totalPages}" th:href="@{'/corkboardPage/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
-            <span class="button-78"  th:unless="${currentPage < totalPages}">Last</span>
-        </div>
-
-        <span class="center" th:each="i: ${#numbers.sequence(2, totalPages)}">
-          <a class="button-78" th:if="${currentPage != i}" th:href="@{'/corkboardPage/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
-          <span class="button-78" th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
-  </span>
-
+        <a class="button-78" th:href = "@{'/corkboardPage/' + ${novelID}}">Back to Corkboard</a>
     </div>
 </div>
 

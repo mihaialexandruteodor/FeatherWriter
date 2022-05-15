@@ -21,8 +21,13 @@ public class NoteServiceImpl implements  NoteService{
     private NoteRepository noteRepository;
 
     @Override
-    public List<Note> getAllNotes() {
-        return this.noteRepository.findAll();
+    public List<Note> getAllNotes(String username) {
+        return this.noteRepository.getNotesForCurrentUser(username);
+    }
+
+    @Override
+    public List<Note> searchNoteByTitle(String username, String title) {
+        return this.noteRepository.searchNoteByTitle(title,username);
     }
 
     @Override

@@ -3,12 +3,14 @@ package com.mihaialexandruteodor.FeatherWriter.model;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 @Entity
 @Table(name = "chapter")
 public class Chapter {
+
+    @Column(name = "username")
+    private String username;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -68,6 +70,10 @@ public class Chapter {
     {
         this.scenes.remove(scene);
     }
+
+    public String getUsername() {return username;}
+
+    public void setUsername(String username) {this.username = username;}
 
     public void sortScenes()
     {

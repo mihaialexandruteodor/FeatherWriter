@@ -6,6 +6,9 @@ import javax.persistence.*;
 @Table(name = "note")
 public class Note {
 
+    @Column(name = "username")
+    private String username;
+
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private int noteID;
@@ -67,4 +70,8 @@ public class Note {
     public void removeCorkboard() {
         this.corkboard = null;
     }
+
+    public String getUsername() {return username;}
+
+    public void setUsername(String username) {this.username = username;}
 }

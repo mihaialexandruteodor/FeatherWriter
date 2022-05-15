@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface CorkboardService {
-    List<Corkboard> getAllCorkboards();
+    List<Corkboard> getAllCorkboards(String username);
     void saveCorkboard(Corkboard corkboard);
     Corkboard getCorkboardById(int id);
     void deleteCorkboardById(int id);

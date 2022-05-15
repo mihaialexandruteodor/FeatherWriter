@@ -1,15 +1,14 @@
 package com.mihaialexandruteodor.FeatherWriter.services;
 
+import com.mihaialexandruteodor.FeatherWriter.model.*;
 import com.mihaialexandruteodor.FeatherWriter.model.Chapter;
-import com.mihaialexandruteodor.FeatherWriter.model.Chapter;
-import com.mihaialexandruteodor.FeatherWriter.model.Novel;
-import com.mihaialexandruteodor.FeatherWriter.model.Scene;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface ChapterService {
-    List<Chapter> getAllChapters();
+    List<Chapter> getAllChapters(String username);
+    List<Chapter> searchChapters(String title, String queryWord);
     void saveChapter(Chapter chapter);
     void addProjectToChapter(Novel novel, Chapter chapter);
     void removeProjectFromChapter(Chapter chapter);

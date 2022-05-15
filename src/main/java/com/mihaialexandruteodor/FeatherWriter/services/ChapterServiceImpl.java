@@ -4,6 +4,7 @@ import com.mihaialexandruteodor.FeatherWriter.model.Chapter;
 import com.mihaialexandruteodor.FeatherWriter.model.Novel;
 import com.mihaialexandruteodor.FeatherWriter.model.Scene;
 import com.mihaialexandruteodor.FeatherWriter.repository.ChapterRepository;
+import com.mihaialexandruteodor.FeatherWriter.utlis.DataSingleton;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,8 +22,14 @@ public class ChapterServiceImpl implements ChapterService{
     private ChapterRepository chapterRepository;
 
     @Override
-    public List<Chapter> getAllChapters() {
-        return this.chapterRepository.findAll();
+    public List<Chapter> getAllChapters(String username) {
+
+        return this.chapterRepository.getChaptersForCurrentUser(username);
+    }
+
+    @Override
+    public List<Chapter> searchChapters(String title, String queryWord) {
+        return this.chapterRepository.searchChapterByTitle(title,  queryWord);
     }
 
     @Override
