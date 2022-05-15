@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface SceneService {
-    List<Scene> getAllScenes();
+    List<Scene> getAllScenes(String username);
     void saveScene(Scene scene);
     Scene getSceneById(int id);
     void deleteSceneById(int id);

@@ -20,8 +20,8 @@ public class SceneServiceImpl implements SceneService{
     private SceneRepository sceneRepository;
 
     @Override
-    public List<Scene> getAllScenes() {
-        return this.sceneRepository.findAll();
+    public List<Scene> getAllScenes(String username) {
+        return this.sceneRepository.getScenesForCurrentUser(username);
     }
 
     @Override
