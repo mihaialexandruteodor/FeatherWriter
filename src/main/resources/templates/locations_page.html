@@ -13,6 +13,11 @@
 
 <h2 class="center">Locations</h2>
 
+<form th:action="@{/locationSearch}" method="get">
+    <input type="text" name="keyword" th:value="${keyword}"  placeholder="Search for a location" size="50" >
+    <button type="submit" class="button-78" >Search</button>
+</form>
+
 <div class="cards">
 
     <tr th:each="location : ${locationList}">

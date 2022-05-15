@@ -25,6 +25,11 @@ public class LocationServiceImpl implements LocationService{
     }
 
     @Override
+    public List<Location> searchLocations(String username, String queryWord) {
+        return this.locationRepository.searchLocationByName(queryWord,username);
+    }
+
+    @Override
     public void saveLocation(Location location) {
         this.locationRepository.save(location);
     }

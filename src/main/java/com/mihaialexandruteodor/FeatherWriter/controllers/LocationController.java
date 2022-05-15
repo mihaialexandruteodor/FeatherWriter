@@ -28,7 +28,6 @@ public class LocationController {
     public String viewLocationPage(Model model) {
 
         Location location = new Location();
-        location.setUsername(DataSingleton.getInstance().getCurrentUser());
         model.addAttribute("location",location);
         return "location_creation";
     }
@@ -43,6 +42,7 @@ public class LocationController {
 
     @PostMapping("/saveLocation")
     public String saveLocation(@Valid @ModelAttribute("location") Location location) {
+        location.setUsername(DataSingleton.getInstance().getCurrentUser());
         locationService.saveLocation(location);
         return "redirect:/locationsPage";
     }
@@ -58,6 +58,16 @@ public class LocationController {
         Location location = locationService.getLocationById(id);
         ModelAndView mv = new ModelAndView("location_profile");
         mv.addObject("location", location);
+        return mv;
+    }
+
+    @GetMapping(path = {"/locationSearch"})
+    public ModelAndView locationSearch(@Valid @RequestParam(value = "keyword") String keyword) {
+        ModelAndView mv = new ModelAndView("location_search_result");
+        if(keyword!=null) {
+            List<Location> locationList = locationService.searchLocations(DataSingleton.getInstance().getCurrentUser(), keyword);
+            mv.addObject("locationList", locationList);
+        }
         return mv;
     }
 

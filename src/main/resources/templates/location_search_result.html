@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Search result</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/img3style.css">
+    <link rel="stylesheet" type="text/css" href="/css/cards.css">
+    <link rel="stylesheet" href="/css/button.css">
+    <link rel="stylesheet" href="/css/center.css">
+    <script src="js/modernizr.js"></script>
+</head>
+<body>
+
+<h2 class="center">Search result</h2>
+
+<div class="cards">
+
+    <tr th:each="location : ${locationList}">
+        <div class="card text-white border-light bg-dark mb-3" style="max-width: 18rem;">
+            <img th:if="${currentPage < 2}" class="card-img-top" th:src="${location.image != ''} ?   ${location.image} : @{img/placeholder-location.jpg}">
+            <img th:unless="${currentPage < 2}" class="card-img-top" th:src="${location.image != ''} ?   ${location.image} : @{../../img/img/placeholder-location.jpg}">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${location.name}"></h5>
+                <p class="card-text" th:text="${location.uniquefeatures}"></p>
+                <a th:href="@{'/locationProfile/' + ${location.locationID}}" class="button-78">Details</a>
+            </div>
+        </div>
+    </tr>
+    </tbody>
+</div>
+
+<div class="container">
+    <div class="center">
+        <a class="button-78" th:href = "@{/newLocation}">New Location</a>
+    </div>
+    <div class="center">
+        <a class="button-78" th:href = "@{/locationsPage}">Back to Locations Page</a>
+    </div>
+</div>
+
+</body>
+</html>

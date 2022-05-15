@@ -25,6 +25,11 @@ public class FWCharacterServiceImpl implements FWCharacterService{
     }
 
     @Override
+    public List<FWCharacter> searchFWCharacters(String username, String queryWord) {
+        return this.fwCharacterRepository.searchCharacterByName(queryWord, username);
+    }
+
+    @Override
     public void saveFWCharacter(FWCharacter fwCharacter) {
         this.fwCharacterRepository.save(fwCharacter);
     }

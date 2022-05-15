@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface FWCharacterService {
     List<FWCharacter> getAllFWCharacters(String username);
+    List<FWCharacter> searchFWCharacters(String username, String queryWord);
     void saveFWCharacter(FWCharacter fwCharacter);
     void addProjectToCharacter(Novel novel, FWCharacter fwCharacter);
     void removeProjectFromCharacter( FWCharacter fwCharacter);

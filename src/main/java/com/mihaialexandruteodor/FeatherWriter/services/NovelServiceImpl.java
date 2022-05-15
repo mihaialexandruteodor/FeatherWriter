@@ -24,6 +24,11 @@ public class NovelServiceImpl implements  NovelService{
     }
 
     @Override
+    public List<Novel> searchNovels(String username, String queryWord) {
+        return this.novelRepository.searchNovelByName(queryWord,username);
+    }
+
+    @Override
     public void saveNovel(Novel novel) {
         this.novelRepository.save(novel);
     }

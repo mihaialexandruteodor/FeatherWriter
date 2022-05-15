@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-  <title>Projects</title>
+  <title>Search result</title>
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/css/img1style.css">
   <link rel="stylesheet" type="text/css" href="/css/cards.css">
@@ -12,12 +12,7 @@
 </head>
 <body>
 
-<h2 class="center">Projects</h2>
-
-<form th:action="@{/projectSearch}" method="get">
-  <input type="text" name="keyword" th:value="${keyword}"  placeholder="Search for a project" size="50" >
-  <button type="submit" class="button-78" >Search</button>
-</form>
+<h2 class="center">Search result</h2>
 
 <div class="cards">
 
@@ -42,29 +37,8 @@
     <a class="button-78" th:href = "@{/newProject}">New Project</a>
   </div>
   <div class="center">
-    <a class="button-78" th:href = "@{/home}">Back to Main Page</a>
+    <a class="button-78" th:href = "@{/projectsPage}">Back to Projects Page</a>
   </div>
-<div th:if = "${totalPages > 1}">
-
-  <div class="center">
-    <a class="button-78" th:if="${currentPage != 1}" th:href="@{/projectsPage}">First</a>
-  </div>
-  <div class="center">
-      <a class="button-78" th:if="${currentPage < totalPages}" th:href="@{'/projectsPage/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
-      <span class="button-78" th:unless="${currentPage < totalPages}">Next</span>
-  </div>
-
-  <div class="center">
-        <a class="button-78" th:if="${currentPage < totalPages}" th:href="@{'/projectsPage/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
-        <span class="button-78"  th:unless="${currentPage < totalPages}">Last</span>
-  </div>
-
-  <span class="center" th:each="i: ${#numbers.sequence(2, totalPages)}">
-          <a class="button-78" th:if="${currentPage != i}" th:href="@{'/projectsPage/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
-          <span class="button-78" th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
-  </span>
-
-</div>
 </div>
 
 </body>

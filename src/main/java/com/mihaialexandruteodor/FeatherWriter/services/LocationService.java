@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface LocationService {
     List<Location> getAllLocations(String username);
+    List<Location> searchLocations(String username, String queryWord);
     void saveLocation(Location location);
     void addProjectToLocation(Novel novel, Location location);
     void removeProjectFromLocation(Location location);

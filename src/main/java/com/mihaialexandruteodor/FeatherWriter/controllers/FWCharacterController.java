@@ -29,7 +29,6 @@ public class FWCharacterController {
     public String viewCharacterPage(Model model) {
 
         FWCharacter fwCharacter = new FWCharacter();
-        fwCharacter.setUsername(DataSingleton.getInstance().getCurrentUser());
         model.addAttribute("fwcharacter",fwCharacter);
         return "character_creation";
     }
@@ -45,6 +44,7 @@ public class FWCharacterController {
 
     @PostMapping("/saveCharacter")
     public String saveCharacter(@Valid @ModelAttribute("fwcharacter") FWCharacter fwcharacter) {
+        fwcharacter.setUsername(DataSingleton.getInstance().getCurrentUser());
         fwCharacterService.saveFWCharacter(fwcharacter);
         return "redirect:/charactersPage";
     }
@@ -60,6 +60,16 @@ public class FWCharacterController {
         FWCharacter fwcharacter = fwCharacterService.getFWCharacterById(id);
         ModelAndView mv = new ModelAndView("character_profile");
         mv.addObject("fwcharacter", fwcharacter);
+        return mv;
+    }
+
+    @GetMapping(path = {"/characterSearch"})
+    public ModelAndView characterSearch(@Valid @RequestParam(value = "keyword") String keyword) {
+        ModelAndView mv = new ModelAndView("characters_search_result");
+        if(keyword!=null) {
+            List<FWCharacter> fwCharacterList = fwCharacterService.searchFWCharacters(DataSingleton.getInstance().getCurrentUser(), keyword);
+            mv.addObject("fwCharacterList", fwCharacterList);
+        }
         return mv;
     }
 

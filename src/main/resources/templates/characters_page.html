@@ -13,6 +13,11 @@
 
 <h2 class="center">Characters</h2>
 
+<form th:action="@{/characterSearch}" method="get">
+  <input type="text" name="keyword" th:value="${keyword}"  placeholder="Search for a character" size="50" >
+  <button type="submit" class="button-78" >Search</button>
+</form>
+
 <div class="cards">
 
   <tr th:each="fwcharacter : ${fwCharacterList}">

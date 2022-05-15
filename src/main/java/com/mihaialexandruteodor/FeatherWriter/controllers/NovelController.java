@@ -70,7 +70,6 @@ public class NovelController {
     @GetMapping("/newProject")
     public ModelAndView newNovel(Model model) {
         Novel novel = new Novel();
-        novel.setUsername(DataSingleton.getInstance().getCurrentUser());
         return setUpProjPage(model, novel);
     }
 
@@ -184,6 +183,7 @@ public class NovelController {
     @PostMapping("/saveProject")
     public ModelAndView saveProject(@Valid @ModelAttribute("novel") Novel novel, Model model) {
         corkboardService.saveCorkboard(novel.getCorkboard());
+        novel.setUsername(DataSingleton.getInstance().getCurrentUser());
         novelService.saveNovel(novel);
         return setUpProjDecorationPage(model,novel);
     }
@@ -192,6 +192,16 @@ public class NovelController {
     public ModelAndView updateProject(@Valid @ModelAttribute("novel") Novel novel) {
         novelService.saveNovel(novel);
         return loadProjectsPageData();
+    }
+
+    @GetMapping(path = {"/projectSearch"})
+    public ModelAndView projectSearch(@Valid @RequestParam(value = "keyword") String keyword) {
+        ModelAndView mv = new ModelAndView("project_search_result");
+        if(keyword!=null) {
+            List<Novel> novelList = novelService.searchNovels(DataSingleton.getInstance().getCurrentUser(), keyword);
+            mv.addObject("novelList", novelList);
+        }
+        return mv;
     }
 
     @GetMapping("/showFormForUpdateProj/{novelID}")

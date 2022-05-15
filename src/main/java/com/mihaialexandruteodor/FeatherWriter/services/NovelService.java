@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface NovelService {
     List<Novel> getAllNovels(String username);
+    List<Novel> searchNovels(String username, String queryWord);
     void saveNovel(Novel novel);
     Novel getNovelById(int id);
     void deleteNovelById(int id);
