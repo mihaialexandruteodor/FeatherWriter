@@ -18,7 +18,7 @@ spec:
       volumeMounts:
         - mountPath: /code
           name: web-app-claim0
-  restartPolicy: OnFailure
+  restartPolicy: Never
   volumes:
     - name: web-app-claim0
       persistentVolumeClaim:
