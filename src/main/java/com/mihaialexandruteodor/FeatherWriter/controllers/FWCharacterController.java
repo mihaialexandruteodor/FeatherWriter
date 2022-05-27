@@ -67,11 +67,11 @@ public class FWCharacterController {
     @GetMapping(path = {"/characterSearch"})
     public ModelAndView characterSearch(@Valid @RequestParam(value = "keyword") String keyword) {
         ModelAndView mv = new ModelAndView("characters_search_result");
-        List<FWCharacter> fwCharacterList = new ArrayList<>();
+        List<FWCharacter> fwCharacterListResult = new ArrayList<>();
         if(keyword!=null) {
-            fwCharacterList = fwCharacterService.searchFWCharacters(DataSingleton.getInstance().getCurrentUser(), keyword);
+            fwCharacterListResult = fwCharacterService.searchFWCharacters(DataSingleton.getInstance().getCurrentUser(), keyword);
         }
-        mv.addObject("fwCharacterList", fwCharacterList);
+        mv.addObject("fwCharacterListResult", fwCharacterListResult);
         return mv;
     }
 
