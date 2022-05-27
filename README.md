@@ -16,6 +16,20 @@ https://hub.docker.com/repository/docker/mihaialexandruteodor/featherwriter
 ## Diagram:
 <img src="https://raw.githubusercontent.com/mihaialexandruteodor/mihaialexandruteodor/master/repoImages/FeatherWriter/Diagram_FW.png" width="800">
 
+## Deployment in Google Cloud
+
+Simply clone the repository, then run
+```
+kubectl apply -f mysqldb-service.yaml,web-app-service.yaml,mysqldb-deployment.yaml,web-app-deployment.yaml,web-app-claim0-persistentvolumeclaim.yaml
+```
+
+to create the deployments, and
+```
+kubectl expose deployment web-app --type LoadBalancer --port 8081 --target-port 8081 --name=featherwriter
+```
+to create the Load Balancer and expose the app to the internet.
+
+
 ## Accesing the app
 The Feather Writer app requires the .traefik.me magic domain to bypass Google OAuth, unless you want to edit your own domain alias to the container's IP in your local machine's hosts file, or you don't want to run Feather Writer in Docker.
 

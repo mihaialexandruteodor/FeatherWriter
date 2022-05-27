@@ -199,10 +199,11 @@ public class NovelController {
     @GetMapping(path = {"/projectSearch"})
     public ModelAndView projectSearch(@Valid @RequestParam(value = "keyword") String keyword) {
         ModelAndView mv = new ModelAndView("project_search_result");
+        List<Novel> novelList = new ArrayList<>();
         if(keyword!=null) {
-            List<Novel> novelList = novelService.searchNovels(DataSingleton.getInstance().getCurrentUser(), keyword);
-            mv.addObject("novelList", novelList);
+            novelList = novelService.searchNovels(DataSingleton.getInstance().getCurrentUser(), keyword);
         }
+        mv.addObject("novelList", novelList);
         return mv;
     }
 

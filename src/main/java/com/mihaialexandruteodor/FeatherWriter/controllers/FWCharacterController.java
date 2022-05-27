@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -66,10 +67,11 @@ public class FWCharacterController {
     @GetMapping(path = {"/characterSearch"})
     public ModelAndView characterSearch(@Valid @RequestParam(value = "keyword") String keyword) {
         ModelAndView mv = new ModelAndView("characters_search_result");
+        List<FWCharacter> fwCharacterList = new ArrayList<>();
         if(keyword!=null) {
-            List<FWCharacter> fwCharacterList = fwCharacterService.searchFWCharacters(DataSingleton.getInstance().getCurrentUser(), keyword);
-            mv.addObject("fwCharacterList", fwCharacterList);
+            fwCharacterList = fwCharacterService.searchFWCharacters(DataSingleton.getInstance().getCurrentUser(), keyword);
         }
+        mv.addObject("fwCharacterList", fwCharacterList);
         return mv;
     }
 

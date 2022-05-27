@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -64,10 +65,11 @@ public class LocationController {
     @GetMapping(path = {"/locationSearch"})
     public ModelAndView locationSearch(@Valid @RequestParam(value = "keyword") String keyword) {
         ModelAndView mv = new ModelAndView("location_search_result");
+        List<Location> locationList = new ArrayList<>();
         if(keyword!=null) {
-            List<Location> locationList = locationService.searchLocations(DataSingleton.getInstance().getCurrentUser(), keyword);
-            mv.addObject("locationList", locationList);
+           locationList = locationService.searchLocations(DataSingleton.getInstance().getCurrentUser(), keyword);
         }
+        mv.addObject("locationList", locationList);
         return mv;
     }
 
