@@ -25,7 +25,7 @@ spec:
         io.kompose.service: web-app
     spec:
       containers:
-        - image: mihaialexandruteodor/featherwriter
+        - image: mihaialexandruteodor/featherwriter:latest
           name: web-app
           ports:
             - containerPort: 8081
