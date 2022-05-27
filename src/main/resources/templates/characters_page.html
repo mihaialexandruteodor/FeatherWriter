@@ -20,7 +20,7 @@
 
 <div class="cards">
 
-  <tr th:each="fwcharacter : ${fwCharacterList}">
+  <tr th:each="fwcharacter : ${fw_CharacterList}">
     <div class="card text-white border-light bg-dark mb-3" style="max-width: 18rem;">
       <img th:if="${currentPage < 2}" class="card-img-top" th:src="${fwcharacter.image != ''} ?   ${fwcharacter.image} : @{img/placeholder-profile-pic.png}">
       <img th:unless="${currentPage < 2}" class="card-img-top" th:src="${fwcharacter.image != ''} ?   ${fwcharacter.image} : @{../../img/placeholder-profile-pic.png}">

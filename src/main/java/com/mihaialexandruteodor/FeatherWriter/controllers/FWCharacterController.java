@@ -103,7 +103,7 @@ public class FWCharacterController {
         model.addObject("sortDir", sortDir);
         model.addObject("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 
-        model.addObject("fwCharacterList", fwCharacterList);
+        model.addObject("fw_CharacterList", fwCharacterList);
 
         return model;
     }
