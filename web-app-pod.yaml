@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.1 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: web-app
+  name: web-app
+spec:
+  containers:
+    - image: mihaialexandruteodor/featherwriter
+      name: web-app
+      ports:
+        - containerPort: 8081
+      resources: {}
+      volumeMounts:
+        - mountPath: /code
+          name: web-app-claim0
+  restartPolicy: OnFailure
+  volumes:
+    - name: web-app-claim0
+      persistentVolumeClaim:
+        claimName: web-app-claim0
+status: {}
