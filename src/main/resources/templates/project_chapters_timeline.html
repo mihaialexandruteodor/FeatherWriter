@@ -34,7 +34,7 @@
         <a th:if="${iterator.first != true}" th:href="@{'/moveChapterUpInTimeline/' + ${novel.novelID} + '/' + ${chapter.chapterID}}" class="button-78">^</a>
         <a th:href="@{'/showSceneTimeline/' + ${chapter.chapterID}+'/' + ${novel.novelID}}" class="button-78">Scenes</a>
         <a th:href="@{'/deleteChapter/' + ${chapter.chapterID}}" class="button-78">Delete Chapter</a>
-        <a th:if="${iterator.first != true}" th:href="@{'/moveChapterDownInTimeline/' + ${novel.novelID} + '/' + ${chapter.chapterID}}" class="button-78">v</a>
+        <a th:if="${iterator.first != last}" th:href="@{'/moveChapterDownInTimeline/' + ${novel.novelID} + '/' + ${chapter.chapterID}}" class="button-78">v</a>
       </div>
     </div>
   </tr>
