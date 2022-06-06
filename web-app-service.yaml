@@ -16,4 +16,3 @@ spec:
   selector:
     io.kompose.service: web-app
   type: LoadBalancer
-  loadBalancerIP: 35.222.186.166
