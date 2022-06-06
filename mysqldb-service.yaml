@@ -9,7 +9,7 @@ metadata:
     io.kompose.service: mysqldb
   name: mysqldb
 spec:
-  clusterIP: 10.80.11.51
+  clusterIP: 10.72.0.1
   ports:
     - name: "3308"
       port: 3308
