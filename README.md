@@ -27,11 +27,7 @@ then run
 kubectl apply -f mysqldb-service.yaml,web-app-service.yaml,mysqldb-deployment.yaml,web-app-deployment.yaml,web-app-claim0-persistentvolumeclaim.yaml
 ```
 
-to create the deployments, and
-```
-kubectl expose deployment web-app --type LoadBalancer --port 80 --target-port 8081 --name=load-balancer
-```
-to create the Load Balancer and expose the app to the internet.
+to create the deployments and services
 
 
 ## Accesing the app
