@@ -38,24 +38,3 @@ The url format is
 <ip>.traefik.me:port
 ```
 
-## Google Cloud Kubernetes Quickstart:
-
-https://www.youtube.com/watch?v=jSYxW_c3M_E
-
-https://cloud.google.com/kubernetes-engine/docs/quickstart
-
-## Building the Docker application with the MySQL backend:
-
-Navigate to the location of the docker-compose.yaml file and run
-
-```
-docker-compose up
-```
-
-or
-
-```
- docker-compose up --force-recreate --build 
-```
-
-
